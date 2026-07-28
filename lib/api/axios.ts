@@ -16,9 +16,9 @@ export async function serverFetch<T = any>(
     options: FetchOptions = {}
 ): Promise<T> {
     const accessData = await getAccessToken()
+    
     const accessToken = accessData.data.accessToken
-
-
+    
     if (typeof accessToken !== "string") {
         return { success: false, message: "User not logged in" } as T
     }

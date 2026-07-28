@@ -40,7 +40,7 @@ export default function Navbar() {
                 const res = await getMe()
                 if (res) {
 
-                    setUser(res.data.profile);
+                    setUser(res.data.profile || res.data);
                 } else {
                     setUser(null);
                 }

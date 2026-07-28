@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import Navbar from "@/components/shared/Navbar";
+import LayoutWrapper from "@/components/LayoutWrapper";
 
 export const metadata: Metadata = {
   title: "FixItNow - Your Trusted Home Service Platform",
@@ -16,9 +17,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-      <Navbar />
-        {children}
-
+        <LayoutWrapper>
+          {children}
+        </LayoutWrapper>
         <Toaster position="top-right" />
       </body>
     </html>

@@ -16,10 +16,8 @@ export const proxy = async (request: NextRequest) => {
 
     let decodedAccesstoken = accessToken ? jwtUtils.verifyToken(accessToken, process.env.JWT_ACCESS_SECRET as string) : null;
     const decodedRefreshtoken = refreshToken ? jwtUtils.verifyToken(refreshToken, process.env.JWT_REFRESH_SECRET as string) : null;
-    console.log(decodedAccesstoken, "decodedAccessToken................................")
-    console.log(decodedRefreshtoken,"decodedRefreshToken................................")
+
     const response = NextResponse.next();
-console.log(response.cookies)
     if (!decodedAccesstoken?.success && decodedRefreshtoken?.success) {
         const result = await getAccessToken();
 
