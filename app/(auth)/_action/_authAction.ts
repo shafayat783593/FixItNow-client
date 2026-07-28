@@ -16,6 +16,45 @@ type LoginState = {
     }
 }
 
+
+export interface RegisterState {
+    success: boolean;
+    error?: string | null;
+}
+
+
+
+export const registerAction = async (prevState: RegisterState, formData: FormData) => {
+    const name = formData.get('fullName') as string;
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
+    try {
+
+        const response = await fetch(`${process.env.BACKEND_API_URL}/api/auth/register`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email, password }),
+        });
+        const data = await response.json();
+        if (!data.success) {
+            return {
+                success: false,
+                error: data.error || data.message || "Registration failed",
+            };
+        }
+
+        return { success: true, error: null };
+    } catch (err) {
+        return {
+            success: false,
+            error: err instanceof Error ? err.message : 'Something went wrong.'
+        };
+    }
+};
+
+
+
+
 export const loginAction = async (redirectTo: string, prevState: LoginState, formData: FormData) => {
 
 
@@ -52,16 +91,16 @@ export const loginAction = async (redirectTo: string, prevState: LoginState, for
         }
 
 
-        if (decodedToken.role === "USER") {
+        if (decodedToken.role === "CUSTOMER") {
 
-            redirect("/dashboard")
+            redirect("/dashboard/customer")
         }
         else if (decodedToken.role === "ADMIN") {
-            redirect("/admin-dashboard")
+            redirect("/dashboard/admin")
 
         }
-        else if (decodedToken.role === "AUTHOR") {
-            redirect("/author-dashboard")
+        else if (decodedToken.role === "TECHNICIAN") {
+            redirect("/dashboard/technician")
 
         }
         // redirect("/dashboard")
@@ -69,44 +108,3 @@ export const loginAction = async (redirectTo: string, prevState: LoginState, for
     }
     return result
 }
-
-
-
-
-
-
-
-
-export interface RegisterState {
-  success: boolean;
-  error?: string | null;
-}
-
-export const registerAction = async (
-  prevState: RegisterState, 
-  formData: FormData
-): Promise<RegisterState> => {
-  const name = formData.get('fullName') as string;
-  const email = formData.get('email') as string;
-  const password = formData.get('password') as string;
-  try {
-    // আপনার API Call বা Database operation এখানে লিখুন
-    const response = await fetch(`${process.env.BACKEND_API_URL}/api/auth/register`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, password }),
-    });
-
-    if (!response.ok) {
-      const data = await response.json();
-      return { success: false, error: data.message || 'Registration failed' };
-    }
-
-    return { success: true, error: null };
-  } catch (err) {
-    return { 
-      success: false, 
-      error: err instanceof Error ? err.message : 'Something went wrong.' 
-    };
-  }
-};

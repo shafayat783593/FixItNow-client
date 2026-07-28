@@ -53,9 +53,9 @@ export const proxy = async (request: NextRequest) => {
     }
 
     if (accessToken && AUTH_ROUTES.includes(pathname)) {
-        if (role === "customer") return NextResponse.redirect(new URL("/customer", request.url));
-        if (role === "ADMIN") return NextResponse.redirect(new URL("/admin", request.url));
-        if (role === "TECHNICION") return NextResponse.redirect(new URL("/technician", request.url));
+        if (role === "CUSTOMER") return NextResponse.redirect(new URL("/dashboard/customer", request.url));
+        if (role === "ADMIN") return NextResponse.redirect(new URL("/dashboard/admin", request.url));
+        if (role === "TECHNICION") return NextResponse.redirect(new URL("/dashboard/technician", request.url));
     }
 
     return response;

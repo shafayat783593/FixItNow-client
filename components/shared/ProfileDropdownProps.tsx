@@ -39,7 +39,7 @@ export default function ProfileDropdown({ user, onLogout }: ProfileDropdownProps
           {user.avatarUrl ? (
             <img src={user.avatarUrl} alt={user.name} className="w-full h-full object-cover" />
           ) : (
-            user.name.charAt(0).toUpperCase()
+            user.name ? user.name.charAt(0).toUpperCase() : 'U'
           )}
         </div>
         <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${isOpen ? 'rotate-180' : ''}`} />

@@ -2,7 +2,7 @@
 
 "use server"
 
-import { serverFetch } from "@/lib/api/axios";
+import { serverFetch } from "@/lib/api/serverFetch";
 
 export const getMe = async () => {
     const res = await serverFetch("/api/auth/me",
