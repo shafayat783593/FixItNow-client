@@ -1,40 +1,48 @@
-// service/serverFetch.ts
-"use server"
+"use server";
 
 import { getAccessToken } from "@/service/getAccessToken";
 
-
-
 type FetchOptions = Omit<RequestInit, "body"> & {
-    body?: Record<string, any>
-    next?: { revalidate?: number; tags?: string[] }
-    cache?: RequestCache
-}
+  body?: Record<string, any>;
+  next?: { revalidate?: number; tags?: string[] };
+  cache?: RequestCache;
+};
 
-export async function serverFetch<T = any>(
-    path: string,
-    options: FetchOptions = {}
+export async function serverFetch <T = any>(
+  path: string,
+  options: FetchOptions = {}
 ): Promise<T> {
-    const accessData = await getAccessToken()
-    
-    const accessToken = accessData.data.accessToken
-    
-    if (typeof accessToken !== "string") {
-        return { success: false, message: "User not logged in" } as T
-    }
+  // কুকি থেকে এক্সেস টোকেন নেয়ার চেষ্টা করা হবে (যদি ইউজার লগইন থাকে)
+  const accessData = await getAccessToken().catch(() => null);
+  const accessToken = accessData?.data?.accessToken;
 
+  // হেডার অবজেক্ট প্রিপেয়ার করা
+  const headers: Record<string, string> = {
+    ...(options.body ? { "Content-Type": "application/json" } : {}),
+    ...(options.headers as Record<string, string>),
+  };
+
+  // যদি টোকেন থাকে, তবে কুকি হেডার পাঠাবে, না থাকলে ছাড়াই পাঠাবে
+  if (typeof accessToken === "string" && accessToken) {
+    headers["cookie"] = `accessToken=${accessToken}`;
+  }
+
+  try {
     const res = await fetch(`${process.env.BACKEND_API_URL}${path}`, {
-        method: options.method ?? "GET",
-        headers: {
-            cookie: `accessToken=${accessToken}`,
-            ...(options.body ? { "Content-Type": "application/json" } : {}),
-            ...options.headers,
-        },
-        body: options.body ? JSON.stringify(options.body) : undefined,
-        cache: options.cache,
-        next: options.next,
-    })
-    const result = await res.json()
+      method: options.method ?? "GET",
+      headers,
+      body: options.body ? JSON.stringify(options.body) : undefined,
+      cache: options.cache,
+      next: options.next,
+    });
 
-    return result
+    const result = await res.json();
+    return result as T;
+  } catch (error: any) {
+    console.error(`Error in publicServerFetch [${path}]:`, error);
+    return {
+      success: false,
+      message: error?.message || "Failed to fetch public data",
+    } as T;
+  }
 }

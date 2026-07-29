@@ -38,3 +38,19 @@ export const getAllService= async (query?: IServiceQuery) => {
 
   return res.data;
 };
+
+
+export async function getSingleService(id: string) {
+  if (!id) return null;
+
+  const res = await serverFetch(`/api/services/${id}`, {
+    cache: "force-cache",
+    next: {
+      revalidate: 3600,
+      tags: [`service-${id}`, "services"],
+    },
+  });
+
+    console.log()
+  return res?.data || res || null;
+}

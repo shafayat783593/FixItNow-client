@@ -7,7 +7,7 @@ import { getAccessToken } from "./service/getAccessToken";
 import { getNewAccessToken } from "./service/getNewAccessToken";
 
 const AUTH_ROUTES = ["/login", "/register", "/forgot-password", "/reset-password",];
-const PUBLIC_ROUTES = ["/", "/news", "/login", "/register",];
+const PUBLIC_ROUTES = ["/", "/news", "/login", "/register","/services","/technicians"];
 
 export const proxy = async (request: NextRequest) => {
     const pathname = request.nextUrl.pathname;
