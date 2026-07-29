@@ -45,12 +45,16 @@ export const proxy = async (request: NextRequest) => {
     }
 
     const isPublishRoute = PUBLIC_ROUTES.some((route) => pathname === route || pathname.startsWith(route + "/"));
+if (!accessToken && !isPublishRoute) {
+    const loginUrl = new URL("/login", request.url);
 
-    if (!accessToken && !isPublishRoute) {
-        const loginUrl = new URL("/login", request.url);
-        loginUrl.searchParams.set("redirectTo", pathname);
-        return NextResponse.redirect(loginUrl);
-    }
+    const redirectPath =
+        request.nextUrl.pathname + request.nextUrl.search;
+
+    loginUrl.searchParams.set("redirectTo", redirectPath);
+
+    return NextResponse.redirect(loginUrl);
+}
 
     if (accessToken && AUTH_ROUTES.includes(pathname)) {
         if (role === "CUSTOMER") return NextResponse.redirect(new URL("/dashboard/customer", request.url));

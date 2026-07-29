@@ -24,7 +24,7 @@ const LoginForm = () => {
         if (!state) return;
         if (state.success) {
             toast.success(state.message || "Login successfully!");
-            // router.push(redirectTo || "/dashboard");
+            router.push(redirectTo);
         }
         if (!state.success) {
             setErrorMessage(state.message || "Login failed. Please check credentials.");

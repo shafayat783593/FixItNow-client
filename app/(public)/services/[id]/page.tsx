@@ -22,7 +22,7 @@ interface ServiceDetailsPageProps {
 
 export default async function ServiceDetailsPage({ params }: ServiceDetailsPageProps) {
     const { id } = await params;
-    console.log("id",id)
+   
   const service = await getSingleService(id);
 
   if (!service || !service.id) {
@@ -253,12 +253,12 @@ export default async function ServiceDetailsPage({ params }: ServiceDetailsPageP
 
               {/* Book Button */}
               <div className="mt-8 space-y-3">
-                <Link
-                  href={`/checkout?serviceId=${service.id}`}
-                  className="flex w-full items-center justify-center rounded-2xl bg-[#0F1B2B] py-3.5 text-sm font-bold text-white shadow-lg transition-all duration-200 hover:bg-amber-400 hover:text-[#0F1B2B] hover:shadow-amber-400/20"
-                >
-                  Book Service Now
-                </Link>
+            <Link
+  href={`/booking?serviceId=${service.id}`} 
+  className="flex w-full items-center justify-center rounded-2xl bg-[#0F1B2B] py-3.5 text-sm font-bold text-white shadow-lg transition-all duration-200 hover:bg-amber-400 hover:text-[#0F1B2B]"
+>
+  Book Service Now
+</Link>
 
                 <p className="text-center text-[11px] font-medium text-slate-400">
                   No hidden charges. Pay after service completion.

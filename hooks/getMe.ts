@@ -14,7 +14,8 @@ export const getMe = async () => {
             },
         }
     )
-    return res
+    console.log(res)
+    return res.data
 }
 
 
