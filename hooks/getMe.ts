@@ -14,7 +14,6 @@ export const getMe = async () => {
             },
         }
     )
-console.log(res,"User login.................................................")
     return res
 }
 

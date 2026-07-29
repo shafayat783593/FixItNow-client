@@ -7,6 +7,7 @@ import Navbar from './shared/Navbar';
 import Hero from '@/app/(home)/hero';
 import About from '@/app/(home)/About';
 import CoreStrengths from '@/app/(home)/Corestrengths';
+import TechniciansSection from '@/app/(home)/TechniciansSection';
 
 export default function LayoutWrapper({ children }: { children: ReactNode }) {
   const pathname = usePathname();
@@ -23,9 +24,7 @@ export default function LayoutWrapper({ children }: { children: ReactNode }) {
   return (
     <>
       <Navbar key={pathname} />
-      <Hero />
-      <About />
-      <CoreStrengths/>
+   
       <AnimatePresence mode="wait">
         <motion.main
           key={pathname}

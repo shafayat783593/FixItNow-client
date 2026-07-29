@@ -1,8 +1,17 @@
-import React from 'react'
+import Hero from './(home)/hero'
+import About from './(home)/About'
+import CoreStrengths from './(home)/Corestrengths'
+import TechniciansSection from './(home)/TechniciansSection'
 
 function page() {
   return (
-    <div>HOME</div>
+    <>
+       <Hero/>
+      <About/>
+      <CoreStrengths />
+    <TechniciansSection/>
+    
+    </>
   )
 }
 

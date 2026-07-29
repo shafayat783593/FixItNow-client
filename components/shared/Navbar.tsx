@@ -42,9 +42,9 @@ const navLinks: NavLink[] = [
 ];
 
 const dashboardPathByRole: Record<Role, string> = {
-    CUSTOMER: '/customer',
-    TECHNICIAN: '/technician',
-    ADMIN: '/admin',
+    CUSTOMER: '/dashboard/customer',
+    TECHNICIAN: '/dashboard/technician',
+    ADMIN: '/dashboard/admin',
 };
 
 export default function Navbar() {

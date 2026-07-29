@@ -31,80 +31,93 @@ const strengths: Strength[] = [
 
 export default function CoreStrengths() {
   return (
-    <section className="relative overflow-hidden bg-[#F1F4F5] py-20 sm:py-28">
-      {/* blueprint grid backdrop */}
+    <section className="relative overflow-hidden bg-white py-20 sm:py-28">
+      {/* Subtle Grid Pattern Overlay */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.35]"
+        className="pointer-events-none absolute inset-0 opacity-[0.4]"
         style={{
           backgroundImage:
-            "radial-gradient(circle, #C7D0D6 1px, transparent 1px)",
-          backgroundSize: "24px 24px",
+            "radial-gradient(circle, #E2E8F0 1px, transparent 1px)",
+          backgroundSize: "28px 28px",
         }}
         aria-hidden="true"
       />
 
-      <div className="relative mx-auto grid max-w-6xl grid-cols-1 gap-14 px-6 lg:grid-cols-[0.85fr_1.15fr] lg:gap-10">
-        {/* left column */}
-        <div className="relative">
-          <span
-            className="inline-block text-xs font-semibold uppercase tracking-[0.18em] text-[#5E6B78]"
-            style={{ fontFamily: "'JetBrains Mono', monospace" }}
-          >
-            What makes us different
-          </span>
+      {/* Decorative Glow Blob */}
+      <div 
+        className="pointer-events-none absolute -left-20 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-amber-400/10 blur-3xl" 
+        aria-hidden="true" 
+      />
 
-          <h2
-            className="mt-4 text-4xl font-bold leading-[1.1] text-[#0F1B2B] sm:text-5xl"
-            style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-          >
-            Our core strengths in repair &amp; maintenance
-          </h2>
+      <div className="relative mx-auto grid max-w-6xl grid-cols-1 gap-12 px-6 lg:grid-cols-[0.85fr_1.15fr] lg:gap-12">
+        {/* Left Column */}
+        <div className="flex flex-col justify-between">
+          <div>
+            <div className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50/80 px-3 py-1 backdrop-blur-sm">
+              <span
+                className="text-[11px] font-bold uppercase tracking-[0.18em] text-amber-700"
+                style={{ fontFamily: "'JetBrains Mono', monospace" }}
+              >
+                What makes us different
+              </span>
+            </div>
 
-          <p className="mt-5 max-w-md text-base leading-relaxed text-[#5E6B78]">
-            Every job on FixItNow runs through the same standard — vetted
-            pros, honest pricing, and work that&apos;s tracked start to
-            finish.
-          </p>
-
-          {/* signature stamp element */}
-          <div
-            className="mt-10 inline-flex h-28 w-28 rotate-[-8deg] select-none items-center justify-center rounded-full border-2 border-dashed border-[#FFB020] text-center"
-            style={{ mixBlendMode: "multiply" }}
-          >
-            <span
-              className="px-3 text-[11px] font-semibold uppercase leading-tight tracking-wider text-[#B27600]"
-              style={{ fontFamily: "'JetBrains Mono', monospace" }}
+            <h2
+              className="mt-6 text-4xl font-extrabold tracking-tight text-[#0F1B2B] sm:text-5xl sm:leading-[1.15]"
+              style={{ fontFamily: "'Space Grotesk', sans-serif" }}
             >
-              Service
-              <br />
-              Verified
-            </span>
+              Our core strengths in repair &amp; maintenance
+            </h2>
+
+            <p className="mt-5 max-w-md text-base leading-relaxed text-slate-600">
+              Every job on FixItNow runs through the same standard — vetted
+              pros, honest pricing, and work that&apos;s tracked start to
+              finish.
+            </p>
+          </div>
+
+          {/* Signature Stamp Element */}
+          <div className="mt-10">
+            <div
+              className="inline-flex h-24 w-24 rotate-[-8deg] select-none items-center justify-center rounded-full border-2 border-dashed border-amber-500 bg-amber-50/50 text-center shadow-sm transition-transform duration-300 hover:rotate-0"
+            >
+              <span
+                className="px-2 text-[10px] font-bold uppercase leading-tight tracking-wider text-amber-800"
+                style={{ fontFamily: "'JetBrains Mono', monospace" }}
+              >
+                Service
+                <br />
+                Verified
+              </span>
+            </div>
           </div>
         </div>
 
-        {/* right column: strength cards */}
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+        {/* Right Column: Strength Cards */}
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           {strengths.map(({ icon: Icon, title, desc }) => (
             <div
               key={title}
-              className="group relative border border-[#D8DEE2] bg-white p-6 transition-colors hover:border-[#FFB020]"
-              style={{
-                clipPath:
-                  "polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%)",
-              }}
+              className="group relative rounded-2xl border border-slate-200/80 bg-white/80 p-7 shadow-sm backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-amber-400 hover:shadow-md"
             >
-              <div className="mb-4 flex h-11 w-11 items-center justify-center border border-[#0F1B2B] text-[#0F1B2B] transition-colors group-hover:border-[#FFB020] group-hover:text-[#B27600]">
-                <Icon size={20} strokeWidth={1.75} />
+              {/* Icon Container */}
+              <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 text-[#0F1B2B] shadow-inner transition-colors duration-300 group-hover:border-amber-400 group-hover:bg-amber-400 group-hover:text-black">
+                <Icon size={22} strokeWidth={2} />
               </div>
+
               <h3
-                className="text-lg font-semibold text-[#0F1B2B]"
+                className="text-lg font-bold text-[#0F1B2B]"
                 style={{ fontFamily: "'Space Grotesk', sans-serif" }}
               >
                 {title}
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-[#5E6B78]">
+
+              <p className="mt-2.5 text-sm leading-relaxed text-slate-600">
                 {desc}
               </p>
+
+              {/* Top Accent Line on Hover */}
+              <div className="absolute inset-x-0 top-0 h-1 rounded-t-2xl bg-amber-400 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
             </div>
           ))}
         </div>
