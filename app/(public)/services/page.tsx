@@ -2,12 +2,12 @@
 import React, { Suspense } from "react";
 import { Wrench, Sparkles } from "lucide-react";
 
-import { getAllService } from "../_action/service";
 import { UniversalSearchBar } from "../../../components/shared/UniversalSearchBar";
 import { Pagination } from "../_components/pagenation";
 import { ServiceGridSkeleton } from "../_components/service/ServiceSkeleton";
 import { ServiceCard } from "../_components/service/serviceCard";
 import { ServiceFilter } from "../_components/service/ServiceFilter";
+import { getAllService } from "@/lib/api/service";
 
 export default async function ServicesPage({
   searchParams,

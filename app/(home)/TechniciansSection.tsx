@@ -2,8 +2,8 @@
 import React from 'react';
 import Link from 'next/link';
 import { ArrowRight, Users } from 'lucide-react';
-import { getAllTechnicians } from '../(public)/_action/technician';
-import { TechnicianCard } from '../(public)/_components/technicianCard';
+import { TechnicianCard } from '../(public)/_components/technician/technicianCard';
+import { getAllTechnicians } from '@/lib/api/technician';
 
 
 export default async function TechniciansSection() {

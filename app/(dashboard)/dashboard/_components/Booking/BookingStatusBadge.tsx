@@ -1,4 +1,4 @@
-import { BookingStatus } from "@/lib/api/booking.type";
+import { BookingStatus } from "./BookingType";
 
 const statusStyles: Record<BookingStatus, string> = {
   REQUESTED: "bg-amber-50 text-amber-700 border-amber-200",

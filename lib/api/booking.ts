@@ -3,9 +3,10 @@ import { serverFetch } from "@/lib/api/serverFetch";
 
 export interface IBookingPayload {
   serviceId: string;
-  scheduledAt: string;
+  date: string;
+  time: string;
   address: string;
-  notes?: string;
+  note?: string;
 }
 
 export interface IBookingQuery {
@@ -15,15 +16,18 @@ export interface IBookingQuery {
   limit?: string | number;
 }
 
-export async function createBookingAction(payload: IBookingPayload) {
-  const res = await serverFetch("/api/bookings", {
+export const createBooking = async (payload: IBookingPayload) => {
+  const res = await fetch("/api/booking", {
     method: "POST",
-    body: payload,
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+    body: JSON.stringify(payload),
   });
 
-  return res;
-}
 
+
+  return res.json();
+};
 
 export async function getMyBookingsAction(query?: IBookingQuery) {
   const params = new URLSearchParams();

@@ -14,8 +14,8 @@ import {
   ArrowLeft,
   UserCheck
 } from "lucide-react";
-import { getSingleService } from "../../_action/service";
-import BookingModal from "../../_components/Booking/BookingModal";
+import BookingModal from "../../_components/service/BookingModal";
+import { getSingleService } from "@/lib/api/service";
 
 interface ServiceDetailsPageProps {
   params: Promise<{ id: string }>;
@@ -33,7 +33,6 @@ export default async function ServiceDetailsPage({ params }: ServiceDetailsPageP
   const { title, description, price, duration, category, technician } = service;
   const user = technician?.user;
 
-  // Duration Formatter
   const formatDuration = (mins?: number) => {
     if (!mins) return "N/A";
     if (mins < 60) return `${mins} mins`;
@@ -43,73 +42,67 @@ export default async function ServiceDetailsPage({ params }: ServiceDetailsPageP
   };
 
   return (
-    <main className="min-h-screen bg-slate-50/50 py-10 sm:py-16">
+    <main className="min-h-screen bg-background py-10 sm:py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
         {/* Back Button */}
         <Link
           href="/services"
-          className="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 transition-colors hover:text-amber-600 mb-6"
+          className="mb-6 inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground transition-colors hover:text-accent"
         >
           <ArrowLeft size={16} />
           <span>Back to All Services</span>
         </Link>
 
-        {/* Main Grid Layout */}
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
 
-          {/* Left Column (Details) - 2 Span */}
+          {/* Left Column */}
           <div className="space-y-8 lg:col-span-2">
 
             {/* Header Info Box */}
-            <div className="rounded-3xl border border-slate-200/80 bg-white p-6 sm:p-8 shadow-sm">
+            <div className="rounded-3xl border border-border bg-card p-6 shadow-sm sm:p-8">
               <div className="flex flex-wrap items-center justify-between gap-3">
-                {/* Category Badge */}
                 {category?.name && (
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-200 bg-amber-50 px-3.5 py-1 text-xs font-bold text-amber-800">
-                    <Tag size={13} className="text-amber-600" />
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-accent/30 bg-accent/10 px-3.5 py-1 text-xs font-bold text-accent-foreground">
+                    <Tag size={13} className="text-accent" />
                     {category.name}
                   </span>
                 )}
 
-                {/* Duration Badge */}
-                <div className="flex items-center gap-1.5 rounded-lg bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">
-                  <Clock size={14} className="text-slate-500" />
+                <div className="flex items-center gap-1.5 rounded-lg bg-muted px-3 py-1 text-xs font-semibold text-muted-foreground">
+                  <Clock size={14} />
                   <span>Est. Time: {formatDuration(duration)}</span>
                 </div>
               </div>
 
-              {/* Service Title */}
-              <h1 className="mt-4 text-3xl font-extrabold text-[#0F1B2B] sm:text-4xl">
+              <h1 className="mt-4 text-3xl font-extrabold text-foreground sm:text-4xl">
                 {title}
               </h1>
 
-              {/* Service Description */}
-              <div className="mt-6 border-t border-slate-100 pt-6">
-                <h3 className="text-lg font-bold text-[#0F1B2B]">Service Overview</h3>
-                <p className="mt-3 text-base leading-relaxed text-slate-600 whitespace-pre-line">
+              <div className="mt-6 border-t border-border pt-6">
+                <h3 className="text-lg font-bold text-foreground">Service Overview</h3>
+                <p className="mt-3 whitespace-pre-line text-base leading-relaxed text-muted-foreground">
                   {description || "No specific description provided for this service."}
                 </p>
               </div>
 
-              {/* Key Features / Included Items */}
-              <div className="mt-8 rounded-2xl bg-slate-50 p-5 border border-slate-100">
-                <h4 className="text-sm font-bold text-[#0F1B2B]">Service Guarantees:</h4>
-                <ul className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-medium text-slate-700">
+              <div className="mt-8 rounded-2xl border border-border bg-muted/50 p-5">
+                <h4 className="text-sm font-bold text-foreground">Service Guarantees:</h4>
+                <ul className="mt-3 grid grid-cols-1 gap-3 text-xs font-medium text-foreground/80 sm:grid-cols-2">
                   <li className="flex items-center gap-2">
-                    <CheckCircle2 size={16} className="text-emerald-500" />
+                    <CheckCircle2 size={16} className="text-success" />
                     Background verified expert
                   </li>
                   <li className="flex items-center gap-2">
-                    <CheckCircle2 size={16} className="text-emerald-500" />
+                    <CheckCircle2 size={16} className="text-success" />
                     100% Satisfaction guaranteed
                   </li>
                   <li className="flex items-center gap-2">
-                    <CheckCircle2 size={16} className="text-emerald-500" />
+                    <CheckCircle2 size={16} className="text-success" />
                     Transparent upfront pricing
                   </li>
                   <li className="flex items-center gap-2">
-                    <CheckCircle2 size={16} className="text-emerald-500" />
+                    <CheckCircle2 size={16} className="text-success" />
                     Post-service support available
                   </li>
                 </ul>
@@ -118,15 +111,14 @@ export default async function ServiceDetailsPage({ params }: ServiceDetailsPageP
 
             {/* Technician Profile Card */}
             {technician && (
-              <div className="rounded-3xl border border-slate-200/80 bg-white p-6 sm:p-8 shadow-sm">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-amber-600">
+              <div className="rounded-3xl border border-border bg-card p-6 shadow-sm sm:p-8">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-accent">
                   Assigned Provider
                 </h3>
 
-                <div className="mt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 border-b border-slate-100 pb-6">
+                <div className="mt-4 flex flex-col items-start justify-between gap-6 border-b border-border pb-6 sm:flex-row sm:items-center">
                   <div className="flex items-center gap-4">
-                    {/* Profile Photo */}
-                    <div className="relative h-16 w-16 overflow-hidden rounded-2xl bg-slate-100 border border-slate-200">
+                    <div className="relative h-16 w-16 overflow-hidden rounded-2xl border border-border bg-muted">
                       {user?.profilePhoto ? (
                         <Image
                           src={user.profilePhoto}
@@ -135,24 +127,23 @@ export default async function ServiceDetailsPage({ params }: ServiceDetailsPageP
                           className="object-cover"
                         />
                       ) : (
-                        <div className="flex h-full w-full items-center justify-center font-bold text-slate-400">
+                        <div className="flex h-full w-full items-center justify-center font-bold text-muted-foreground">
                           {user?.name?.charAt(0) || "T"}
                         </div>
                       )}
                     </div>
 
-                    {/* Name & Rating */}
                     <div>
                       <div className="flex items-center gap-2">
-                        <h4 className="text-xl font-bold text-[#0F1B2B]">
+                        <h4 className="text-xl font-bold text-foreground">
                           {user?.name || "Professional Technician"}
                         </h4>
-                        <ShieldCheck size={18} className="text-emerald-500" title="Verified Provider" />
+                        <ShieldCheck size={18} className="text-success" title="Verified Provider" />
                       </div>
 
-                      <div className="mt-1 flex items-center gap-3 text-xs font-medium text-slate-500">
-                        <span className="flex items-center gap-1 text-amber-500 font-bold">
-                          <Star size={14} className="fill-amber-400 text-amber-400" />
+                      <div className="mt-1 flex items-center gap-3 text-xs font-medium text-muted-foreground">
+                        <span className="flex items-center gap-1 font-bold text-accent">
+                          <Star size={14} className="fill-accent text-accent" />
                           {technician.rating ? technician.rating.toFixed(1) : "5.0"}
                         </span>
                         <span>•</span>
@@ -161,42 +152,40 @@ export default async function ServiceDetailsPage({ params }: ServiceDetailsPageP
                     </div>
                   </div>
 
-                  {/* View Full Profile Link */}
                   <Link
                     href={`/technicians/${technician.id}`}
-                    className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition-colors"
+                    className="inline-flex items-center gap-1.5 rounded-xl border border-border bg-card px-4 py-2 text-xs font-bold text-foreground transition-colors hover:bg-muted"
                   >
                     <UserCheck size={14} />
                     <span>View Profile</span>
                   </Link>
                 </div>
 
-                {/* Additional Technician Specs */}
-                <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 text-xs">
-                  <div className="rounded-xl bg-slate-50 p-3">
-                    <span className="block text-slate-400 font-medium">Experience</span>
-                    <span className="mt-0.5 block font-bold text-[#0F1B2B] text-sm">
+                <div className="mt-6 grid grid-cols-2 gap-4 text-xs sm:grid-cols-3">
+                  <div className="rounded-xl bg-muted p-3">
+                    <span className="block font-medium text-muted-foreground">Experience</span>
+                    <span className="mt-0.5 block text-sm font-bold text-foreground">
                       {technician.experience ? `${technician.experience} Years` : "Experienced"}
                     </span>
                   </div>
 
-                  <div className="rounded-xl bg-slate-50 p-3">
-                    <span className="block text-slate-400 font-medium">Location</span>
-                    <span className="mt-0.5 block font-bold text-[#0F1B2B] text-sm truncate">
+                  <div className="rounded-xl bg-muted p-3">
+                    <span className="block font-medium text-muted-foreground">Location</span>
+                    <span className="mt-0.5 block truncate text-sm font-bold text-foreground">
                       {technician.location || "On-site"}
                     </span>
                   </div>
 
-                  <div className="col-span-2 sm:col-span-1 rounded-xl bg-slate-50 p-3">
-                    <span className="block text-slate-400 font-medium">Status</span>
-                    <span className="mt-0.5 block font-bold text-emerald-600 text-sm">
+                  <div className="col-span-2 rounded-xl bg-muted p-3 sm:col-span-1">
+                    <span className="block font-medium text-muted-foreground">Status</span>
+                    <span className="mt-0.5 block text-sm font-bold text-success">
                       Available Today
                     </span>
                   </div>
                 </div>
 
                 {technician.bio && (
-                  <p className="mt-4 text-xs leading-relaxed text-slate-500">
+                  <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
                     &quot;{technician.bio}&quot;
                   </p>
                 )}
@@ -204,60 +193,56 @@ export default async function ServiceDetailsPage({ params }: ServiceDetailsPageP
             )}
           </div>
 
-          {/* Right Column (Sticky Booking Sidebar) - 1 Span */}
+          {/* Right Column - Sticky Booking Sidebar */}
           <div className="lg:col-span-1">
-            <div className="sticky top-8 rounded-3xl border border-slate-200/80 bg-white p-6 sm:p-8 shadow-md">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
+            <div className="sticky top-8 rounded-3xl border border-border bg-card p-6 shadow-md sm:p-8">
+              <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
                 Fixed Pricing
               </span>
 
-              {/* Price */}
               <div className="mt-2 flex items-baseline gap-1">
-                <span className="text-4xl font-black text-[#0F1B2B]">
+                <span className="text-4xl font-black text-foreground">
                   ৳{price.toLocaleString()}
                 </span>
-                <span className="text-xs text-slate-500 font-medium">/ service</span>
+                <span className="text-xs font-medium text-muted-foreground">/ service</span>
               </div>
 
-              {/* Summary List */}
-              <div className="mt-6 space-y-3.5 border-t border-slate-100 pt-6 text-sm">
-                <div className="flex items-center justify-between text-slate-600">
+              <div className="mt-6 space-y-3.5 border-t border-border pt-6 text-sm">
+                <div className="flex items-center justify-between text-muted-foreground">
                   <span className="flex items-center gap-2 text-xs">
-                    <Clock size={15} className="text-slate-400" />
+                    <Clock size={15} />
                     Service Duration
                   </span>
-                  <span className="font-semibold text-[#0F1B2B] text-xs">
+                  <span className="text-xs font-semibold text-foreground">
                     {formatDuration(duration)}
                   </span>
                 </div>
 
-                <div className="flex items-center justify-between text-slate-600">
+                <div className="flex items-center justify-between text-muted-foreground">
                   <span className="flex items-center gap-2 text-xs">
-                    <Briefcase size={15} className="text-slate-400" />
+                    <Briefcase size={15} />
                     Service Category
                   </span>
-                  <span className="font-semibold text-[#0F1B2B] text-xs truncate max-w-[120px]">
+                  <span className="max-w-[120px] truncate text-xs font-semibold text-foreground">
                     {category?.name || "General"}
                   </span>
                 </div>
 
-                <div className="flex items-center justify-between text-slate-600">
+                <div className="flex items-center justify-between text-muted-foreground">
                   <span className="flex items-center gap-2 text-xs">
-                    <Calendar size={15} className="text-slate-400" />
+                    <Calendar size={15} />
                     Cancellation Policy
                   </span>
-                  <span className="font-semibold text-emerald-600 text-xs">
+                  <span className="text-xs font-semibold text-success">
                     Free (24h prior)
                   </span>
                 </div>
               </div>
 
-              {/* Book Button */}
-              {/* Book Button */}
               <div className="mt-8 space-y-3">
                 <BookingModal serviceId={service.id} />
 
-                <p className="text-center text-[11px] font-medium text-slate-400">
+                <p className="text-center text-[11px] font-medium text-muted-foreground">
                   No hidden charges. Pay after service completion.
                 </p>
               </div>

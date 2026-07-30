@@ -1,0 +1,46 @@
+import { serverFetch } from "@/lib/api/serverFetch";
+
+export interface ITechnicianQuery {
+  searchItem?: string;
+  page?: string | number;
+  limit?: string | number;
+  sortBy?: "rating" | "experience" | "newest";
+  location?: string;
+  minRating?: string | number;
+}
+
+export const getAllTechnicians = async (query?: ITechnicianQuery) => {
+  const params = new URLSearchParams();
+
+  if (query?.searchItem && query.searchItem.trim() !== "") {
+    params.set("searchItem", query.searchItem.trim());
+  }
+  if (query?.page) params.set("page", query.page.toString());
+  if (query?.limit) params.set("limit", query.limit.toString());
+  if (query?.sortBy) params.set("sortBy", query.sortBy);
+  if (query?.location && query.location.trim() !== "") {
+    params.set("location", query.location.trim());
+  }
+  if (query?.minRating) params.set("minRating", query.minRating.toString());
+
+  const queryString = params.toString();
+
+  const res = await serverFetch(`/api/technician?${queryString}`, {
+    cache: "force-cache",
+    next: {
+      revalidate: 3600,
+      tags: ["technician"],
+    },
+  });
+
+  return res.data;
+};
+
+export const getTechnicianById = async (id: string) => {
+  const res = await serverFetch(`/api/technician/${id}`, {
+    next: {
+      tags: ["single-technician"],
+    },
+  });
+  return res.data;
+};
