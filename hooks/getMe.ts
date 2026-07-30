@@ -15,7 +15,7 @@ export const getMe = async () => {
         }
     )
     console.log(res)
-    return res.data
+    return res
 }
 
 

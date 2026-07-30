@@ -18,6 +18,7 @@ interface ProfileDropdownProps {
 }
 
 export default function ProfileDropdown({ user, onLogout }: ProfileDropdownProps) {
+  console.log("user profil dropdown ",user)
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 

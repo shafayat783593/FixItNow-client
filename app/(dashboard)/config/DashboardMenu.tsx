@@ -8,19 +8,19 @@ import { FileText, LayoutDashboard,  } from "lucide-react"
 
 
 
-const USER_SIDEBAR_ITEM:ISidebarItem[] = [
+const CUSTOMER_SIDEBAR_ITEM:ISidebarItem[] = [
     {
-        label: "Dashboard",
-        href: "/dashboard",
+        label: "Home",
+        href: "/",
         icon: LayoutDashboard
     },
     {
-        label: "My Posts",
-        href: "/dashboard/my-posts",
+        label: "My Booking",
+        href: "/dashboard/customer/my-bookings",
         icon: FileText
     },
 ]
-const AUTHOR_SIDEBAR_ITEM:ISidebarItem[] = [
+const TECHNICIAN_SIDEBAR_ITEM:ISidebarItem[] = [
     {
         label: "Author-Dashboard",
         href: "/author-dashboard",
@@ -48,7 +48,7 @@ const ADMIN_SIDEBAR_ITEM:ISidebarItem[] = [
 
 
 export const sideBarMenuItems = {
-    USER: USER_SIDEBAR_ITEM,
-    AUTHOR: AUTHOR_SIDEBAR_ITEM,
+    CUSTOMER: CUSTOMER_SIDEBAR_ITEM,
+    TECHNICIAN: TECHNICIAN_SIDEBAR_ITEM,
     ADMIN: ADMIN_SIDEBAR_ITEM
 }

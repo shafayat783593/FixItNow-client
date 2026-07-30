@@ -10,7 +10,7 @@ export interface ServiceData {
   title: string;
   description: string;
   price: number;
-  duration: number; // in minutes
+  duration: number; 
   createdAt: string;
   updatedAt: string;
 }
@@ -20,7 +20,6 @@ interface ServiceCardProps {
 }
 
 export function ServiceCard({ service }: ServiceCardProps) {
-  // Format duration into readable hours/mins
   const formatDuration = (mins: number) => {
     if (mins < 60) return `${mins} mins`;
     const hours = Math.floor(mins / 60);
@@ -31,7 +30,6 @@ export function ServiceCard({ service }: ServiceCardProps) {
   return (
     <div className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-amber-400 hover:shadow-xl">
       <div>
-        {/* Category Badge & Duration Header */}
         <div className="flex items-center justify-between gap-2">
           <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-200 bg-amber-50 px-3 py-0.5 text-xs font-bold text-amber-800">
             <Tag size={12} className="text-amber-600" />
@@ -44,18 +42,18 @@ export function ServiceCard({ service }: ServiceCardProps) {
           </div>
         </div>
 
-        {/* Service Title */}
+       
         <h3 className="mt-4 text-xl font-bold text-[#0F1B2B] transition-colors group-hover:text-amber-600">
           {service.title}
         </h3>
 
-        {/* Service Description */}
+    
         <p className="mt-2.5 line-clamp-2 text-sm leading-relaxed text-slate-600">
           {service.description}
         </p>
       </div>
 
-      {/* Bottom Section: Price & Booking Action */}
+     
       <div className="mt-6 border-t border-slate-100 pt-4">
         <div className="flex items-center justify-between">
           <div>
@@ -83,7 +81,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
         </div>
       </div>
 
-      {/* Top Hover Accent Bar */}
+
       <div className="absolute inset-x-0 top-0 h-1 bg-amber-400 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
     </div>
   );

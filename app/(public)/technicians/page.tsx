@@ -4,7 +4,7 @@ import { ArrowRight, Users } from 'lucide-react';
 import { getAllTechnicians } from '../_action/technician';
 import { TechnicianCard } from '../_components/technicianCard';
 import { Pagination } from '../_components/pagenation';
-import { UniversalSearchBar } from '../_components/UniversalSearchBar';
+import { UniversalSearchBar } from '../../../components/shared/UniversalSearchBar';
 
 
 export default async function TechniciansSection({searchParams}: { searchParams: Promise<{ [key: string]: string | string[] | undefined }>;}) {

@@ -15,11 +15,11 @@ export interface IUser {
   id: string;
   name: string;
   email: string;
-  password: string; // ⚠️ should not be present in this response — see note above
+
   phone: string;
   role: UserRole;
   status: UserStatus;
-  createdAt: string; // ISO date string, not Date — JSON has no Date type
+  createdAt: string; 
   updatedAt: string;
   bookingsAsCustomer: IBooking[];
   reviews: IReview[];
@@ -41,7 +41,7 @@ export interface DashboardSidebarProps {
 
 
 
-export type UserRole = "ADMIN" | "AUTHOR" | "USER";
+export type UserRole = "ADMIN" | "TECHNICIAN" | "CUSTOMER";
 
 export type UserStatus = "ACTIVE" | "INACTIVE" | "BANNED"; // adjust to your actual enum values
 

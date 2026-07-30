@@ -2,27 +2,28 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { 
-  Clock, 
-  Tag, 
-  Star, 
-  ShieldCheck, 
-  MapPin, 
-  Briefcase, 
-  Calendar, 
-  CheckCircle2, 
+import {
+  Clock,
+  Tag,
+  Star,
+  ShieldCheck,
+  MapPin,
+  Briefcase,
+  Calendar,
+  CheckCircle2,
   ArrowLeft,
   UserCheck
 } from "lucide-react";
 import { getSingleService } from "../../_action/service";
+import BookingModal from "../../_components/Booking/BookingModal";
 
 interface ServiceDetailsPageProps {
   params: Promise<{ id: string }>;
 }
 
 export default async function ServiceDetailsPage({ params }: ServiceDetailsPageProps) {
-    const { id } = await params;
-   
+  const { id } = await params;
+
   const service = await getSingleService(id);
 
   if (!service || !service.id) {
@@ -44,7 +45,7 @@ export default async function ServiceDetailsPage({ params }: ServiceDetailsPageP
   return (
     <main className="min-h-screen bg-slate-50/50 py-10 sm:py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        
+
         {/* Back Button */}
         <Link
           href="/services"
@@ -56,10 +57,10 @@ export default async function ServiceDetailsPage({ params }: ServiceDetailsPageP
 
         {/* Main Grid Layout */}
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-          
+
           {/* Left Column (Details) - 2 Span */}
           <div className="space-y-8 lg:col-span-2">
-            
+
             {/* Header Info Box */}
             <div className="rounded-3xl border border-slate-200/80 bg-white p-6 sm:p-8 shadow-sm">
               <div className="flex flex-wrap items-center justify-between gap-3">
@@ -121,7 +122,7 @@ export default async function ServiceDetailsPage({ params }: ServiceDetailsPageP
                 <h3 className="text-xs font-bold uppercase tracking-wider text-amber-600">
                   Assigned Provider
                 </h3>
-                
+
                 <div className="mt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 border-b border-slate-100 pb-6">
                   <div className="flex items-center gap-4">
                     {/* Profile Photo */}
@@ -252,13 +253,9 @@ export default async function ServiceDetailsPage({ params }: ServiceDetailsPageP
               </div>
 
               {/* Book Button */}
+              {/* Book Button */}
               <div className="mt-8 space-y-3">
-            <Link
-  href={`/booking?serviceId=${service.id}`} 
-  className="flex w-full items-center justify-center rounded-2xl bg-[#0F1B2B] py-3.5 text-sm font-bold text-white shadow-lg transition-all duration-200 hover:bg-amber-400 hover:text-[#0F1B2B]"
->
-  Book Service Now
-</Link>
+                <BookingModal serviceId={service.id} />
 
                 <p className="text-center text-[11px] font-medium text-slate-400">
                   No hidden charges. Pay after service completion.

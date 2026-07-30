@@ -61,8 +61,11 @@ export default function Navbar() {
         const fetchUser = async () => {
             try {
                 const res = await getMe();
+                    console.log("users.........................",res)
+
                 if (res) {
-                    setUser(res.data.profile || res.data);
+                    
+                    setUser(res.data.profile || res.data || res);
                 } else {
                     setUser(null);
                 }
@@ -80,7 +83,6 @@ export default function Navbar() {
     useEffect(() => {
         setActiveLink(pathname);
     }, [pathname]);
-
     const handleLogout = async () => {
         try {
             await logout();

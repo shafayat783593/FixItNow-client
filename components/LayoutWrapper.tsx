@@ -4,16 +4,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 import { ReactNode } from 'react';
 import Navbar from './shared/Navbar';
-import Hero from '@/app/(home)/hero';
-import About from '@/app/(home)/About';
-import CoreStrengths from '@/app/(home)/Corestrengths';
-import TechniciansSection from '@/app/(home)/TechniciansSection';
+
 
 export default function LayoutWrapper({ children }: { children: ReactNode }) {
   const pathname = usePathname();
 
 
-  const hideNavFooter = ['/dasboard/customer', '/dashboard/admin', '/dashboard/technicial', '/login', '/register', '/verify', '/reset-password', '/Forgot-password'].some(
+  const hideNavFooter = ['/dashboard/customer', '/dashboard/admin', '/dashboard/technicial', '/login', '/register', '/verify', '/reset-password', '/Forgot-password'].some(
     (path) => pathname.startsWith(path)
   );
 

@@ -4,12 +4,11 @@ import { redirect } from "next/navigation";
 import DashboardLayoutClient from "./_components/DashboardLayoutClient";
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
-    const result = await getMe();
+  const result = await getMe();
 
-    if (!result.success) {
-        redirect("/login");
+  if (!result.success) {
+    redirect("/login");
   }
-  console.log(result.data,"userdata...................")
 
   return <DashboardLayoutClient user={result.data}>
     {children}

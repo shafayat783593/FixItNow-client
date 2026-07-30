@@ -35,9 +35,9 @@ export default function DashboardSidebar({
     const sidebarWidth = isOpen ? "280px" : "85px";
 
     let navItems: ISidebarItem[] = [];
-    if (role === "USER") navItems = sideBarMenuItems.USER;
+    if (role === "CUSTOMER") navItems = sideBarMenuItems.CUSTOMER;
     else if (role === "ADMIN") navItems = sideBarMenuItems.ADMIN;
-    else if (role === "AUTHOR") navItems = sideBarMenuItems.AUTHOR;
+    else if (role === "TECHNICIAN") navItems = sideBarMenuItems.TECHNICIAN;
 
     const handleLogout = async () => {
         await logout();
