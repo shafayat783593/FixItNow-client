@@ -25,7 +25,7 @@ export interface IAvailableSlot {
 
 export interface ICreateBookingPayload {
   serviceId: string;
-  scheduledAt: string;  
+  scheduledAt: string;
   address: string;
   notes?: string;
 }
@@ -81,7 +81,7 @@ export async function cancelBookingAction(bookingId: string) {
 
 
 
-export const getAvailableSlots = async (technicianId: string,date: string,serviceId: string): Promise<IAvailableSlot[]> => {
+export const getAvailableSlots = async (technicianId: string, date: string, serviceId: string): Promise<IAvailableSlot[]> => {
   const params = new URLSearchParams({ date, serviceId });
 
   const res = await serverFetch(`/api/technician/${technicianId}/available-slots?${params.toString()}`,
@@ -97,17 +97,30 @@ export const getAvailableSlots = async (technicianId: string,date: string,servic
 
 
 
-export const getTechnicianBooking = async () => {
-  const res = await serverFetch("/api/technician/bookings")
-  return res
-}
+export const getTechnicianBooking = async (query?: IBookingQuery) => {
+  const params = new URLSearchParams();
+
+  if (query?.status && query.status !== "ALL") {
+    params.set("status", query.status);
+  }
+  if (query?.page) params.set("page", String(query.page));
+  if (query?.limit) params.set("limit", String(query.limit));
+
+  const queryString = params.toString();
+  const url = `/api/technician/bookings${queryString ? `?${queryString}` : ""}`;
+
+  console.log("Fetching URL:", url);
+
+  const res = await serverFetch(url);
+  console.log("Response:", res);
+  return res;
+};
 
 
 
 
-
-export const updateBookingStatus = async (bookingId: string,actionStatus: BookingStatus) => {
-  const res = await serverFetch(`/api/technicians/bookings/${bookingId}`, {
+export const updateBookingStatus = async (bookingId: string, actionStatus: BookingStatus) => {
+  const res = await serverFetch(`/api/technician/bookings/${bookingId}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: { action: actionStatus }

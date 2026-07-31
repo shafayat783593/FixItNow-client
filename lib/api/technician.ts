@@ -9,6 +9,14 @@ export interface ITechnicianQuery {
   minRating?: string | number;
 }
 
+export interface IAvailabilitySlot {
+  id?: string;
+  dayOfWeek: number;
+  startTime: string;
+  endTime: string;
+  isAvailable?: boolean;
+}
+
 export const getAllTechnicians = async (query?: ITechnicianQuery) => {
   const params = new URLSearchParams();
 
@@ -36,11 +44,32 @@ export const getAllTechnicians = async (query?: ITechnicianQuery) => {
   return res.data;
 };
 
-export const getTechnicianById = async (id: string) => {
+export const  getTechnicianById = async (id: string) => {
   const res = await serverFetch(`/api/technician/${id}`, {
     next: {
       tags: ["single-technician"],
     },
   });
   return res.data;
+};
+
+
+
+
+export const getTechnicianAvailability = async () => {
+  const res = await serverFetch("/api/technician/availability");
+  return res;
+};
+
+// 2. Update technician availability
+export const updateTechnicianAvailability = async (slots: IAvailabilitySlot[]) => {
+  const res = await serverFetch("/api/technician/availability", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: { slots }, // JSON.stringify বাদ দেওয়া হয়েছে
+  });
+
+  return res;
 };

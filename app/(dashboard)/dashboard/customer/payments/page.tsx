@@ -50,7 +50,7 @@ export default async function PaymentsPage() {
                     <td className="px-4 py-3">
                       <PaymentStatusBadge status={p.status} />
                     </td>
-                    <td className="px-4 py-3 text-right font-semibold text-foreground">৳{p.amount}</td>
+                    <td className="px-4 py-3 text-right font-semibold text-foreground">${p.amount}</td>
                   </tr>
                 ))}
               </tbody>

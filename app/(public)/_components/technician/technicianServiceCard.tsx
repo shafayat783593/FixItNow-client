@@ -24,7 +24,7 @@ export function ServiceCard({ service }: { service: any }) {
 
       <div className="mt-4 flex items-center justify-between">
         {service?.price != null && (
-          <span className="text-lg font-extrabold text-foreground">৳{service.price}</span>
+          <span className="text-lg font-extrabold text-foreground">${service.price}</span>
         )}
         <span className="flex items-center gap-1 text-sm font-semibold text-accent-foreground">
           Details

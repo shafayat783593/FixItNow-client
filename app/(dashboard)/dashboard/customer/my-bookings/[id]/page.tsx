@@ -237,14 +237,14 @@ export default async function BookingDetailsPage({
               <div className="space-y-3">
                 <div className="flex items-center justify-between text-xs text-muted-foreground">
                   <span>Base Service Fee</span>
-                  <span className="font-semibold text-foreground">৳{booking.service?.price}</span>
+                  <span className="font-semibold text-foreground">${booking.service?.price}</span>
                 </div>
                 <div className="border-t border-border pt-3 flex items-center justify-between">
                   <span className="flex items-center gap-2 text-xs font-semibold text-foreground">
                     <Receipt className="h-4 w-4 text-accent" /> Total Price
                   </span>
                   <span className="text-xl font-bold text-foreground">
-                    ৳{booking.service?.price}
+                    ${booking.service?.price}
                   </span>
                 </div>
               </div>

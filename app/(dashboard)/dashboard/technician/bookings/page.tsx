@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-
+import { useState, useEffect, useCallback } from "react";
+import { toast } from "sonner"; // আপনার প্রোজেক্টে react-hot-toast থাকলে 'react-hot-toast' ইম্পোর্ট করতে পারেন
 
 // shadcn table primitives
 import {
@@ -12,12 +12,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Calendar, Loader2, Inbox } from "lucide-react";
+import { Calendar, Inbox } from "lucide-react";
 import { BookingActions } from "../../_components/Booking/BookingActions";
 import { BookingDetailsModal } from "../../_components/Booking/BookingDetailsModal";
 import StatusBadge from "../../_components/Booking/BookingStatusBadge";
-import { BookingStatus, IBooking,  } from "../../_components/Booking/BookingType";
+import { BookingStatus, IBooking } from "../../_components/Booking/BookingType";
 import { getTechnicianBooking } from "@/lib/api/booking";
+import { BookingStatusFilter } from "../../_components/technicianBooking/BookingStatusFilter";
+import { TableSkeleton } from "../../_components/technicianBooking/TableSkeleton";
+
 
 export default function TechnicianBookingsPage() {
   const [bookings, setBookings] = useState<IBooking[]>([]);
@@ -25,104 +28,101 @@ export default function TechnicianBookingsPage() {
   const [filterStatus, setFilterStatus] = useState<string>("ALL");
   const [selectedBooking, setSelectedBooking] = useState<IBooking | null>(null);
 
-  // Fetch bookings on mount
-  useEffect(() => {
-    fetchBookings();
+  // Fetch bookings with dynamic status query
+  const fetchBookings = useCallback(async (status: string) => {
+    setLoading(true);
+    try {
+      const res = await getTechnicianBooking({ status});
+    
+      setBookings(res.data.data || []);
+     
+    } catch (err: any) {
+      toast.error(err?.message || "Failed to load bookings");
+      console.error("Failed to load bookings", err);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  const fetchBookings = async () => {
-  setLoading(true);
-  try {
-    const res = await getTechnicianBooking(); 
-    console.log("all booking.............", res);
+  
 
-    const bookingData = res?.data || res?.result || (Array.isArray(res) ? res : []);
-    
-    setBookings(bookingData);
-  } catch (err) {
-    console.error("Failed to load bookings", err);
-  } finally {
-    setLoading(false);
-  }
-};
+  useEffect(() => {
+    fetchBookings(filterStatus);
+  }, [filterStatus, fetchBookings]);
+
+  const handleStatusChange = (newStatus: string) => {
+    setFilterStatus(newStatus);
+  };
+
   const handleStatusUpdate = (bookingId: string, newStatus: BookingStatus) => {
     setBookings((prev) =>
       prev.map((b) => (b.id === bookingId ? { ...b, status: newStatus } : b))
     );
+    toast.success(`Booking status updated to ${newStatus}`);
   };
 
-  // Filtered List
-  const filteredBookings = bookings.filter((b) =>
-    filterStatus === "ALL" ? true : b.status === filterStatus
-  );
-
   return (
-    <div className="space-y-6 p-6 max-w-7xl mx-auto">
-      {/* Header */}
+    <div className="space-y-6 p-4 sm:p-6 max-w-7xl mx-auto">
+      {/* Header & Filter Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">
+          <h1
+            className="text-2xl font-bold tracking-tight text-foreground"
+            style={{ fontFamily: "Space Grotesk, sans-serif" }}
+          >
             Booking Management
           </h1>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-xs sm:text-sm text-muted-foreground mt-0.5">
             Manage customer service requests and track job progression.
           </p>
         </div>
 
-        {/* Status Filter */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 sm:pb-0">
-          {["ALL", "REQUESTED", "ACCEPTED", "PAID", "IN_PROGRESS", "COMPLETED"].map(
-            (status) => (
-              <button
-                key={status}
-                onClick={() => setFilterStatus(status)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
-                  filterStatus === status
-                    ? "bg-primary text-primary-foreground shadow-sm"
-                    : "bg-muted/60 text-muted-foreground hover:bg-muted"
-                }`}
-              >
-                {status}
-              </button>
-            )
-          )}
-        </div>
+        {/* Separated Status Filter Component */}
+        <BookingStatusFilter
+          currentStatus={filterStatus}
+          onStatusChange={handleStatusChange}
+          disabled={loading}
+        />
       </div>
 
       {/* Main Table Container */}
-      <div className="rounded-2xl border border-border bg-card overflow-hidden shadow-sm">
-        {loading ? (
-          <div className="flex h-64 items-center justify-center gap-2 text-muted-foreground">
-            <Loader2 className="h-5 w-5 animate-spin text-accent" />
-            <span>Loading bookings...</span>
-          </div>
-        ) : filteredBookings.length === 0 ? (
-          <div className="flex h-64 flex-col items-center justify-center text-muted-foreground">
-            <Inbox className="h-10 w-10 stroke-1 text-muted-foreground/50 mb-2" />
-            <p className="font-medium text-sm">No bookings found</p>
-          </div>
-        ) : (
-          <Table>
-            <TableHeader className="bg-muted/40">
-              <TableRow className="border-border hover:bg-transparent">
-                <TableHead className="w-[200px] font-semibold text-foreground">
-                  Customer
-                </TableHead>
-                <TableHead className="font-semibold text-foreground">Service</TableHead>
-                <TableHead className="font-semibold text-foreground">Scheduled Date</TableHead>
-                <TableHead className="font-semibold text-foreground">Status</TableHead>
-                <TableHead className="text-right font-semibold text-foreground">
-                  Actions
-                </TableHead>
+      <div className="rounded-3xl border border-border bg-card overflow-hidden shadow-sm">
+        <Table>
+          <TableHeader className="bg-muted/40">
+            <TableRow className="border-border hover:bg-transparent">
+              <TableHead className="w-[220px] font-semibold text-foreground">
+                Customer
+              </TableHead>
+              <TableHead className="font-semibold text-foreground">Service</TableHead>
+              <TableHead className="font-semibold text-foreground">Scheduled Date</TableHead>
+              <TableHead className="font-semibold text-foreground">Status</TableHead>
+              <TableHead className="text-right font-semibold text-foreground">
+                Actions
+              </TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {loading ? (
+              <TableSkeleton rows={5} />
+            ) : bookings.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={5} className="h-64 text-center">
+                  <div className="flex flex-col items-center justify-center text-muted-foreground">
+                    <Inbox className="h-10 w-10 stroke-1 text-muted-foreground/50 mb-2" />
+                    <p className="font-medium text-sm text-foreground">No bookings found</p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      No customer requests under the "{filterStatus}" filter.
+                    </p>
+                  </div>
+                </TableCell>
               </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredBookings.map((booking) => (
+            ) : (
+              bookings.map((booking) => (
                 <TableRow key={booking.id} className="border-border hover:bg-muted/30">
                   {/* Customer Info */}
                   <TableCell>
                     <div className="flex flex-col">
-                      <span className="font-semibold text-foreground">
+                      <span className="font-semibold text-foreground text-sm">
                         {booking.customer?.name || "N/A"}
                       </span>
                       <span className="text-xs text-muted-foreground">
@@ -134,11 +134,11 @@ export default function TechnicianBookingsPage() {
                   {/* Service Info */}
                   <TableCell>
                     <div className="flex flex-col">
-                      <span className="font-medium text-foreground">
+                      <span className="font-medium text-foreground text-sm">
                         {booking.service?.title}
                       </span>
                       <span className="text-xs font-semibold text-accent">
-                        ${booking.service?.price}
+                        ৳{booking.service?.price}
                       </span>
                     </div>
                   </TableCell>
@@ -147,7 +147,7 @@ export default function TechnicianBookingsPage() {
                   <TableCell>
                     <div className="flex items-center gap-1.5 text-xs text-foreground">
                       <Calendar className="h-3.5 w-3.5 text-muted-foreground" />
-                      {new Date(booking.scheduledAt).toLocaleString("en-US", {
+                      {new Date(booking.scheduledAt).toLocaleString("en-BD", {
                         dateStyle: "medium",
                         timeStyle: "short",
                       })}
@@ -171,10 +171,10 @@ export default function TechnicianBookingsPage() {
                     </div>
                   </TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        )}
+              ))
+            )}
+          </TableBody>
+        </Table>
       </div>
 
       {/* Details Modal */}

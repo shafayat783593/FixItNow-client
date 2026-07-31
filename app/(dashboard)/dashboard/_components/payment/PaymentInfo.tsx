@@ -20,7 +20,7 @@ export default function PaymentInfo({ payment }: { payment: Payment | null }) {
       <div className="mt-3 grid grid-cols-2 gap-3 text-[13px]">
         <div>
           <p className="text-muted-foreground">Amount</p>
-          <p className="font-semibold text-foreground">৳{payment.amount}</p>
+          <p className="font-semibold text-foreground">${payment.amount}</p>
         </div>
         <div>
           <p className="text-muted-foreground">Status</p>

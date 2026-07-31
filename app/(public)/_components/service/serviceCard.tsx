@@ -61,7 +61,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
               Estimated Price
             </span>
             <span className="text-2xl font-black text-[#0F1B2B]">
-              ৳{service.price.toLocaleString()}
+              ${service.price.toLocaleString()}
             </span>
           </div>
 

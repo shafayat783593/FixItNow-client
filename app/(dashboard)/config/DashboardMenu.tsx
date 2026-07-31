@@ -31,6 +31,11 @@ const TECHNICIAN_SIDEBAR_ITEM:ISidebarItem[] = [
         href: "/dashboard/technician/bookings",
         icon: FileText
     },
+    {
+        label: "Availability",
+        href: "/dashboard/technician/availability",
+        icon: FileText
+    },
 ]
 const ADMIN_SIDEBAR_ITEM:ISidebarItem[] = [
     {

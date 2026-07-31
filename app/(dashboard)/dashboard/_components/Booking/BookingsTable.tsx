@@ -44,7 +44,7 @@ export default function BookingsTable({
   };
 
   const handlePayment = (e: React.MouseEvent, bookingId: string) => {
-    e.stopPropagation(); // Row click/navigation আটকানোর জন্য
+    e.stopPropagation(); 
     router.push(`/dashboard/customer/my-bookings/${bookingId}/pay`);
                      
 
@@ -103,7 +103,7 @@ export default function BookingsTable({
 
               {/* Price */}
               <td className="px-4 py-3.5 text-right font-semibold text-foreground">
-                ৳{b.service?.price}
+                ${b.service?.price}
               </td>
 
               {/* Action Buttons */}

@@ -128,7 +128,7 @@ export function ServiceFilter({ categories = [] }: ServiceFilterProps) {
 
         {/* 3. Price Range Inputs */}
         <div className="flex items-center gap-1 min-w-[140px] flex-1 bg-slate-50/80 rounded-xl px-2.5 py-1 transition-all hover:bg-slate-100/80">
-          <span className="text-[11px] font-bold text-slate-400">৳</span>
+          <span className="text-[11px] font-bold text-slate-400">$</span>
           <input
             type="number"
             placeholder="Min"

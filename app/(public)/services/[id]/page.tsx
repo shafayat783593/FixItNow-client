@@ -203,7 +203,7 @@ export default async function ServiceDetailsPage({ params }: ServiceDetailsPageP
 
               <div className="mt-2 flex items-baseline gap-1">
                 <span className="text-4xl font-black text-foreground">
-                  ৳{price.toLocaleString()}
+                  ${price.toLocaleString()}
                 </span>
                 <span className="text-xs font-medium text-muted-foreground">/ service</span>
               </div>

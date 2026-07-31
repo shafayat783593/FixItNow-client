@@ -102,18 +102,18 @@ export default async function PayBookingPage({
             <div className="rounded-2xl border border-border/60 bg-muted/30 p-4 space-y-2">
               <div className="flex items-center justify-between text-xs text-muted-foreground">
                 <span>Service Charge</span>
-                <span>৳{booking.service?.price}</span>
+                <span>${booking.service?.price}</span>
               </div>
               <div className="flex items-center justify-between text-xs text-muted-foreground">
                 <span>Tax & Platform Fee</span>
-                <span>৳0</span>
+                <span>$0</span>
               </div>
               <div className="border-t border-border pt-2.5 flex items-center justify-between">
                 <span className="flex items-center gap-1.5 text-xs font-semibold text-foreground">
                   <Receipt className="h-4 w-4 text-accent" /> Total Payable
                 </span>
                 <span className="text-2xl font-bold text-foreground">
-                  ৳{booking.service?.price}
+                  ${booking.service?.price}
                 </span>
               </div>
             </div>
