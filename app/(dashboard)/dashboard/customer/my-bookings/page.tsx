@@ -1,11 +1,11 @@
 
-import { getMyBookingsAction } from "@/app/(public)/_action/booking";
 import { UniversalSearchBar } from "@/components/shared/UniversalSearchBar";
 import { PackageSearch } from "lucide-react";
 import Link from "next/link";
 import { BookingFilter } from "../../_components/Booking/BookingFilter";
 import BookingsTable from "../../_components/Booking/BookingsTable";
 import { Pagination } from "@/app/(public)/_components/pagenation";
+import { getMyBookingsAction } from "@/lib/api/booking";
 
 export default async function MyBookingsPage({
   searchParams,

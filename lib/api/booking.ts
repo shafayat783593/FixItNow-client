@@ -16,7 +16,21 @@ export interface IBookingQuery {
   limit?: string | number;
 }
 
-export const createBooking = async (payload: IBookingPayload) => {
+export interface IAvailableSlot {
+  startTime: string; // "09:00"
+  endTime: string;   // "10:00"
+}
+
+
+
+export interface ICreateBookingPayload {
+  serviceId: string;
+  scheduledAt: string;  
+  address: string;
+  notes?: string;
+}
+
+export const createBooking = async (payload: ICreateBookingPayload) => {
   const res = await fetch("/api/booking", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -25,8 +39,7 @@ export const createBooking = async (payload: IBookingPayload) => {
   });
 
 
-
-  return res.json();
+  return res;
 };
 
 export async function getMyBookingsAction(query?: IBookingQuery) {
@@ -56,3 +69,17 @@ export async function cancelBookingAction(bookingId: string) {
   });
   return res;
 }
+
+
+
+export const getAvailableSlots = async (technicianId: string,date: string,serviceId: string): Promise<IAvailableSlot[]> => {
+  const params = new URLSearchParams({ date, serviceId });
+
+  const res = await serverFetch(`/api/technician/${technicianId}/available-slots?${params.toString()}`,
+    { credentials: "include" }
+  );
+
+
+
+  return res;
+};

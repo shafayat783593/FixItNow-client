@@ -1,4 +1,3 @@
-// DashboardSidebar.tsx
 'use client';
 
 import React, { useEffect } from "react";
@@ -54,22 +53,22 @@ export default function DashboardSidebar({
             <aside
                 style={{ width: sidebarWidth }}
                 className={`fixed lg:sticky top-0 left-0 z-50 h-screen bg-card
-                    border-r border-accent-10 transition-all duration-300 ease-in-out
+                    border-r border-border transition-all duration-300 ease-in-out
                     shadow-sm flex flex-col
                     ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}
             >
                 <div className="flex flex-col h-full overflow-hidden">
                     <div className="p-6 flex items-center justify-between min-h-[90px]">
                         {isOpen ? (
-                            <div className="text-2xl font-display font-black text-primary dark:text-accent truncate">
-                                NovaShop
+                            <div className="text-2xl font-display font-black text-primary truncate">
+                         FixItNow
                             </div>
                         ) : (
                             <div className="text-2xl font-black text-primary mx-auto">T.</div>
                         )}
                         <button
                             onClick={() => setIsExpanded(!isExpanded)}
-                            className="hidden lg:flex p-2 rounded-xl bg-primary/10 text-primary hover:bg-primary hover:text-white transition-all active:scale-90"
+                            className="hidden lg:flex p-2 rounded-xl bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all active:scale-90"
                         >
                             {isExpanded ? <ChevronLeft size={20} /> : <ChevronRight size={20} />}
                         </button>
@@ -82,10 +81,12 @@ export default function DashboardSidebar({
                                     {user?.name?.[0] || "?"}
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <p className="text-sm font-bold text-heading truncate">
+                                    <p className="text-sm font-bold text-foreground truncate">
                                         {user?.name}
                                     </p>
-                                    <span>{role}</span>
+                                    <span className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+                                        {role}
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -104,17 +105,17 @@ export default function DashboardSidebar({
                                         font-bold transition-all duration-200 group
                                         ${isOpen ? 'px-4 py-3' : 'px-3 py-3 justify-center'}
                                         ${isActive
-                                            ? 'bg-primary text-white shadow-lg shadow-primary/20'
-                                            : 'text-body hover:bg-primary/5 hover:text-primary'
+                                            ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/20'
+                                            : 'text-muted-foreground hover:bg-primary/5 hover:text-primary'
                                         }`}
                                 >
                                     <Icon
                                         size={22}
-                                        className={`shrink-0 ${isActive ? 'text-white' : 'text-body group-hover:text-primary'}`}
+                                        className={`shrink-0 ${isActive ? 'text-primary-foreground' : 'text-muted-foreground group-hover:text-primary'}`}
                                     />
                                     {isOpen && <span className="truncate">{item.label}</span>}
                                     {!isOpen && (
-                                        <span className="absolute left-[70px] bg-heading text-white px-3 py-1.5 rounded-lg text-xs whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50 shadow-xl">
+                                        <span className="absolute left-[70px] bg-foreground text-background px-3 py-1.5 rounded-lg text-xs whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50 shadow-xl">
                                             {item.label}
                                         </span>
                                     )}
@@ -123,10 +124,10 @@ export default function DashboardSidebar({
                         })}
                     </nav>
 
-                    <div className="p-4 border-t border-accent-10">
+                    <div className="p-4 border-t border-border">
                         <button
                             onClick={handleLogout}
-                            className={`flex items-center gap-3 w-full rounded-2xl font-black text-danger hover:bg-danger/10 transition-all ${isOpen ? 'px-4 py-3' : 'px-3 py-3 justify-center'}`}
+                            className={`flex items-center gap-3 w-full rounded-2xl font-black text-destructive hover:bg-destructive/10 transition-all ${isOpen ? 'px-4 py-3' : 'px-3 py-3 justify-center'}`}
                         >
                             <LogOut size={22} />
                             {isOpen && <span>Logout</span>}

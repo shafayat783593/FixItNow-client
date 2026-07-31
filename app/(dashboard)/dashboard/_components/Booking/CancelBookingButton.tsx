@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
-import { cancelBookingAction } from "@/app/(public)/_action/booking";
+import { cancelBookingAction } from "@/lib/api/booking";
 
 export default function CancelBookingButton({ bookingId }: { bookingId: string }) {
   const router = useRouter();

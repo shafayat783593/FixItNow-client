@@ -4,10 +4,10 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { X, Loader2 } from "lucide-react";
 import { toast } from "sonner";
-import BookingForm from "../service/BookingForm";
 import { getMe } from "@/hooks/getMe";
+import BookingForm from "./BookingForm";
 
-export default function BookingModal({ serviceId }: { serviceId: string }) {
+export default function BookingModal({ serviceId, technicianId }: { serviceId: string, technicianId: string }) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [checking, setChecking] = useState(false);
@@ -19,11 +19,11 @@ export default function BookingModal({ serviceId }: { serviceId: string }) {
       // adjust this to match whatever shape getMe() actually returns
       const currentUser = res.data.profile || res.data || res;
 
-      console.log("usrerwerqwerqwrq",currentUser)
+      console.log("usrerwerqwerqwrq", currentUser)
 
       if (!currentUser) {
         toast.error("Please log in to book a service.");
-        router.push(`/login?redirect=/services/${serviceId}`);
+        router.push(`/login?redirectTo=/services/${serviceId}`);
         return;
       }
 
@@ -68,7 +68,11 @@ export default function BookingModal({ serviceId }: { serviceId: string }) {
                 <X size={18} />
               </button>
             </div>
-            <BookingForm serviceId={serviceId} onSuccess={() => setOpen(false)} />
+            <BookingForm
+              serviceId={serviceId}
+              technicianId={technicianId}
+              onSuccess={() => setOpen(false)}
+            />
           </div>
         </div>
       )}

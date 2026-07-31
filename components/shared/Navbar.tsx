@@ -61,10 +61,8 @@ export default function Navbar() {
         const fetchUser = async () => {
             try {
                 const res = await getMe();
-                    console.log("users.........................",res)
 
                 if (res) {
-                    
                     setUser(res.data.profile || res.data || res);
                 } else {
                     setUser(null);
@@ -79,10 +77,10 @@ export default function Navbar() {
         fetchUser();
     }, []);
 
-    // keep highlight in sync with the actual route
     useEffect(() => {
         setActiveLink(pathname);
     }, [pathname]);
+
     const handleLogout = async () => {
         try {
             await logout();
@@ -99,17 +97,17 @@ export default function Navbar() {
     const dashboardHref = user ? dashboardPathByRole[user.role] : '/login';
 
     return (
-        <header className="sticky top-0 z-50 w-full border-b border-slate-200/70 bg-slate-50/85 backdrop-blur-md supports-[backdrop-filter]:bg-slate-50/70">
+        <header className="sticky top-0 z-50 w-full border-b border-border/70 bg-background/85 backdrop-blur-md supports-[backdrop-filter]:bg-background/70">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
 
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2.5 group">
-                        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-coral-400 to-coral-600 flex items-center justify-center  shadow-md shadow-coral-500/25 group-hover:scale-105 transition-transform">
-                            <Wrench className="w-5 h-5" strokeWidth={2.25} />
+                        <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center shadow-md shadow-primary/25 group-hover:scale-105 transition-transform">
+                            <Wrench className="w-5 h-5 text-primary-foreground" strokeWidth={2.25} />
                         </div>
-                        <span className="text-lg font-bold text-slate-800 tracking-tight">
-                            FixItNow<span className="text-coral-500">.</span>
+                        <span className="text-lg font-bold text-foreground tracking-tight">
+                            FixItNow<span className="text-accent">.</span>
                         </span>
                     </Link>
 
@@ -132,13 +130,13 @@ export default function Navbar() {
                                     {(hoveredLink === link.href || (active && hoveredLink === null)) && (
                                         <motion.span
                                             layoutId="nav-highlight"
-                                            className="absolute inset-0 rounded-lg bg-coral-500/10"
+                                            className="absolute inset-0 rounded-lg bg-accent/10"
                                             transition={{ type: 'spring', stiffness: 400, damping: 32 }}
                                         />
                                     )}
                                     <span
                                         className={`relative z-10 inline-flex items-center gap-1.5 transition-colors ${
-                                            active ? 'text-coral-600' : 'text-slate-600 hover:text-coral-600'
+                                            active ? 'text-accent-foreground' : 'text-muted-foreground hover:text-accent-foreground'
                                         }`}
                                     >
                                         <Icon className="w-4 h-4" />
@@ -152,7 +150,7 @@ export default function Navbar() {
                     {/* Profile / Auth Buttons */}
                     <div className="hidden md:flex items-center gap-3">
                         {loading ? (
-                            <div className="w-9 h-9 rounded-full bg-slate-200 animate-pulse" />
+                            <div className="w-9 h-9 rounded-full bg-muted animate-pulse" />
                         ) : user ? (
                             <div className="flex items-center gap-2">
                                 <Link
@@ -160,8 +158,8 @@ export default function Navbar() {
                                     onClick={() => setActiveLink(dashboardHref)}
                                     className={`inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
                                         isActive(dashboardHref)
-                                            ? 'text-coral-600 bg-coral-500/10'
-                                            : 'text-slate-600 hover:text-coral-600 hover:bg-coral-500/5'
+                                            ? 'text-accent-foreground bg-accent/10'
+                                            : 'text-muted-foreground hover:text-accent-foreground hover:bg-accent/5'
                                     }`}
                                 >
                                     <LayoutDashboard className="w-4 h-4" />
@@ -176,15 +174,15 @@ export default function Navbar() {
                                     onClick={() => setActiveLink('/login')}
                                     className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
                                         isActive('/login')
-                                            ? 'text-coral-600 bg-coral-500/10'
-                                            : 'text-slate-600 hover:text-coral-600'
+                                            ? 'text-accent-foreground bg-accent/10'
+                                            : 'text-muted-foreground hover:text-accent-foreground'
                                     }`}
                                 >
                                     Log in
                                 </Link>
                                 <Link
                                     href="/register"
-                                    className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-coral-500 to-coral-600 hover:from-coral-400 hover:to-coral-500 rounded-xl shadow-lg shadow-coral-500/25 transition-all hover:scale-[1.02]"
+                                    className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-bold text-primary-foreground bg-primary rounded-xl shadow-lg shadow-primary/25 transition-all hover:bg-accent hover:text-accent-foreground hover:scale-[1.02]"
                                 >
                                     <span>Get Started</span>
                                     <ArrowRight className="w-4 h-4" />
@@ -197,7 +195,7 @@ export default function Navbar() {
                     <button
                         type="button"
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                        className="md:hidden p-2 rounded-lg text-slate-600 hover:text-coral-600 hover:bg-coral-500/5 transition-colors"
+                        className="md:hidden p-2 rounded-lg text-muted-foreground hover:text-accent-foreground hover:bg-accent/5 transition-colors"
                     >
                         {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
                     </button>
@@ -212,7 +210,7 @@ export default function Navbar() {
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.25, ease: 'easeInOut' }}
-                        className="md:hidden overflow-hidden border-t border-slate-200/70 bg-slate-50/95 backdrop-blur-md"
+                        className="md:hidden overflow-hidden border-t border-border/70 bg-background/95 backdrop-blur-md"
                     >
                         <div className="px-4 pt-3 pb-6 space-y-3">
                             <div className="space-y-1">
@@ -229,8 +227,8 @@ export default function Navbar() {
                                             }}
                                             className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-base font-medium transition-colors ${
                                                 active
-                                                    ? 'text-coral-600 bg-coral-500/10'
-                                                    : 'text-slate-600 hover:text-coral-600 hover:bg-coral-500/5'
+                                                    ? 'text-accent-foreground bg-accent/10'
+                                                    : 'text-muted-foreground hover:text-accent-foreground hover:bg-accent/5'
                                             }`}
                                         >
                                             <Icon className="w-4 h-4" />
@@ -247,8 +245,8 @@ export default function Navbar() {
                                         }}
                                         className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-base font-medium transition-colors ${
                                             isActive(dashboardHref)
-                                                ? 'text-coral-600 bg-coral-500/10'
-                                                : 'text-slate-600 hover:text-coral-600 hover:bg-coral-500/5'
+                                                ? 'text-accent-foreground bg-accent/10'
+                                                : 'text-muted-foreground hover:text-accent-foreground hover:bg-accent/5'
                                         }`}
                                     >
                                         <LayoutDashboard className="w-4 h-4" />
@@ -257,16 +255,16 @@ export default function Navbar() {
                                 )}
                             </div>
 
-                            <div className="pt-4 border-t border-slate-200/70">
+                            <div className="pt-4 border-t border-border/70">
                                 {user ? (
                                     <div className="space-y-2">
-                                        <div className="px-3 py-2 bg-white rounded-xl border border-slate-200">
-                                            <p className="text-sm font-medium text-slate-900">{user.name}</p>
-                                            <p className="text-xs text-slate-500">{user.email}</p>
+                                        <div className="px-3 py-2 bg-card rounded-xl border border-border">
+                                            <p className="text-sm font-medium text-foreground">{user.name}</p>
+                                            <p className="text-xs text-muted-foreground">{user.email}</p>
                                         </div>
                                         <button
                                             onClick={handleLogout}
-                                            className="w-full text-center px-4 py-2.5 text-sm font-medium text-red-600 bg-red-50 rounded-xl border border-red-200"
+                                            className="w-full text-center px-4 py-2.5 text-sm font-medium text-destructive bg-destructive/10 rounded-xl border border-destructive/20"
                                         >
                                             Log out
                                         </button>
@@ -281,8 +279,8 @@ export default function Navbar() {
                                             }}
                                             className={`block w-full text-center px-4 py-2.5 text-sm font-medium rounded-xl border transition-colors ${
                                                 isActive('/login')
-                                                    ? 'text-coral-600 bg-coral-500/10 border-coral-200'
-                                                    : 'text-slate-700 bg-white border-slate-200'
+                                                    ? 'text-accent-foreground bg-accent/10 border-accent/30'
+                                                    : 'text-foreground bg-card border-border'
                                             }`}
                                         >
                                             Log in
@@ -290,7 +288,7 @@ export default function Navbar() {
                                         <Link
                                             href="/register"
                                             onClick={() => setMobileMenuOpen(false)}
-                                            className="flex items-center justify-center gap-2 w-full text-center px-4 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-coral-500 to-coral-600 rounded-xl"
+                                            className="flex items-center justify-center gap-2 w-full text-center px-4 py-2.5 text-sm font-bold text-primary-foreground bg-primary rounded-xl"
                                         >
                                             <span>Get Started</span>
                                             <ArrowRight className="w-4 h-4" />

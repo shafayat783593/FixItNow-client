@@ -25,6 +25,7 @@ export default async function ServiceDetailsPage({ params }: ServiceDetailsPageP
   const { id } = await params;
 
   const service = await getSingleService(id);
+  console.log("service................................",service)
 
   if (!service || !service.id) {
     notFound();
@@ -240,7 +241,7 @@ export default async function ServiceDetailsPage({ params }: ServiceDetailsPageP
               </div>
 
               <div className="mt-8 space-y-3">
-                <BookingModal serviceId={service.id} />
+                <BookingModal serviceId={service.id} technicianId={ service.technicianId} />
 
                 <p className="text-center text-[11px] font-medium text-muted-foreground">
                   No hidden charges. Pay after service completion.
