@@ -4,7 +4,7 @@ import React, { useActionState, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Eye, EyeOff, Lock, Mail, ArrowRight, ArrowLeft, AlertCircle } from 'lucide-react';
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import { loginAction } from "../_action/_authAction";
 
 

@@ -4,7 +4,7 @@ import React, { useActionState, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Eye, EyeOff, Lock, Mail, User, ArrowRight, ArrowLeft, CheckCircle2 } from 'lucide-react';
-import toast from 'react-hot-toast';
+import { toast } from "sonner";
 import { registerAction, RegisterState } from '../_action/_authAction';
 
 const initialState: RegisterState = {

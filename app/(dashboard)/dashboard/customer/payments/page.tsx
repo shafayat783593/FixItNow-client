@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { CreditCard } from "lucide-react";
-import { getMyPaymentsAction } from "@/lib/actions/payment.action";
-import PaymentStatusBadge from "@/components/payment/PaymentStatusBadge";
+import PaymentStatusBadge from "../../_components/payment/PaymentStatusBadge";
+import { getMyPaymentsAction } from "@/lib/api/payment";
+
 
 export default async function PaymentsPage() {
   const { data: payments } = await getMyPaymentsAction();

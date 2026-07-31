@@ -10,7 +10,7 @@ export default function LayoutWrapper({ children }: { children: ReactNode }) {
   const pathname = usePathname();
 
 
-  const hideNavFooter = ['/dashboard/customer', '/dashboard/admin', '/dashboard/technicial', '/login', '/register', '/verify', '/reset-password', '/Forgot-password'].some(
+  const hideNavFooter = ['/dashboard/customer', '/dashboard/admin', '/dashboard/technician', '/login', '/register', '/verify', '/reset-password', '/Forgot-password'].some(
     (path) => pathname.startsWith(path)
   );
 

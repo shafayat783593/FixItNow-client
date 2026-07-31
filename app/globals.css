@@ -1,22 +1,34 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
 
 @layer base {
   :root {
     /* base surfaces */
     --background: 0 0% 100%;
-    --foreground: 213 45% 12%;      /* #0F1B2B এর কাছাকাছি */
+    --foreground: 213 45% 12%;      /* #0F1B2B */
 
     --card: 0 0% 100%;
     --card-foreground: 213 45% 12%;
 
-    --muted: 210 20% 96%;           /* slate-100 এর কাছাকাছি */
+    --popover: 0 0% 100%;
+    --popover-foreground: 213 45% 12%;
+
+    --muted: 210 20% 96%;           /* slate-100 */
     --muted-foreground: 215 16% 47%; /* slate-500 */
 
     --border: 214 20% 91%;          /* slate-200 */
+    --input: 214 20% 91%;
+    --ring: 213 45% 12%;
 
     /* brand */
     --primary: 213 45% 12%;         /* dark navy #0F1B2B */
     --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 20% 96%;
+    --secondary-foreground: 213 45% 12%;
 
     --accent: 38 92% 60%;           /* amber-400/500 */
     --accent-foreground: 213 45% 12%;
@@ -28,6 +40,16 @@
     --destructive-foreground: 0 0% 100%;
 
     --radius: 1rem;
+
+    /* Sidebar Variables */
+    --sidebar: 0 0% 100%;
+    --sidebar-foreground: 213 45% 12%;
+    --sidebar-primary: 213 45% 12%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 20% 96%;
+    --sidebar-accent-foreground: 213 45% 12%;
+    --sidebar-border: 214 20% 91%;
+    --sidebar-ring: 213 45% 12%;
   }
 
   .dark {
@@ -37,13 +59,21 @@
     --card: 220 24% 11%;
     --card-foreground: 210 20% 92%;
 
+    --popover: 220 24% 11%;
+    --popover-foreground: 210 20% 92%;
+
     --muted: 220 18% 16%;
     --muted-foreground: 215 15% 65%;
 
     --border: 220 15% 20%;
+    --input: 220 15% 20%;
+    --ring: 38 92% 55%;
 
     --primary: 0 0% 98%;
     --primary-foreground: 213 45% 12%;
+
+    --secondary: 220 18% 16%;
+    --secondary-foreground: 210 20% 92%;
 
     --accent: 38 92% 55%;
     --accent-foreground: 220 26% 8%;
@@ -52,6 +82,16 @@
     --success-foreground: 0 0% 100%;
     --destructive: 0 70% 55%;
     --destructive-foreground: 0 0% 100%;
+
+    /* Sidebar Dark */
+    --sidebar: 220 24% 11%;
+    --sidebar-foreground: 210 20% 92%;
+    --sidebar-primary: 38 92% 55%;
+    --sidebar-primary-foreground: 220 26% 8%;
+    --sidebar-accent: 220 18% 16%;
+    --sidebar-accent-foreground: 210 20% 92%;
+    --sidebar-border: 220 15% 20%;
+    --sidebar-ring: 38 92% 55%;
   }
 
   * {
@@ -69,16 +109,35 @@
   --color-foreground: hsl(var(--foreground));
   --color-card: hsl(var(--card));
   --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
   --color-muted: hsl(var(--muted));
   --color-muted-foreground: hsl(var(--muted-foreground));
   --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
   --color-primary: hsl(var(--primary));
   --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
   --color-accent: hsl(var(--accent));
   --color-accent-foreground: hsl(var(--accent-foreground));
   --color-success: hsl(var(--success));
   --color-success-foreground: hsl(var(--success-foreground));
   --color-destructive: hsl(var(--destructive));
   --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  /* Sidebar Theme Map */
+  --color-sidebar: hsl(var(--sidebar));
+  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
+  --color-sidebar-primary: hsl(var(--sidebar-primary));
+  --color-sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
+  --color-sidebar-accent: hsl(var(--sidebar-accent));
+  --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
+  --color-sidebar-border: hsl(var(--sidebar-border));
+  --color-sidebar-ring: hsl(var(--sidebar-ring));
+
   --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
 }

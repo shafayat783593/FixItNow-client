@@ -5,13 +5,14 @@ export async function createCheckoutSessionAction(bookingId: string) {
     method: "POST",
     body: { bookingId },
   });
-  return res; // { paymentUrl: string }
+  return res; 
 }
 
 
 export async function getMyPaymentsAction() {
-  const res = await serverFetch("/api/payments", {
+    const res = await serverFetch("/api/payments", {
     next: { tags: ["payments"] },
-  });
+    });
+    console.log("paymet data ",res)
   return res; // { data: IPayment[] }
 }

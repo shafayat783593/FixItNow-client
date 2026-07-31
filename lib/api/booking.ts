@@ -30,6 +30,15 @@ export interface ICreateBookingPayload {
   notes?: string;
 }
 
+export type BookingStatus =
+  | "REQUESTED"
+  | "ACCEPTED"
+  | "DECLINED"
+  | "PAID"
+  | "IN_PROGRESS"
+  | "COMPLETED"
+  | "CANCELLED";
+
 export const createBooking = async (payload: ICreateBookingPayload) => {
   const res = await fetch("/api/booking", {
     method: "POST",
@@ -81,5 +90,27 @@ export const getAvailableSlots = async (technicianId: string,date: string,servic
 
 
 
+  return res;
+};
+
+
+
+
+
+export const getTechnicianBooking = async () => {
+  const res = await serverFetch("/api/technician/bookings")
+  return res
+}
+
+
+
+
+
+export const updateBookingStatus = async (bookingId: string,actionStatus: BookingStatus) => {
+  const res = await serverFetch(`/api/technicians/bookings/${bookingId}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: { action: actionStatus }
+  });
   return res;
 };

@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { Trash2, Loader2 } from "lucide-react";
-import { deleteReviewAction } from "@/lib/actions/review.action";
+import { deleteReviewAction } from "@/lib/api/review";
 
 export default function DeleteReviewButton({ reviewId }: { reviewId: string }) {
   const router = useRouter();

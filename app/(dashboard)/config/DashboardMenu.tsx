@@ -22,13 +22,13 @@ const CUSTOMER_SIDEBAR_ITEM:ISidebarItem[] = [
 ]
 const TECHNICIAN_SIDEBAR_ITEM:ISidebarItem[] = [
     {
-        label: "Author-Dashboard",
-        href: "/author-dashboard",
+        label: "Home",
+        href: "/",
         icon: LayoutDashboard
     },
     {
-        label: "My Posts",
-        href: "/author-dashboard/my-posts",
+        label: "Booking Management",
+        href: "/dashboard/technician/bookings",
         icon: FileText
     },
 ]
