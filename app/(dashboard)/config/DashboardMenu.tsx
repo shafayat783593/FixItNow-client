@@ -36,6 +36,16 @@ const TECHNICIAN_SIDEBAR_ITEM:ISidebarItem[] = [
         href: "/dashboard/technician/availability",
         icon: FileText
     },
+    {
+        label: "Profile",
+        href: "/dashboard/technician/profile",
+        icon: FileText
+    },
+    {
+        label: "Service Management",
+        href: "/dashboard/technician/services",
+        icon: FileText
+    },
 ]
 const ADMIN_SIDEBAR_ITEM:ISidebarItem[] = [
     {

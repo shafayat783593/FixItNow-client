@@ -18,8 +18,8 @@ import { BookingDetailsModal } from "../../_components/Booking/BookingDetailsMod
 import StatusBadge from "../../_components/Booking/BookingStatusBadge";
 import { BookingStatus, IBooking } from "../../_components/Booking/BookingType";
 import { getTechnicianBooking } from "@/lib/api/booking";
-import { BookingStatusFilter } from "../../_components/technicianBooking/BookingStatusFilter";
-import { TableSkeleton } from "../../_components/technicianBooking/TableSkeleton";
+import { BookingStatusFilter } from "../../_components/technician/BookingStatusFilter";
+import { TableSkeleton } from "../../_components/technician/TableSkeleton";
 
 
 export default function TechnicianBookingsPage() {

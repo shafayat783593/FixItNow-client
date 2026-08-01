@@ -1,4 +1,5 @@
 import { serverFetch } from "@/lib/api/serverFetch";
+import { ITechnicianProfileInput } from "../validations/technician";
 
 export interface ITechnicianQuery {
   searchItem?: string;
@@ -15,6 +16,23 @@ export interface IAvailabilitySlot {
   startTime: string;
   endTime: string;
   isAvailable?: boolean;
+}
+
+
+export interface ITechnicianProfileResponse {
+  id: string;
+  userId: string;
+  bio?: string;
+  experience?: number;
+  location?: string;
+  skills?: string[];
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    phone?: string;
+    avatar?: string;
+  };
 }
 
 export const getAllTechnicians = async (query?: ITechnicianQuery) => {
@@ -63,7 +81,8 @@ export const getTechnicianAvailability = async () => {
 
 // 2. Update technician availability
 export const updateTechnicianAvailability = async (slots: IAvailabilitySlot[]) => {
-  const res = await serverFetch("/api/technician/availability", {
+  const res =
+    await serverFetch("/api/technician/availability", {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -73,3 +92,24 @@ export const updateTechnicianAvailability = async (slots: IAvailabilitySlot[]) =
 
   return res;
 };
+
+
+export const updateTechnicianProfile = async (data: ITechnicianProfileInput) => {
+  const res = await serverFetch("/api/technician/profile", {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: data,
+  });
+
+  return res;
+};
+
+
+export async function deleteServiceAction(id: string) {
+  const res = await serverFetch(`/api/technician/${id}`, {
+    method: "DELETE",
+  });
+  return res;
+}

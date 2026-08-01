@@ -1,5 +1,6 @@
 import { serverFetch } from "@/lib/api/serverFetch";
 import { number } from "framer-motion";
+import { ServiceFormValues } from "../validations/technician";
 
 
 export interface IServiceQuery {
@@ -13,6 +14,39 @@ export interface IServiceQuery {
   limit?: string | number;
 }
 
+
+export interface IServiceQuery {
+  searchItem?: string;
+  category?: string;
+  page?: string | number;
+  limit?: string | number;
+}
+
+
+export interface IService {
+  _id: string;
+  title: string;
+  description: string;
+  category: string;
+  price: number;
+  duration?: string;
+  images?: string[];
+  rating?: number;
+  reviewCount?: number;
+  technician?: {
+    _id: string;
+    name: string;
+    avatar?: string;
+    location?: string;
+  };
+}
+
+export interface ICategory {
+  id: string;
+  name: string;
+  description?: string;
+  IService:string,
+}
 
 
 export const getAllService = async (query?: IServiceQuery) => {
@@ -80,3 +114,37 @@ export async function getSingleService(id: string) {
   console.log()
   return res?.data || res || null;
 }
+
+
+
+export async function getMyServicesAction() {
+  const res = await serverFetch(`/api/services/my-services`, {
+    next: {
+      tags: ["my-services"]
+    },
+  });
+  return res;
+}
+export async function getAllCategoriesAction() {
+  const res = await serverFetch(`/api/categories?limit=100`, {
+    next: { tags: ["categories"] },
+  });
+  return res.data; 
+}
+
+export async function createServiceAction(payload: ServiceFormValues) {
+  const res = await serverFetch("/api/services", {
+    method: "POST",
+    body: payload,
+  });
+  return res;
+}
+
+export async function updateServiceAction(id: string, payload: Partial<ServiceFormValues>) {
+  const res = await serverFetch(`/api/services/${id}`, {
+    method: "PATCH",
+    body: payload,
+  });
+  return res;
+}
+
