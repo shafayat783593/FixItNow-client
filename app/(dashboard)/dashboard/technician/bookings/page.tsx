@@ -138,7 +138,7 @@ export default function TechnicianBookingsPage() {
                         {booking.service?.title}
                       </span>
                       <span className="text-xs font-semibold text-accent">
-                        ৳{booking.service?.price}
+                        ${booking.service?.price}
                       </span>
                     </div>
                   </TableCell>

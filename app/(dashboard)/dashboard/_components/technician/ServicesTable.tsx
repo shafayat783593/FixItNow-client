@@ -22,7 +22,7 @@ export default function ServicesTable({ services }: { services: IService[] }) {
               <td className="px-4 py-3 font-medium text-foreground">{s.title}</td>
               <td className="hidden px-4 py-3 text-muted-foreground sm:table-cell">{s.category?.name}</td>
               <td className="hidden px-4 py-3 text-muted-foreground md:table-cell">{s.duration} mins</td>
-              <td className="px-4 py-3 font-semibold text-foreground">৳{s.price}</td>
+              <td className="px-4 py-3 font-semibold text-foreground">${s.price}</td>
               <td className="px-4 py-3">
                 <div className="flex items-center justify-end gap-2">
                   <Link

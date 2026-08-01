@@ -47,7 +47,7 @@ export function AdminBookingsTable({ bookings }: { bookings: IAdminBooking[] }) 
               <TableCell className="hidden text-muted-foreground lg:table-cell">
                 {b.payment?.status ?? "—"}
               </TableCell>
-              <TableCell className="text-right font-semibold text-foreground">৳{b.service?.price}</TableCell>
+              <TableCell className="text-right font-semibold text-foreground">${b.service?.price}</TableCell>
             </TableRow>
           ))}
         </TableBody>

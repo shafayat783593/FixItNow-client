@@ -116,7 +116,7 @@ export default function ServiceForm({ categories, initialData }: ServiceFormProp
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-            Price (৳)
+            Price ($)
           </label>
           <Input
             type="number"

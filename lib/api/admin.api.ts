@@ -137,3 +137,19 @@ export async function deleteCategoryAction(id: string) {
   });
   return res;
 }
+
+
+
+export interface IDashboardStats {
+  totalUsers: number;
+  activeBookings: number;
+  totalRevenue: number;
+}
+
+
+export async function getDashboardStatsAction() {
+  const res = await serverFetch("/api/admin/stats", {
+    next: { tags: ["admin-stats"] },
+  });
+  return res?.data ?? res;
+}
