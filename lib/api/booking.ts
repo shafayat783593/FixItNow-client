@@ -127,3 +127,27 @@ export const updateBookingStatus = async (bookingId: string, actionStatus: Booki
   });
   return res;
 };
+
+
+
+export interface ICustomerDashboardStats {
+  totalBookings: number;
+  activeBookings: number;
+  completedBookings: number;
+  totalSpent: number;
+  recentBookings: {
+    id: string;
+    status: string;
+    scheduledAt: string;
+    createdAt: string;
+    service: { id: string; title: string; price: number };
+    technician: { user: { name: string } };
+  }[];
+}
+
+export async function getCustomerDashboardStatsAction() {
+  const res = await serverFetch("/api/bookings/dashboard/stats", {
+    next: { tags: ["customer-stats"] },
+  });
+  return res?.data ?? res;
+}

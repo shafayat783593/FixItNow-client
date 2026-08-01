@@ -1,110 +1,129 @@
+"use server";
 
-"use server"
-
-import { JwtPayload } from "jsonwebtoken"
-import jwt from "jsonwebtoken"
-import { cookies } from "next/headers"
-import { redirect } from "next/navigation"
-
-type LoginState = {
-    success: true,
-    statusCode: number,
-    message: string,
-    data: {
-        accessToken: string,
-        refreshToken: string
-    }
-}
-
+import { loginSchema, registerSchema } from "@/lib/validations/auth";
+import { JwtPayload } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export interface RegisterState {
-    success: boolean;
-    error?: string | null;
+  success: boolean;
+  error?: string | null;
 }
 
+export interface LoginState {
+  success: boolean;
+  message: string;
+}
 
+export const registerAction = async (
+  prevState: RegisterState,
+  formData: FormData
+): Promise<RegisterState> => {
+  const raw = {
+    fullName: formData.get("fullName") as string,
+    email: formData.get("email") as string,
+    password: formData.get("password") as string,
+    role: formData.get("role") as string,
+  };
 
-export const registerAction = async (prevState: RegisterState, formData: FormData) => {
-    const name = formData.get('fullName') as string;
-    const email = formData.get('email') as string;
-    const password = formData.get('password') as string;
-    try {
+  const parsed = registerSchema.safeParse(raw);
+  if (!parsed.success) {
+    return {
+      success: false,
+      error: parsed.error.issues[0]?.message ?? "Invalid input",
+    };
+  }
 
-        const response = await fetch(`${process.env.BACKEND_API_URL}/api/auth/register`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, email, password }),
-        });
-        const data = await response.json();
-        if (!data.success) {
-            return {
-                success: false,
-                error: data.error || data.message || "Registration failed",
-            };
-        }
+  try {
+    const response = await fetch(`${process.env.BACKEND_API_URL}/api/auth/register`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: parsed.data.fullName,
+        email: parsed.data.email,
+        password: parsed.data.password,
+        role: parsed.data.role,
+      }),
+    });
 
-        return { success: true, error: null };
-    } catch (err) {
-        return {
-            success: false,
-            error: err instanceof Error ? err.message : 'Something went wrong.'
-        };
+    const data = await response.json();
+
+    if (!data.success) {
+      return {
+        success: false,
+        error: data.message || "Registration failed",
+      };
     }
+
+    return { success: true, error: null };
+  } catch (err) {
+    return {
+      success: false,
+      error: err instanceof Error ? err.message : "Something went wrong.",
+    };
+  }
 };
 
+export const loginAction = async (
+  redirectTo: string,
+  prevState: LoginState | null,
+  formData: FormData
+): Promise<LoginState> => {
+  const raw = {
+    email: formData.get("email"),
+    password: formData.get("password"),
+  };
 
+  const parsed = loginSchema.safeParse(raw);
+  if (!parsed.success) {
+    return {
+      success: false,
+      message: parsed.error.issues[0]?.message ?? "Invalid input",
+    };
+  }
 
+  const res = await fetch(`${process.env.BACKEND_API_URL}/api/auth/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(parsed.data),
+  });
 
-export const loginAction = async (redirectTo: string, prevState: LoginState, formData: FormData) => {
+  const result = await res.json();
 
+  if (!result.success) {
+    return {
+      success: false,
+      message: result.message || "Invalid email or password",
+    };
+  }
 
-    const email = formData.get("email")
-    const password = formData.get("password")
-    const payload = {
-        email,
-        password
-    }
-    const res = await fetch(`${process.env.BACKEND_API_URL}/api/auth/login`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(payload)
-    })
-    const result = await res.json()
-    if (result.success) {
-        const cookieStore = await cookies()
-        cookieStore.set("accessToken", result.data.accessToken, {
-            httpOnly: true,
-            maxAge: 60 * 60 * 24,
-            sameSite: "lax"
-        })
-        cookieStore.set("refreshToken", result.data.refreshToken, {
-            httpOnly: true,
-            maxAge: 60 * 60 * 24 * 7,
-            sameSite: "lax"
-        })
-        const decodedToken = jwt.decode(result.data.accessToken) as JwtPayload
+  const cookieStore = await cookies();
+  cookieStore.set("accessToken", result.data.accessToken, {
+    httpOnly: true,
+    maxAge: 60 * 60 * 24,
+    sameSite: "lax",
+  });
+  cookieStore.set("refreshToken", result.data.refreshToken, {
+    httpOnly: true,
+    maxAge: 60 * 60 * 24 * 7,
+    sameSite: "lax",
+  });
 
-        if (redirectTo && typeof redirectTo === "string" && redirectTo.startsWith("/") && !redirectTo.startsWith("//")) {
-            redirect(redirectTo)
-        }
+  const decodedToken = jwt.decode(result.data.accessToken) as JwtPayload;
 
+  if (redirectTo && typeof redirectTo === "string" && redirectTo.startsWith("/") && !redirectTo.startsWith("//")) {
+    redirect(redirectTo);
+  }
 
-        if (decodedToken.role === "CUSTOMER") {
+  if (decodedToken.role === "CUSTOMER") {
+    redirect("/dashboard/customer");
+  } else if (decodedToken.role === "ADMIN") {
+    redirect("/dashboard/admin");
+  } else if (decodedToken.role === "TECHNICIAN") {
+    redirect("/dashboard/technician");
+  }
 
-            redirect("/dashboard/customer")
-        }
-        else if (decodedToken.role === "ADMIN") {
-            redirect("/dashboard/admin")
-
-        }
-        else if (decodedToken.role === "TECHNICIAN") {
-            redirect("/dashboard/technician")
-
-        }
-        // redirect("/dashboard")
-        // redirect("/dashboard", "replace")
-    }
-    return result
-}
+  // role match না হলে fallback — silent hang আটকাতে
+  redirect("/");
+};

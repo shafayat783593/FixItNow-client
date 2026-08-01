@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
 import React, { useActionState, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Eye, EyeOff, Lock, Mail, User, ArrowRight, ArrowLeft, CheckCircle2 } from 'lucide-react';
+import { Eye, EyeOff, Lock, Mail, User, ArrowRight, ArrowLeft, CheckCircle2, Wrench, ShoppingBag } from 'lucide-react';
 import { toast } from "sonner";
 import { registerAction, RegisterState } from '../_action/_authAction';
 
@@ -14,20 +14,16 @@ const initialState: RegisterState = {
 
 export default function RegisterForm() {
   const [password, setPassword] = useState<string>('');
-  const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [clientError, setClientError] = useState<string | null>(null);
+  const [role, setRole] = useState<'CUSTOMER' | 'TECHNICIAN'>('CUSTOMER');
 
   const router = useRouter();
 
-  // Password Strength Check
   const isPasswordLongEnough = password.length >= 8;
   const hasSpecialCharOrNumber = /[0-9!@#$%^&*]/.test(password);
 
-  // React 19 / Next.js 15 useActionState
   const [state, action, isPending] = useActionState(registerAction, initialState);
 
-  // Watch state changes for server response toasts
   useEffect(() => {
     if (!state) return;
     if (state.success) {
@@ -36,34 +32,20 @@ export default function RegisterForm() {
         router.push('/login');
       }, 1000);
     } else if (state.error) {
-      toast.error(state.error || 'Failed to register user');
+      toast.error(state.error);
     }
   }, [state, router]);
 
-  // Form Submit Validation Handling
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    setClientError(null);
-
-    if (password !== confirmPassword) {
+    if (!isPasswordLongEnough || !hasSpecialCharOrNumber) {
       e.preventDefault();
-      const errMsg = 'Passwords do not match.';
-      setClientError(errMsg);
-      toast.error(errMsg);
-      return;
-    }
-
-    if (!isPasswordLongEnough) {
-      e.preventDefault();
-      const errMsg = 'Password must be at least 8 characters long.';
-      setClientError(errMsg);
-      toast.error(errMsg);
+      toast.error('Password must be at least 8 characters and include a number or symbol.');
       return;
     }
   };
 
   return (
     <div className="w-full max-w-sm mx-auto my-auto py-2">
-      {/* Top Back Button */}
       <div className="mb-4">
         <Link
           href="/"
@@ -74,20 +56,45 @@ export default function RegisterForm() {
         </Link>
       </div>
 
-      {/* Header */}
       <div className="text-center mb-6">
         <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">Register</h1>
         <p className="text-xs text-slate-500 font-medium mt-1">Enter your details to create an account</p>
       </div>
 
-      {/* Form */}
       <form action={action} onSubmit={handleSubmit} className="space-y-3 font-sans">
-        
-        {/* Full Name Input */}
+
+        {/* Role Selector */}
         <div>
-          <label className="block text-xs font-bold text-slate-700 mb-1.5">
-            Full Name
-          </label>
+          <label className="block text-xs font-bold text-slate-700 mb-1.5">I want to</label>
+          <input type="hidden" name="role" value={role} />
+          <div className="grid grid-cols-2 gap-2">
+            <button
+              type="button"
+              onClick={() => setRole('CUSTOMER')}
+              className={`flex items-center justify-center gap-2 rounded-xl border py-2.5 text-sm font-semibold transition-all ${
+                role === 'CUSTOMER'
+                  ? 'border-orange-500 bg-orange-50 text-orange-600'
+                  : 'border-slate-200 bg-slate-50 text-slate-500 hover:border-slate-300'
+              }`}
+            >
+              <ShoppingBag className="w-4 h-4" /> Book services
+            </button>
+            <button
+              type="button"
+              onClick={() => setRole('TECHNICIAN')}
+              className={`flex items-center justify-center gap-2 rounded-xl border py-2.5 text-sm font-semibold transition-all ${
+                role === 'TECHNICIAN'
+                  ? 'border-orange-500 bg-orange-50 text-orange-600'
+                  : 'border-slate-200 bg-slate-50 text-slate-500 hover:border-slate-300'
+              }`}
+            >
+              <Wrench className="w-4 h-4" /> Offer services
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <label className="block text-xs font-bold text-slate-700 mb-1.5">Full Name</label>
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
               <User className="w-4 h-4" />
@@ -102,11 +109,8 @@ export default function RegisterForm() {
           </div>
         </div>
 
-        {/* Email Input */}
         <div>
-          <label className="block text-xs font-bold text-slate-700 mb-1.5">
-            Email Address
-          </label>
+          <label className="block text-xs font-bold text-slate-700 mb-1.5">Email Address</label>
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
               <Mail className="w-4 h-4" />
@@ -121,11 +125,8 @@ export default function RegisterForm() {
           </div>
         </div>
 
-        {/* Password Input */}
         <div>
-          <label className="block text-xs font-bold text-slate-700 mb-1.5">
-            Password
-          </label>
+          <label className="block text-xs font-bold text-slate-700 mb-1.5">Password</label>
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
               <Lock className="w-4 h-4" />
@@ -149,28 +150,6 @@ export default function RegisterForm() {
           </div>
         </div>
 
-        {/* Confirm Password Input */}
-        <div>
-          <label className="block text-xs font-bold text-slate-700 mb-1.5">
-            Confirm Password
-          </label>
-          <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-              <Lock className="w-4 h-4" />
-            </div>
-            <input
-              type={showPassword ? 'text' : 'password'}
-              name="confirmPassword"
-              required
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              placeholder="••••••••"
-              className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-orange-500/30 focus:border-orange-500 transition-all"
-            />
-          </div>
-        </div>
-
-        {/* Password Requirements Checklist */}
         {password && (
           <div className="p-2.5 bg-slate-50 rounded-xl border border-slate-200 space-y-1 text-xs text-slate-500">
             <div className={`flex items-center gap-1.5 ${isPasswordLongEnough ? 'text-emerald-600 font-semibold' : ''}`}>
@@ -184,7 +163,6 @@ export default function RegisterForm() {
           </div>
         )}
 
-        {/* Submit Button */}
         <button
           type="submit"
           disabled={isPending}
@@ -204,7 +182,6 @@ export default function RegisterForm() {
         </button>
       </form>
 
-      {/* Footer */}
       <p className="mt-5 text-center text-xs text-slate-400 font-medium">
         Already have an account?{' '}
         <Link href="/login" className="font-bold text-orange-500 hover:text-orange-600 transition-colors">

@@ -30,7 +30,7 @@ export default function BookingModal({ serviceId, technicianId }: { serviceId: s
       setOpen(true);
     } catch (err) {
       toast.error("Please log in to book a service.");
-      router.push(`/login?redirect=/services/${serviceId}`);
+      router.push(`/login?redirectTo=/services/${serviceId}`);
     } finally {
       setChecking(false);
     }
