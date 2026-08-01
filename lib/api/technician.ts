@@ -113,3 +113,23 @@ export async function deleteServiceAction(id: string) {
   });
   return res;
 }
+
+
+export interface ITechnicianDashboardStats {
+  upcomingJobs: {
+    id: string;
+    scheduledAt: string;
+    status: string;
+    customer: { id: string; name: string; phone?: string };
+    service: { id: string; title: string; price: number };
+  }[];
+  pendingRequestsCount: number;
+  totalEarnings: number;
+}
+
+export async function getTechnicianDashboardStatsAction() {
+  const res = await serverFetch("/api/technician/stats", {
+    next: { tags: ["technician-stats"] },
+  });
+  return res?.data ?? res;
+}
