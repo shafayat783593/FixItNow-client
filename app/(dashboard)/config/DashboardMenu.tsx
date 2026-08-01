@@ -55,7 +55,17 @@ const ADMIN_SIDEBAR_ITEM:ISidebarItem[] = [
     },
     {
         label: "Manage users ",
-        href: "/dashboard/manage-users",
+        href: "/dashboard/admin/users",
+        icon: FileText
+    },
+    {
+        label: "Manage bookings ",
+        href: "/dashboard/admin/bookings",
+        icon: FileText
+    },
+    {
+        label: "Manage categories ",
+        href: "/dashboard/admin/categories",
         icon: FileText
     },
 ]
