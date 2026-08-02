@@ -7,6 +7,7 @@ import { LogOut, ChevronLeft, ChevronRight } from 'lucide-react';
 import { logout } from "@/hooks/logout";
 import { DashboardSidebarProps, ISidebarItem } from "@/lib/type";
 import { sideBarMenuItems } from "../config/DashboardMenu";
+import Image from "next/image";
 
 export default function DashboardSidebar({
     user,
@@ -74,23 +75,37 @@ export default function DashboardSidebar({
                         </button>
                     </div>
 
-                    {isOpen && user && (
-                        <div className="px-4 pb-3">
-                            <div className="flex items-center gap-2 bg-primary/5 rounded-xl px-3 py-2">
-                                <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-sm uppercase">
-                                    {user?.name?.[0] || "?"}
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                    <p className="text-sm font-bold text-foreground truncate">
-                                        {user?.name}
-                                    </p>
-                                    <span className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
-                                        {role}
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    )}
+
+{isOpen && user && (
+  <div className="px-4 pb-3">
+    <div className="flex items-center gap-2 bg-primary/5 rounded-xl px-3 py-2">
+      <div className="relative w-8 h-8 rounded-full overflow-hidden bg-primary/20 flex items-center justify-center">
+        {user?.avatar ? (
+          <Image
+            src={user.avatar}
+            alt={user.name || "User"}
+            fill
+            className="object-cover"
+            sizes="32px"
+          />
+        ) : (
+          <span className="text-primary font-bold text-sm uppercase">
+            {user?.name?.[0] || "?"}
+          </span>
+        )}
+      </div>
+
+      <div className="flex-1 min-w-0">
+        <p className="text-sm font-bold text-foreground truncate">
+          {user?.name}
+        </p>
+        <span className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+          {role}
+        </span>
+      </div>
+    </div>
+  </div>
+)}
 
                     <nav className="flex-1 px-3 space-y-1 mt-2 overflow-y-auto">
                         {navItems.map((item, index) => {

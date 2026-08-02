@@ -5,11 +5,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { User, LogOut, Settings, ChevronDown } from 'lucide-react';
+import Image from 'next/image';
 
 interface UserProfile {
   name: string;
   email: string;
-  avatarUrl?: string;
+  avatar?: string;
 }
 
 interface ProfileDropdownProps {
@@ -34,19 +35,32 @@ export default function ProfileDropdown({ user, onLogout }: ProfileDropdownProps
 
   return (
     <div className="relative" ref={dropdownRef}>
-         <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 p-1.5 rounded-xl hover:bg-slate-500/80 transition-colors focus:outline-none"
-      >
-        <div className="w-9 h-9 rounded-full bg-indigo-300/20 text-indigo-400 border border-indigo-500/30 flex items-center justify-center font-bold text-sm overflow-hidden">
-          {user.avatarUrl ? (
-            <img src={user.avatarUrl} alt={user.name} className="w-full h-full object-cover" />
-          ) : (
-            user.name ? user.name.charAt(0).toUpperCase() : 'U'
-          )}
-        </div>
-        <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
-      </button>
+  <button
+  onClick={() => setIsOpen(!isOpen)}
+  className="flex items-center gap-3 p-1 rounded-xl  transition-colors"
+>
+  <div className="relative w-10 h-10 rounded-full overflow-hidden bg-indigo-100 border border-indigo-200">
+    {user.avatar ? (
+      <Image
+        src={user.avatar}
+        alt={user.name}
+        fill
+        sizes="40px"
+        className="object-cover"
+      />
+    ) : (
+      <div className="flex h-full w-full items-center justify-center text-indigo-500 font-bold">
+        {user.name?.charAt(0).toUpperCase() || "U"}
+      </div>
+    )}
+  </div>
+
+  <ChevronDown
+    className={`w-4 h-4 transition-transform  cursor-pointer${
+      isOpen ? "rotate-180" : ""
+    }`}
+  />
+</button>
 
       {isOpen && (
         <div className="absolute right-0 mt-2 w-56 bg-white border border-slate-200 rounded-2xl shadow-xl shadow-slate-900/10 py-2 z-50">

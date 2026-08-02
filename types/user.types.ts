@@ -2,12 +2,14 @@ export type Role = "CUSTOMER" | "TECHNICIAN" | "ADMIN";
 export type UserStatus = "ACTIVE" | "BANNED";
 
 export interface User {
-  id: string;
+ id: string;
   name: string;
   email: string;
   phone?: string;
-  role: Role;
-  status: UserStatus;
+  avatar?: string;
+  bio?:string;
+  role: string;
+  status: string;
   createdAt: string;
 }
 

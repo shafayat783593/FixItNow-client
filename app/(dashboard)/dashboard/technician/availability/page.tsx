@@ -108,17 +108,14 @@ export default function TechnicianAvailabilityPage() {
   const handleSave = async () => {
     try {
       setSaving(true);
-      // setMessage(null);
 
       const activeSlots = slots.filter((slot) => slot.isAvailable);
       const res = await updateTechnicianAvailability(activeSlots);
 
       if (res.success) {
-        // setMessage({ type: "success", text: "Schedule updated successfully!" });
         toast.success( res.message || "Schedule updated successfully!");
       }
     } catch (err: any) {
-      // setMessage({ type: "error", text: err.message || "Failed to update schedule." });
       toast.error(err.error || "Failed to update schedule.");
     } finally {
       setSaving(false);

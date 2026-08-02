@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -14,6 +15,7 @@ import {
     Sparkles,
     Users,
     HelpCircle,
+    User as UserIcon,
 } from 'lucide-react';
 import { getMe } from '@/hooks/getMe';
 import { logout } from '@/hooks/logout';
@@ -31,6 +33,7 @@ interface UserProfile {
     name: string;
     email: string;
     role: Role;
+    avatar?: string;
     avatarUrl?: string;
 }
 
@@ -258,9 +261,24 @@ export default function Navbar() {
                             <div className="pt-4 border-t border-border/70">
                                 {user ? (
                                     <div className="space-y-2">
-                                        <div className="px-3 py-2 bg-card rounded-xl border border-border">
-                                            <p className="text-sm font-medium text-foreground">{user.name}</p>
-                                            <p className="text-xs text-muted-foreground">{user.email}</p>
+                                        <div className="flex items-center gap-3 px-3 py-2 bg-card rounded-xl border border-border">
+                                            <div className="relative w-10 h-10 rounded-full overflow-hidden bg-muted flex items-center justify-center shrink-0">
+                                                {user?.avatar ? (
+                                                    <Image
+                                                        src={user?.avatar ??""}
+                                                        alt={user?.name || 'User avatar'}
+                                                        fill
+                                                        className="object-cover"
+                                                        sizes="40px"
+                                                    />
+                                                ) : (
+                                                    <UserIcon className="w-5 h-5 text-muted-foreground" />
+                                                )}
+                                            </div>
+                                            <div className="overflow-hidden">
+                                                <p className="text-sm font-medium text-foreground truncate">{user.name}</p>
+                                                <p className="text-xs text-muted-foreground truncate">{user.email}</p>
+                                            </div>
                                         </div>
                                         <button
                                             onClick={handleLogout}

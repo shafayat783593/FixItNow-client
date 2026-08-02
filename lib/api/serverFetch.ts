@@ -12,17 +12,14 @@ export async function serverFetch <T = any>(
   path: string,
   options: FetchOptions = {}
 ): Promise<T> {
-  // কুকি থেকে এক্সেস টোকেন নেয়ার চেষ্টা করা হবে (যদি ইউজার লগইন থাকে)
   const accessData = await getAccessToken().catch(() => null);
   const accessToken = accessData?.data?.accessToken;
 
-  // হেডার অবজেক্ট প্রিপেয়ার করা
   const headers: Record<string, string> = {
     ...(options.body ? { "Content-Type": "application/json" } : {}),
     ...(options.headers as Record<string, string>),
   };
 
-  // যদি টোকেন থাকে, তবে কুকি হেডার পাঠাবে, না থাকলে ছাড়াই পাঠাবে
   if (typeof accessToken === "string" && accessToken) {
     headers["cookie"] = `accessToken=${accessToken}`;
   }

@@ -29,7 +29,7 @@ export default function TechnicianProfileForm({ initialData }: TechnicianProfile
       avatar: initialData?.avatar || "",
       bio: profile?.bio || "",
       experience: profile?.experience ?? 0,
-      address: profile?.location || "",
+      location: profile?.location || "",
       skills: Array.isArray(profile?.skills) ? profile.skills.join(", ") : profile?.skills || "",
     },
   });
@@ -42,6 +42,7 @@ export default function TechnicianProfileForm({ initialData }: TechnicianProfile
 
       if (res?.success) {
         toast.success("Profile updated successfully!");
+        setSubmitting(false);
       } else {
         throw new Error(res?.message || "Failed to update profile.");
       }
@@ -116,12 +117,12 @@ export default function TechnicianProfileForm({ initialData }: TechnicianProfile
               <MapPin className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
               <input
                 type="text"
-                {...register("address")}
+                {...register("location")}
                 className="w-full pl-9 pr-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
                 placeholder="Dhaka, Bangladesh"
               />
             </div>
-            {errors.address && <p className="text-xs text-red-500 mt-1">{errors.address.message}</p>}
+            {errors.location && <p className="text-xs text-red-500 mt-1">{errors.location.message}</p>}
           </div>
         </div>
 
