@@ -16,6 +16,8 @@ import {
   updateTechnicianAvailability, 
   IAvailabilitySlot 
 } from "@/lib/api/technician";
+import { TableSkeleton } from "../../_components/technician/TableSkeleton";
+import { toast } from "sonner";
 
 const DAYS_OF_WEEK = [
   { id: 1, name: "Monday" },
@@ -31,7 +33,7 @@ export default function TechnicianAvailabilityPage() {
   const [slots, setSlots] = useState<IAvailabilitySlot[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [saving, setSaving] = useState<boolean>(false);
-  const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+  // const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   // Load schedule using API helper
   useEffect(() => {
@@ -106,16 +108,18 @@ export default function TechnicianAvailabilityPage() {
   const handleSave = async () => {
     try {
       setSaving(true);
-      setMessage(null);
+      // setMessage(null);
 
       const activeSlots = slots.filter((slot) => slot.isAvailable);
       const res = await updateTechnicianAvailability(activeSlots);
 
       if (res.success) {
-        setMessage({ type: "success", text: "Schedule updated successfully!" });
+        // setMessage({ type: "success", text: "Schedule updated successfully!" });
+        toast.success( res.message || "Schedule updated successfully!");
       }
     } catch (err: any) {
-      setMessage({ type: "error", text: err.message || "Failed to update schedule." });
+      // setMessage({ type: "error", text: err.message || "Failed to update schedule." });
+      toast.error(err.error || "Failed to update schedule.");
     } finally {
       setSaving(false);
     }
@@ -124,8 +128,7 @@ export default function TechnicianAvailabilityPage() {
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[400px]">
-        <Loader2 className="w-8 h-8 animate-spin text-primary" />
-        <p className="mt-2 text-sm text-gray-500">Loading schedule...</p>
+        <TableSkeleton rows={5} />
       </div>
     );
   }
@@ -152,19 +155,7 @@ export default function TechnicianAvailabilityPage() {
         </button>
       </div>
 
-      {message && (
-        <div
-          className={`p-4 rounded-lg flex items-center gap-3 ${
-            message.type === "success"
-              ? "bg-green-50 text-green-700 border border-green-200"
-              : "bg-red-50 text-red-700 border border-red-200"
-          }`}
-        >
-          {message.type === "success" ? <CheckCircle2 className="w-5 h-5" /> : <XCircle className="w-5 h-5" />}
-          <span className="text-sm font-medium">{message.text}</span>
-        </div>
-      )}
-
+ 
       <div className="bg-white rounded-xl shadow-sm border divide-y">
         {DAYS_OF_WEEK.map((day) => {
           const daySlotsWithIndex = slots

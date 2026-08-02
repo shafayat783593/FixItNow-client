@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { CalendarDays, Loader2, Clock } from "lucide-react";
 import { BookingFormValues, bookingSchema } from "@/lib/validations/bookingSchema";
 import { createBooking, getAvailableSlots, IAvailableSlot } from "@/lib/api/booking";
+import { redirect, useRouter } from "next/navigation";
 
 interface BookingFormProps {
   serviceId: string;
@@ -19,6 +20,7 @@ export default function BookingForm({ serviceId, technicianId, onSuccess }: Book
   const [loadingSlots, setLoadingSlots] = useState(false);
   const [slotError, setSlotError] = useState("");
 
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -40,7 +42,6 @@ export default function BookingForm({ serviceId, technicianId, onSuccess }: Book
   const selectedDate = watch("date");
   const selectedStart = watch("slotStartTime");
 
-  // whenever the date changes, fetch fresh slots for that date
   useEffect(() => {
     if (!selectedDate) {
       setSlots([]);
@@ -54,7 +55,8 @@ export default function BookingForm({ serviceId, technicianId, onSuccess }: Book
       setValue("slotEndTime", "");
       try {
         const result = await getAvailableSlots(technicianId, selectedDate, serviceId);
-        setSlots(result);
+        console.log("Available slots for", selectedDate, ":", result);
+        setSlots(result|| []);
         if (result.length === 0) {
           setSlotError("No available slots on this date.");
         }
@@ -88,9 +90,10 @@ export default function BookingForm({ serviceId, technicianId, onSuccess }: Book
       });
 
       toast.success("Booking request sent successfully!");
-      reset();
-      setSlots([]);
-      onSuccess?.();
+      router.push("/dashboard/customer/my-bookings");
+      // reset();
+      // setSlots([]);
+      // onSuccess?.();
     } catch (err: any) {
       toast.error(err?.message || "Failed to create booking. Please try again.");
     }

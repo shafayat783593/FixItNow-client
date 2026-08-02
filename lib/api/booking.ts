@@ -40,11 +40,9 @@ export type BookingStatus =
   | "CANCELLED";
 
 export const createBooking = async (payload: ICreateBookingPayload) => {
-  const res = await fetch("/api/booking", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    credentials: "include",
-    body: JSON.stringify(payload),
+  const res = await serverFetch("/api/bookings", {
+   method: "POST",
+    body: payload,
   });
 
 
@@ -90,7 +88,7 @@ export const getAvailableSlots = async (technicianId: string, date: string, serv
 
 
 
-  return res;
+  return res.data || [];
 };
 
 

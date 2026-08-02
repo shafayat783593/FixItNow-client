@@ -3,7 +3,8 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { User, Briefcase, MapPin, Phone, Image as ImageIcon, FileText, Loader2, Save, CheckCircle2, AlertCircle } from "lucide-react";
+import { User, Briefcase, MapPin, Phone, Image as ImageIcon, FileText, Loader2, Save } from "lucide-react";
+import { toast } from "sonner";
 import { updateTechnicianProfile } from "@/lib/api/technician";
 import { ITechnicianProfileInput, technicianProfileSchema } from "@/lib/validations/technician";
 
@@ -13,7 +14,6 @@ interface TechnicianProfileFormProps {
 
 export default function TechnicianProfileForm({ initialData }: TechnicianProfileFormProps) {
   const [submitting, setSubmitting] = useState<boolean>(false);
-  const [statusMessage, setStatusMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   const profile = initialData?.technicianProfile || {};
 
@@ -37,20 +37,16 @@ export default function TechnicianProfileForm({ initialData }: TechnicianProfile
   const onSubmit = async (data: ITechnicianProfileInput) => {
     try {
       setSubmitting(true);
-      setStatusMessage(null);
 
       const res = await updateTechnicianProfile(data);
 
       if (res?.success) {
-        setStatusMessage({ type: "success", text: "Profile updated successfully!" });
+        toast.success("Profile updated successfully!");
       } else {
         throw new Error(res?.message || "Failed to update profile.");
       }
     } catch (error: any) {
-      setStatusMessage({
-        type: "error",
-        text: error.message || "An unexpected error occurred while saving.",
-      });
+      toast.error(error.message || "An unexpected error occurred while saving.");
     } finally {
       setSubmitting(false);
     }
@@ -58,23 +54,6 @@ export default function TechnicianProfileForm({ initialData }: TechnicianProfile
 
   return (
     <div className="space-y-6">
-      {statusMessage && (
-        <div
-          className={`p-4 rounded-lg flex items-center gap-3 ${
-            statusMessage.type === "success"
-              ? "bg-green-50 text-green-700 border border-green-200"
-              : "bg-red-50 text-red-700 border border-red-200"
-          }`}
-        >
-          {statusMessage.type === "success" ? (
-            <CheckCircle2 className="w-5 h-5 flex-shrink-0" />
-          ) : (
-            <AlertCircle className="w-5 h-5 flex-shrink-0" />
-          )}
-          <span className="text-sm font-medium">{statusMessage.text}</span>
-        </div>
-      )}
-
       <form onSubmit={handleSubmit(onSubmit)} className="bg-white rounded-xl shadow-sm border p-6 space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Full Name */}

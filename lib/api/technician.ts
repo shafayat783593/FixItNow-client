@@ -95,7 +95,7 @@ export const updateTechnicianAvailability = async (slots: IAvailabilitySlot[]) =
 
 
 export const updateTechnicianProfile = async (data: ITechnicianProfileInput) => {
-  const res = await serverFetch("/api/technician/profile", {
+  const res = await serverFetch("/api/technician", {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",

@@ -69,7 +69,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
             href={`/services/${service.id}`}
             className="inline-flex items-center gap-1.5 rounded-xl bg-[#0F1B2B] px-4 py-2.5 text-xs font-bold text-white transition-all duration-200 hover:bg-amber-400 hover:text-[#0F1B2B]"
           >
-            <span>Book Now</span>
+            <span>View Details</span>
             <ArrowRight size={14} />
           </Link>
         </div>

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { User, Loader2 } from "lucide-react";
 import { getMe } from "@/hooks/getMe";
 import TechnicianProfileForm from "../../_components/technician/TechnicianProfileForm";
+import { TableSkeleton } from "../../_components/technician/TableSkeleton";
 
 export default function TechnicianProfilePage() {
   const [userData, setUserData] = useState<any>(null);
@@ -32,15 +33,13 @@ export default function TechnicianProfilePage() {
     fetchUserData();
   }, []);
 
-  if (loading) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-[400px]">
-        <Loader2 className="w-8 h-8 animate-spin text-primary" />
-        <p className="mt-2 text-sm text-gray-500">Loading profile information...</p>
-      </div>
-    );
-  }
-
+   if (loading) {
+      return (
+        <div className="flex flex-col items-center justify-center min-h-[400px]">
+          <TableSkeleton rows={5} />
+        </div>
+      );
+    }
   if (error || !userData) {
     return (
       <div className="p-6 text-center text-red-500 bg-red-50 rounded-xl border border-red-200">
