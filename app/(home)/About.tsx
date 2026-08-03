@@ -34,9 +34,10 @@ export default function About() {
   return (
     <section className="w-full bg-white py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:items-center">
+        {/* lg:items-stretch ব্যবহার করা হয়েছে যেন দুটি Column-এর Height সমান হয় */}
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:items-stretch">
           {/* Text side */}
-          <div>
+          <div className="flex flex-col justify-center">
             <span className="font-mono text-xs font-medium uppercase tracking-wider text-teal-600">
               Driven by Reliability
             </span>
@@ -81,13 +82,15 @@ export default function About() {
               </ul>
             </div>
 
-            <Link
-              href="/services"
-              className="mt-8 inline-flex items-center gap-2 rounded-xl bg-coral-600 px-6 py-3 text-sm font-semibold text-white transition-transform hover:scale-[1.03] hover:bg-coral-700"
-            >
-              Discover services
-              <ArrowRight className="h-4 w-4" />
-            </Link>
+            <div>
+              <Link
+                href="/services"
+                className="mt-8 inline-flex items-center gap-2 rounded-xl bg-coral-600 px-6 py-3 text-sm font-semibold text-white transition-transform hover:scale-[1.03] hover:bg-coral-700"
+              >
+                Discover services
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
           </div>
 
           {/* Image side */}
@@ -96,15 +99,16 @@ export default function About() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
-            className="relative"
+            className="relative h-full min-h-[400px] lg:min-h-full"
           >
-            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl">
+            {/* aspect ratio সরিয়ে h-full ব্যবহার করা হয়েছে */}
+            <div className="relative h-full w-full overflow-hidden rounded-3xl">
               <Image
-                src="https://picsum.photos/seed/fixitnow-about-light/900/1100"
+                src="/images/repaire.jpg"
                 alt="FixItNow technician at work"
                 fill
                 className="object-cover"
-                sizes="(min-width: 1024px) 560px, 100vw"
+                sizes="(min-width: 1024px) 50vw, 100vw"
               />
             </div>
             <div className="absolute -bottom-6 -left-6 rounded-2xl border border-slate-100 bg-white p-4 shadow-lg shadow-slate-200/60">

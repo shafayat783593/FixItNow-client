@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { Star, MapPin, Briefcase, BadgeCheck } from 'lucide-react';
 import { getTechnicianById } from '@/lib/api/technician';
 import { ServiceCard } from '../../_components/technician/technicianServiceCard';
+import Image from 'next/image';
 
 export default async function TechnicianDetailsPage({
   params,
@@ -30,14 +31,20 @@ export default async function TechnicianDetailsPage({
           }}
         />
         <div className="relative mx-auto max-w-5xl px-6 text-center lg:px-8">
-          <div className="mx-auto flex h-28 w-28 items-center justify-center overflow-hidden rounded-3xl border-4 border-card bg-muted text-3xl font-bold text-muted-foreground shadow-lg">
-            {avatar ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={avatar} alt={name} className="h-full w-full object-cover" />
-            ) : (
-              name.charAt(0).toUpperCase()
-            )}
-          </div>
+         <div className="relative mx-auto flex h-28 w-28 items-center justify-center overflow-hidden rounded-3xl border-4 border-card bg-muted text-3xl font-bold text-muted-foreground shadow-lg">
+  {avatar ? (
+    <Image
+      src={avatar}
+      alt={name}
+      fill
+      sizes="112px"
+      className="object-cover"
+      priority
+    />
+  ) : (
+    <span>{name.charAt(0).toUpperCase()}</span>
+  )}
+</div>
           <div className="mt-4 flex items-center justify-center gap-1.5">
             <h1 className="text-2xl font-extrabold text-primary-foreground sm:text-3xl">{name}</h1>
             <BadgeCheck size={20} className="text-accent" />

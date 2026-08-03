@@ -19,6 +19,17 @@ interface HeroSlide {
 
 // Swap these seeded placeholder images for real service photography per category.
 const slides: HeroSlide[] = [
+   {
+    id: "ac",
+    category: "Air Conditioner",
+    eyebrow: "FixItNow · Cooling",
+    headline: "Cool homes, calm minds.",
+    description:
+      "Gas refills, full servicing, and installs from technicians rated by your neighbors — every job tracked start to finish.",
+    image: "/images/AirConditioner.avif",
+    icon: Wind,
+    ctaLabel: "Book AC service",
+  },
   {
     id: "plumbing",
     category: "Plumbing",
@@ -26,7 +37,7 @@ const slides: HeroSlide[] = [
     headline: "Stop leaks. Start living.",
     description:
       "From pipe installs to bathroom fittings, book a vetted local plumber for same-week service with upfront pricing.",
-    image: "https://picsum.photos/seed/fixitnow-plumbing/1400/1700",
+    image: "/images/plumber.webp",
     icon: Wrench,
     ctaLabel: "Book a plumber",
   },
@@ -37,21 +48,11 @@ const slides: HeroSlide[] = [
     headline: "Power problems, solved fast.",
     description:
       "Licensed electricians for wiring, fixtures, and safety inspections — dispatched and tracked from your dashboard.",
-    image: "https://picsum.photos/seed/fixitnow-electrical/1400/1700",
+    image: "/images/electrical.jpg",
     icon: Zap,
     ctaLabel: "Book an electrician",
   },
-  {
-    id: "ac",
-    category: "Air Conditioner",
-    eyebrow: "FixItNow · Cooling",
-    headline: "Cool homes, calm minds.",
-    description:
-      "Gas refills, full servicing, and installs from technicians rated by your neighbors — every job tracked start to finish.",
-    image: "https://picsum.photos/seed/fixitnow-ac/1400/1700",
-    icon: Wind,
-    ctaLabel: "Book AC service",
-  },
+ 
   {
     id: "cleaning",
     category: "Cleaning",
@@ -59,7 +60,7 @@ const slides: HeroSlide[] = [
     headline: "Spotless homes, zero hassle.",
     description:
       "Deep cleans, move-outs, and recurring visits from insured crews. Pick a slot, we handle the rest.",
-    image: "https://picsum.photos/seed/fixitnow-cleaning/1400/1700",
+    image: "/images/cleaning.jpg",
     icon: Sparkles,
     ctaLabel: "Book a cleaning",
   },
@@ -160,6 +161,7 @@ export default function Hero() {
         </div>
 
         {/* Category tabs / indicator */}
+
         <div className="grid grid-cols-2 gap-3 sm:flex sm:gap-2">
           {slides.map((slide, index) => {
             const isActive = index === activeIndex;
@@ -202,6 +204,7 @@ export default function Hero() {
             );
           })}
         </div>
+
       </div>
     </section>
   );

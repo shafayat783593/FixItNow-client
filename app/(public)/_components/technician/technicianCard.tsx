@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Star, MapPin, BadgeCheck, Briefcase } from 'lucide-react';
+import Image from 'next/image';
 
 interface TechnicianCardProps {
   technician: any;
@@ -9,7 +10,7 @@ interface TechnicianCardProps {
 export function TechnicianCard({ technician }: TechnicianCardProps) {
   const name = technician?.user?.name || 'Technician';
   const avatar = technician?.user?.avatar || technician?.user?.image;
-
+  console.log("technician card ", technician)
   return (
     <Link
       href={`/technicians/${technician.id}`}
@@ -25,10 +26,15 @@ export function TechnicianCard({ technician }: TechnicianCardProps) {
         />
         <div className="relative flex h-20 w-20 translate-y-10 items-center justify-center overflow-hidden rounded-2xl border-4 border-card bg-muted text-2xl font-bold text-muted-foreground shadow-md">
           {avatar ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={avatar} alt={name} className="h-full w-full object-cover" />
+            <Image
+              src={avatar}
+              alt={name}
+              fill
+              sizes="80px"
+              className="object-cover"
+            />
           ) : (
-            name.charAt(0).toUpperCase()
+            <span>{name.charAt(0).toUpperCase()}</span>
           )}
         </div>
       </div>

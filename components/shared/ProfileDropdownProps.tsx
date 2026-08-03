@@ -78,14 +78,14 @@ export default function ProfileDropdown({ user, onLogout }: ProfileDropdownProps
               <User className="w-4 h-4 text-slate-400" />
               <span>Profile</span>
             </Link>
-            <Link
+            {/* <Link
               href="/settings"
               onClick={() => setIsOpen(false)}
               className="flex items-center gap-2.5 px-4 py-2 text-sm text-slate-600 hover:text-coral-600 hover:bg-coral-500/5 transition-colors"
             >
               <Settings className="w-4 h-4 text-slate-400" />
               <span>Settings</span>
-            </Link>
+            </Link> */}
           </div>
 
           <div className="pt-1 border-t border-slate-100">

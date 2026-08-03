@@ -130,12 +130,13 @@ export default function DashboardHeader({ user, isSidebarOpen, setIsSidebarOpen 
                                 </div>
 
                                 <Link
-                                    href="/setting"
+                                                 href="/profile"
+
                                     onClick={() => setIsUserMenuOpen(false)}
                                     className="flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-foreground hover:bg-primary/10 rounded-xl transition-all"
                                 >
                                     <Settings size={18} className="text-muted-foreground" />
-                                    Settings
+                                    Profile
                                 </Link>
 
                                 <button
