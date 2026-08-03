@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React from 'react';
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
@@ -7,15 +8,19 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       {/* LEFT / BACKGROUND: Full Width Workshop & Technician Visual */}
       <div className="relative w-full lg:w-[60%] xl:w-[65%] min-h-[300px] lg:min-h-screen bg-slate-900 flex flex-col justify-between p-6 sm:p-10 lg:p-12 overflow-hidden">
         {/* Background Workshop Image */}
-        <div className="absolute inset-0 z-0">
-          <img
-            src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=1600&auto=format&fit=crop"
-            alt="Fixpro Technician Workshop"
-            className="w-full h-full object-cover opacity-60 scale-105"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-950/40 to-slate-950/90" />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-slate-950/40" />
-        </div>
+    <div className="absolute inset-0 z-0">
+  <Image
+    src="/images/auth.avif"
+    alt="Fixpro Technician Workshop"
+    fill
+    priority
+    className="object-cover opacity-60 scale-105"
+    sizes="100vw"
+  />
+
+  <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-950/40 to-slate-950/90" />
+  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-slate-950/40" />
+</div>
 
         {/* Top Brand Info */}
         <div className="relative z-10 flex items-center justify-between">

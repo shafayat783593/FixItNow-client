@@ -5,7 +5,7 @@ import { JwtPayload } from "jsonwebtoken";
 import { getAccessToken } from "./service/getAccessToken";
 
 const AUTH_ROUTES = ["/login", "/register", "/forgot-password", "/reset-password",];
-const PUBLIC_ROUTES = ["/", "/news", "/login", "/register","/services","/technicians"];
+const PUBLIC_ROUTES = ["/", "/news", "/login", "/register","/services","/technicians","/how-it-works","/contact","/terms","/privacy","/help"];
 
 export const proxy = async (request: NextRequest) => {
     const pathname = request.nextUrl.pathname;
@@ -66,7 +66,7 @@ if (!accessToken && !isPublishRoute) {
 
 export const config = {
     matcher: [
-        "/((?!api|_next/static|_next/image|.*\\.png$).*)",
+    "/((?!_next/static|_next/image|images|icons|fonts|favicon.ico|api).*)",
     ],
 };
 
