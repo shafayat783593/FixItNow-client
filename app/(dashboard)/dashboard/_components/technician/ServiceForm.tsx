@@ -29,7 +29,7 @@ export default function ServiceForm({ categories, initialData }: ServiceFormProp
   const [values, setValues] = useState({
     title: initialData?.title ?? "",
     description: initialData?.description ?? "",
-    categoryId: initialData?.categoryId ?? "",
+    categoryId: categories[0]?.id ?? "",
     price: initialData?.price?.toString() ?? "",
     duration: initialData?.duration?.toString() ?? "",
   });

@@ -5,8 +5,12 @@ import { CustomInput } from "@/components/shared/input";
 import { Search, Loader2 } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useRef, useTransition } from "react";
-
-export function UniversalSearchBar() {
+interface UniversalSearchBarProps {
+  placeholder?: string;
+}
+export function UniversalSearchBar({
+  placeholder = "Search by name, skill, or bio...",
+}: UniversalSearchBarProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -49,7 +53,7 @@ export function UniversalSearchBar() {
       <CustomInput
         defaultValue={searchParams.get("searchItem")?.toString() || ""}
         onChange={(e) => handleChange(e.target.value)}
-        placeholder="Search by name, skill, or bio..."
+        placeholder={placeholder}
         className="h-11 rounded-xl border-slate-200 bg-white pl-10 pr-4 text-sm shadow-sm transition-all focus-visible:border-amber-400 focus-visible:ring-amber-400/20"
       />
     </div>

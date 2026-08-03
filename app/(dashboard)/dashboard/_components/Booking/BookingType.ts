@@ -15,12 +15,17 @@ export interface IBooking {
   notes?: string | null;
   status: BookingStatus;
   createdAt: string;
-  customer?: ICustomer | null; 
+  customer?: ICustomer | null;
+
   service: {
     id: string;
     title: string;
     price: number;
     duration?: number | null;
+    category?: {
+      id: string;
+      name: string;
+    } | null;
   };
   technician: {
     id: string;

@@ -16,7 +16,6 @@ export const technicianProfileSchema = z.object({
 export type ITechnicianProfileInput = z.infer<typeof technicianProfileSchema>;
 
 
-import { z } from "zod";
 
 export const serviceSchema = z.object({
   title: z.string().min(3, "Title must be at least 3 characters").max(100),

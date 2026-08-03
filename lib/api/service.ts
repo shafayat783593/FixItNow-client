@@ -24,21 +24,24 @@ export interface IServiceQuery {
 
 
 export interface IService {
-  _id: string;
+  id: string;
   title: string;
   description: string;
-  category: string;
   price: number;
   duration?: string;
   images?: string[];
   rating?: number;
   reviewCount?: number;
   technician?: {
-    _id: string;
+    id: string;
     name: string;
     avatar?: string;
     location?: string;
   };
+  category?: {
+    id: string;
+    name: string;
+  }
 }
 
 export interface ICategory {

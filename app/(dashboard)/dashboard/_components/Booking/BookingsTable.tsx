@@ -7,13 +7,9 @@ import { IBooking, BookingStatus } from "./BookingType";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { toast } from "sonner";
-import { cancelBookingAction } from "@/lib/api/booking"; // আপনার Cancel API
+import { cancelBookingAction } from "@/lib/api/booking"; 
 
-export default function BookingsTable({
-  bookings: initialBookings,
-}: {
-  bookings: IBooking[];
-}) {
+export default function BookingsTable({bookings: initialBookings,}: {bookings: IBooking[];}) {
   const router = useRouter();
   const [bookings, setBookings] = useState<IBooking[]>(initialBookings);
   const [loadingId, setLoadingId] = useState<string | null>(null);
@@ -32,7 +28,7 @@ export default function BookingsTable({
       await cancelBookingAction(bookingId);
       toast.success("Booking cancelled successfully");
       
-      // UI State আপডেট
+
       setBookings((prev) =>
         prev.map((b) => (b.id === bookingId ? { ...b, status: "CANCELLED" as BookingStatus } : b))
       );

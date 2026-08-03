@@ -135,12 +135,16 @@ export default async function ServiceDetailsPage({ params }: ServiceDetailsPageP
                     </div>
 
                     <div>
-                      <div className="flex items-center gap-2">
-                        <h4 className="text-xl font-bold text-foreground">
-                          {user?.name || "Professional Technician"}
-                        </h4>
-                        <ShieldCheck size={18} className="text-success" title="Verified Provider" />
-                      </div>
+                   <div className="flex items-center gap-2">
+  <h4 className="text-xl font-bold text-foreground">
+    {user?.name || "Professional Technician"}
+  </h4>
+
+  <div className="flex items-center gap-1 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700">
+    <ShieldCheck size={14} />
+    <span>Verified</span>
+  </div>
+</div>
 
                       <div className="mt-1 flex items-center gap-3 text-xs font-medium text-muted-foreground">
                         <span className="flex items-center gap-1 font-bold text-accent">
