@@ -3,6 +3,7 @@ import About from './(home)/About'
 import CoreStrengths from './(home)/Corestrengths'
 import TechniciansSection from './(home)/TechniciansSection'
 import Services from './(home)/services'
+import Footer from './(home)/Footer'
 
 function page() {
   return (
@@ -11,7 +12,8 @@ function page() {
       <About/>
       <CoreStrengths />
       <TechniciansSection />
-      <Services/>
+      <Services />
+      <Footer/>
     
     </>
   )

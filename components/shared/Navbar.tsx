@@ -41,7 +41,7 @@ const navLinks: NavLink[] = [
     { label: 'Home', href: '/', icon: Home },
     { label: 'Services', href: '/services', icon: Sparkles },
     { label: 'Technicians', href: '/technicians', icon: Users },
-    { label: 'How it works', href: '#how-it-works', icon: HelpCircle },
+    { label: 'How it works', href: '/how-it-works', icon: HelpCircle },
 ];
 
 const dashboardPathByRole: Record<Role, string> = {
