@@ -31,7 +31,7 @@ const strengths: Strength[] = [
 
 export default function CoreStrengths() {
   return (
-    <section className="relative overflow-hidden bg-white py-20 sm:py-28">
+    <section className="relative overflow-hidden bg-white py-10 sm:py-18">
       {/* Subtle Grid Pattern Overlay */}
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.4]"

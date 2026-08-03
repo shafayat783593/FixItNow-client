@@ -123,7 +123,7 @@ export async function createCategoryAction(payload: CategoryFormValues) {
 }
 
 export async function updateCategoryAction(id: string, payload: CategoryFormValues) {
-  const res = await serverFetch(`/api/admin/categories/${id}`, {
+  const res = await serverFetch(`/api/categories/${id}`, {
     method: "PUT",
     body: payload,
   });
@@ -131,7 +131,7 @@ export async function updateCategoryAction(id: string, payload: CategoryFormValu
 }
 
 export async function deleteCategoryAction(id: string) {
-  const res = await serverFetch(`/api/admin/categories/${id}`, {
+  const res = await serverFetch(`/api/categories/${id}`, {
     method: "DELETE",
   });
   return res;
