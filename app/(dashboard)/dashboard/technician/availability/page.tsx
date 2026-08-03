@@ -16,7 +16,6 @@ import {
   updateTechnicianAvailability, 
   IAvailabilitySlot 
 } from "@/lib/api/technician";
-import { TableSkeleton } from "../../_components/technician/TableSkeleton";
 import { toast } from "sonner";
 
 const DAYS_OF_WEEK = [
@@ -33,9 +32,7 @@ export default function TechnicianAvailabilityPage() {
   const [slots, setSlots] = useState<IAvailabilitySlot[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [saving, setSaving] = useState<boolean>(false);
-  // const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
-  // Load schedule using API helper
   useEffect(() => {
     const fetchAvailability = async () => {
       try {
@@ -121,14 +118,6 @@ export default function TechnicianAvailabilityPage() {
       setSaving(false);
     }
   };
-
-  if (loading) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-[400px]">
-        <TableSkeleton rows={5} />
-      </div>
-    );
-  }
 
   return (
     <div className="max-w-5xl mx-auto p-4 md:p-6 space-y-6">
