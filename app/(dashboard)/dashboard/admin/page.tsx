@@ -5,8 +5,13 @@ import { getDashboardStatsAction } from "@/lib/api/admin.api";
 
 
 export default async function AdminDashboardPage() {
-  const stats = await getDashboardStatsAction();
+const stats = await getDashboardStatsAction();
 
+const dashboardStats = {
+  totalUsers: stats?.totalUsers ?? 0,
+  activeBookings: stats?.activeBookings ?? 0,
+  totalRevenue: stats?.totalRevenue ?? 0,
+};
   return (
     <main className="min-h-screen bg-background py-10">
       <div className="mx-auto max-w-5xl px-6">
@@ -24,19 +29,19 @@ export default async function AdminDashboardPage() {
         <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-3">
           <StatCard
             label="Total users"
-            value={stats.totalUsers.toLocaleString()}
+value={dashboardStats.totalUsers.toLocaleString()}
             icon={Users}
             accent="bg-blue-50 text-blue-600"
           />
           <StatCard
             label="Active bookings"
-            value={stats.activeBookings.toLocaleString()}
+value={dashboardStats.activeBookings.toLocaleString()}
             icon={Activity}
             accent="bg-amber-50 text-amber-600"
           />
           <StatCard
             label="Total revenue"
-            value={`$${stats.totalRevenue.toLocaleString()}`}
+            value={`$${dashboardStats.totalRevenue.toLocaleString()}`}
             icon={Wallet}
             accent="bg-emerald-50 text-emerald-600"
           />

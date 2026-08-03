@@ -10,7 +10,6 @@ import { IUser } from "@/lib/type";
 import { profileSchema } from "@/lib/validations/auth";
 import { updateProfileAction } from "@/hooks/getMe";
 
-
 export function ProfileForm({ user }: { user: IUser }) {
   const router = useRouter();
   const [values, setValues] = useState({

@@ -8,14 +8,11 @@ import { ProfileFormValues } from "@/lib/validations/auth";
 export const getMe = async () => {
     const res = await serverFetch("/api/auth/me",
         {
-          cache: "force-cache",
-            next: {
-                revalidate: 3600,
-                tags: ["user"]
-            },
+           cache: "no-store", 
+          
         }
     )
-    console.log(res)
+  
     return res
 }
 

@@ -5,6 +5,7 @@ import { getMe } from "@/hooks/getMe";
 import { ProfileFormSkeleton } from "../_components/ProfileFormSkeleton";
 
 
+export const dynamic = "force-dynamic";
 
 async function ProfileSection() {
   const user = await getMe();

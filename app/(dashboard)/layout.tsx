@@ -2,6 +2,7 @@
 import { getMe } from "@/hooks/getMe";
 import { redirect } from "next/navigation";
 import DashboardLayoutClient from "./_components/DashboardLayoutClient";
+export const dynamic = "force-dynamic";
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const result = await getMe();
