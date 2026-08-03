@@ -1,9 +1,10 @@
-import React from 'react';
-import { notFound } from 'next/navigation';
-import { Star, MapPin, Briefcase, BadgeCheck } from 'lucide-react';
-import { getTechnicianById } from '@/lib/api/technician';
-import { ServiceCard } from '../../_components/technician/technicianServiceCard';
-import Image from 'next/image';
+import React from "react";
+import { notFound } from "next/navigation";
+import { Star, MapPin, Briefcase, BadgeCheck } from "lucide-react";
+import { getTechnicianById } from "@/lib/api/technician";
+import { ServiceCard } from "../../_components/technician/technicianServiceCard";
+import { TechnicianReviews } from "../../_components/technician/TechnicianReviews";
+import Image from "next/image";
 
 export default async function TechnicianDetailsPage({
   params,
@@ -15,9 +16,10 @@ export default async function TechnicianDetailsPage({
 
   if (!technician) return notFound();
 
-  const name = technician?.user?.name || 'Technician';
+  const name = technician?.user?.name || "Technician";
   const avatar = technician?.user?.avatar || technician?.user?.image;
   const services = technician?.services || [];
+  const reviews = technician?.reviews || [];
 
   return (
     <section className="bg-background pb-20">
@@ -26,27 +28,29 @@ export default async function TechnicianDetailsPage({
         <div
           className="pointer-events-none absolute inset-0 opacity-10"
           style={{
-            backgroundImage: 'radial-gradient(circle, #ffffff 1px, transparent 1px)',
-            backgroundSize: '24px 24px',
+            backgroundImage: "radial-gradient(circle, #ffffff 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
           }}
         />
         <div className="relative mx-auto max-w-5xl px-6 text-center lg:px-8">
-         <div className="relative mx-auto flex h-28 w-28 items-center justify-center overflow-hidden rounded-3xl border-4 border-card bg-muted text-3xl font-bold text-muted-foreground shadow-lg">
-  {avatar ? (
-    <Image
-      src={avatar}
-      alt={name}
-      fill
-      sizes="112px"
-      className="object-cover"
-      priority
-    />
-  ) : (
-    <span>{name.charAt(0).toUpperCase()}</span>
-  )}
-</div>
+          <div className="relative mx-auto flex h-28 w-28 items-center justify-center overflow-hidden rounded-3xl border-4 border-card bg-muted text-3xl font-bold text-muted-foreground shadow-lg">
+            {avatar ? (
+              <Image
+                src={avatar}
+                alt={name}
+                fill
+                sizes="112px"
+                className="object-cover"
+                priority
+              />
+            ) : (
+              <span>{name.trim().charAt(0).toUpperCase()}</span>
+            )}
+          </div>
           <div className="mt-4 flex items-center justify-center gap-1.5">
-            <h1 className="text-2xl font-extrabold text-primary-foreground sm:text-3xl">{name}</h1>
+            <h1 className="text-2xl font-extrabold text-primary-foreground sm:text-3xl">
+              {name.trim()}
+            </h1>
             <BadgeCheck size={20} className="text-accent" />
           </div>
           {technician?.location && (
@@ -64,7 +68,7 @@ export default async function TechnicianDetailsPage({
           <div className="flex flex-col items-center gap-1">
             <span className="flex items-center gap-1 text-xl font-extrabold text-foreground">
               <Star size={18} className="fill-accent text-accent" />
-              {technician?.rating?.toFixed?.(1) ?? '0.0'}
+              {technician?.rating?.toFixed?.(1) ?? "0.0"}
             </span>
             <span className="text-xs text-muted-foreground">
               {technician?.totalReviews ?? 0} reviews
@@ -87,7 +91,9 @@ export default async function TechnicianDetailsPage({
         {technician?.bio && (
           <div className="mt-10">
             <h2 className="text-lg font-bold text-foreground">About</h2>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{technician.bio}</p>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              {technician.bio}
+            </p>
           </div>
         )}
 
@@ -106,6 +112,14 @@ export default async function TechnicianDetailsPage({
               <p className="text-muted-foreground">No services listed yet.</p>
             </div>
           )}
+        </div>
+
+        {/* Reviews */}
+        <div className="mt-10">
+          <h2 className="text-lg font-bold text-foreground">
+            Reviews {technician?.totalReviews ? `(${technician.totalReviews})` : ""}
+          </h2>
+          <TechnicianReviews reviews={reviews} />
         </div>
       </div>
     </section>
