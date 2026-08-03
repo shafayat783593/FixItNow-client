@@ -34,45 +34,57 @@ export function CategoryFormModal({ mode, category }: CategoryFormModalProps) {
 
   const isEdit = mode === "edit";
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setErrors({});
 
-    const parsed = categorySchema.safeParse({ name, description });
-    if (!parsed.success) {
-      const fieldErrors: Record<string, string> = {};
-      for (const issue of parsed.error.issues) {
-        fieldErrors[issue.path[0] as string] = issue.message;
-      }
-      setErrors(fieldErrors);
+
+async function handleSubmit(e: React.FormEvent) {
+  e.preventDefault();
+  setErrors({});
+
+  const parsed = categorySchema.safeParse({ name, description });
+  if (!parsed.success) {
+    const fieldErrors: Record<string, string> = {};
+    for (const issue of parsed.error.issues) {
+      fieldErrors[issue.path[0] as string] = issue.message;
+    }
+    setErrors(fieldErrors);
+    return;
+  }
+
+  setLoading(true);
+  try {
+    const payload = {
+      ...parsed.data,
+      description: parsed.data.description || undefined,
+    };
+
+    const res = isEdit
+      ? await updateCategoryAction(category!.id, payload)
+      : await createCategoryAction(payload);
+
+    if (res?.success === false) {
+      toast.error(res.message ?? "Could not save category.");
       return;
     }
 
-    setLoading(true);
-    try {
-      const payload = { ...parsed.data, description: parsed.data.description || undefined };
-      const res = isEdit
-        ? await updateCategoryAction(category!.id, payload)
-        : await createCategoryAction(payload);
+    toast.success(isEdit ? "Category updated" : "Category created");
+    setOpen(false);
 
-      if (res?.success === false) {
-        toast.error(res.message ?? "Could not save category.");
-        return;
-      }
+    if (!isEdit) {
+      setName("");
+      setDescription("");
 
-      toast.success(isEdit ? "Category updated" : "Category created");
-      setOpen(false);
-      if (!isEdit) {
-        setName("");
-        setDescription("");
-      }
-      router.refresh();
-    } catch {
-      toast.error("Something went wrong. Try again.");
-    } finally {
-      setLoading(false);
+      // Redirect after create
+      router.push("/dashboard/admin/categories");
+      return;
     }
+
+    router.refresh();
+  } catch {
+    toast.error("Something went wrong. Try again.");
+  } finally {
+    setLoading(false);
   }
+}
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
