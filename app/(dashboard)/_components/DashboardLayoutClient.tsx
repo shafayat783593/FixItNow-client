@@ -1,4 +1,3 @@
-// _components/DashboardLayoutClient.tsx — 'use client', sync, no await
 'use client';
 
 import { useState } from "react";

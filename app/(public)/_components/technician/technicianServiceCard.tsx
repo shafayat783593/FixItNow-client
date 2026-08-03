@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Wrench, ArrowUpRight } from 'lucide-react';
+import Image from 'next/image';
 
 export function ServiceCard({ service }: { service: any }) {
   return (
@@ -10,8 +11,13 @@ export function ServiceCard({ service }: { service: any }) {
     >
       <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/5 text-primary">
         {service?.images?.[0] ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={service.images[0]} alt={service.title} className="h-full w-full rounded-xl object-cover" />
+          <Image
+            src={service.images[0]}
+            alt={service.title}
+            fill
+            className="h-full w-full rounded-xl object-cover"
+            sizes="48px"
+          />
         ) : (
           <Wrench size={20} />
         )}

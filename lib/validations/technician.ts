@@ -7,7 +7,7 @@ export const technicianProfileSchema = z.object({
     .number({ invalid_type_error: "Experience must be a number" })
     .min(0, "Experience cannot be negative")
     .optional(),
-  skills: z.string().optional(), // Entered as comma-separated values (e.g. "Wiring, AC Repair")
+  skills: z.string().optional(),
   location: z.string().optional(),
   phone: z.string().min(10, "Phone number must be at least 10 digits").optional().or(z.literal("")),
   avatar: z.string().url("Please enter a valid image URL").optional().or(z.literal("")),

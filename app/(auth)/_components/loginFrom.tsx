@@ -25,9 +25,7 @@ export default function LoginForm() {
     if (!state.success) {
       toast.error(state.message || 'Login failed. Please check credentials.');
     }
-    // success কেসে কিছু করার দরকার নেই —
-    // loginAction নিজেই সার্ভার-সাইড redirect() কল করে, তাই এই effect-এ
-    // router.push কল কখনো পৌঁছায়ই না (redirect() throw করে থামায়)
+   
   }, [state]);
 
   return (

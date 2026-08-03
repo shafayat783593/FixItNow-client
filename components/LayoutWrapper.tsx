@@ -34,7 +34,7 @@ export default function LayoutWrapper({ children }: { children: ReactNode }) {
         </motion.main>
       </AnimatePresence>
 
-      {/* <Footer /> */}
+      
 
     </>
   );

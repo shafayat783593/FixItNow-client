@@ -40,7 +40,7 @@ import { serverFetch } from "@/lib/api/serverFetch";
 import { CategoryFormValues } from "../validations/category.schema";
 
 export interface IAdminQuery {
-  searchItem?: string; // UniversalSearchBar এর URL param নাম
+  searchItem?: string; 
   role?: string;
   status?: string;
   page?: string | number;
@@ -50,7 +50,6 @@ export interface IAdminQuery {
 export async function getAllUsersAction(query?: IAdminQuery) {
   const params = new URLSearchParams();
 
-  // ⚠️ frontend "searchItem" কে backend "searchUser" এ ম্যাপ করা হচ্ছে
   if (query?.searchItem) params.set("searchItem", query.searchItem);
   if (query?.role) params.set("role", query.role);
   if (query?.status) params.set("status", query.status);
@@ -60,7 +59,7 @@ export async function getAllUsersAction(query?: IAdminQuery) {
   const res = await serverFetch(`/api/admin/users?${params.toString()}`, {
     next: { tags: ["admin-users"] },
   });
-  return res.data; // { data, meta } envelope এর ভেতরের অংশ backend এ যেভাবে wrap হয়
+  return res.data; 
 }
 
 export async function updateUserStatusAction(id: string, status: "ACTIVE" | "BANNED") {

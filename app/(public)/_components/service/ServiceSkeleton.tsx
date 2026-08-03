@@ -1,4 +1,3 @@
-// app/_components/ServiceSkeleton.tsx
 import React from "react";
 
 export function ServiceCardSkeleton() {

@@ -13,5 +13,5 @@ export async function getMyPaymentsAction() {
     const res = await serverFetch("/api/payments", {
     next: { tags: ["payments"] },
     });
-  return res; // { data: IPayment[] }
+  return res; 
 }

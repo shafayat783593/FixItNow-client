@@ -1,9 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { toast } from "sonner"; // আপনার প্রোজেক্টে react-hot-toast থাকলে 'react-hot-toast' ইম্পোর্ট করতে পারেন
-
-// shadcn table primitives
+import { toast } from "sonner"; /// shadcn table primitives
 import {
   Table,
   TableBody,

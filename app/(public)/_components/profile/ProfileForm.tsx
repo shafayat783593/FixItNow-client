@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { IUser } from "@/lib/type";
 import { profileSchema } from "@/lib/validations/auth";
 import { updateProfileAction } from "@/hooks/getMe";
+import Image from "next/image";
 
 export function ProfileForm({ user }: { user: IUser }) {
   const router = useRouter();
@@ -66,14 +67,19 @@ export function ProfileForm({ user }: { user: IUser }) {
   return (
     <div className="rounded-2xl border border-border bg-card p-6 sm:p-8">
       <div className="flex items-center gap-4">
-        <div className="flex h-20 w-20 items-center justify-center overflow-hidden rounded-full bg-muted">
-          {values.avatar ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={values.avatar} alt={values.name} className="h-full w-full object-cover" />
-          ) : (
-            <User className="h-8 w-8 text-muted-foreground" />
-          )}
-        </div>
+        <div className="relative flex h-20 w-20 items-center justify-center overflow-hidden rounded-full bg-muted">
+  {values.avatar ? (
+    <Image
+      src={values.avatar}
+      alt={values.name}
+      fill
+      className="object-cover"
+      sizes="80px"
+    />
+  ) : (
+    <User className="h-8 w-8 text-muted-foreground" />
+  )}
+</div>
         <div>
           <p className="font-semibold text-foreground">{user.name}</p>
           <p className="text-[13px] text-muted-foreground">{user.email}</p>
