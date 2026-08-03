@@ -28,43 +28,6 @@ Role is selected at registration. Route protection is expected via Next.js Middl
 
 ---
 
-## Project Structure (relevant parts)
-
-```
-app/
-  (public)/
-    page.tsx                     → Home (featured services)
-    services/                    → Browse & filter
-    technicians/[id]/            → Technician profile, services, reviews
-  auth/
-    register/
-    login/                       ⚠️ backend endpoint not confirmed to exist — see Known Issues
-  dashboard/
-    customer/
-      page.tsx                   → Overview + stats
-      my-bookings/
-        page.tsx                 → Booking list (BookingsTable)
-        [id]/page.tsx            → Booking detail (success banner handled here)
-        [id]/pay/page.tsx        → Checkout page (cancel warning handled here)
-    technician/
-      page.tsx                   → Overview + stats
-      availability/              → Scheduler
-      bookings/                  → Incoming request management
-      services/                  → CRUD own services
-    admin/
-      page.tsx                   → Overview + stats
-      users/                     → Ban/unban table
-      bookings/                  → Global booking view
-      categories/                → Category CRUD
-  not-found.tsx                  → Global 404
-  loading.tsx                    → Global loading state (place at root for global effect)
-lib/
-  api/                            → Server action wrappers per domain (booking, payment, service, technician, admin, review)
-components/
-  ui/                             → shadcn primitives
-  Booking/, payment/, technician/, review/  → domain components
-```
-
 ---
 
 ## Theming
@@ -80,8 +43,8 @@ All UI uses CSS variable tokens defined in `globals.css` (`--background`, `--for
 
 Stripe Checkout is used. Because the backend controls the redirect URLs directly, there are **no standalone `/payment/success` or `/payment/cancel` pages** — despite some spec documents suggesting that pattern. Instead:
 
-- **Success** → redirects to `/dashboard/customer/my-bookings/[id]?payment=success` (banner shown inline on the booking detail page)
-- **Cancel** → redirects to `/dashboard/customer/my-bookings/[id]/pay?canceled=true` (warning shown inline on the pay page)
+- **Success** → redirects to `/dashboard/customer/payments/success?bookingId=${booking.id}` (banner shown inline on the booking detail page)
+- **Cancel** → redirects to `/dashboard/customer/payments/cancle?bookingId=${booking.id}` (warning shown inline on the pay page)
 
 Booking status updates are driven by a Stripe **webhook** (`checkout.session.completed`), which is asynchronous and separate from the browser redirect — see Known Issues below for the race condition this creates.
 
@@ -105,7 +68,7 @@ These were identified during development and are documented here rather than sil
 ## Environment Variables (expected, not confirmed complete)
 
 ```
-BACKEND_API_URL=
+BACKEND_API_URL= https://fixitnow-api.vercel.app
 NEXT_PUBLIC_APP_URL=
 ```
 
