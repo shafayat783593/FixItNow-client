@@ -18,7 +18,7 @@ export default async function MyBookingsPage({
     page: page ?? 1,
     limit: 10,
   });
-
+console.log("bookings data ", bookings);
   return (
     <main className="min-h-screen bg-background py-8">
       <div className="mx-auto max-w-7xl px-6 space-y-6">

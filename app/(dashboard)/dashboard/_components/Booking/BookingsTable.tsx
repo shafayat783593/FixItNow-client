@@ -23,7 +23,7 @@ export default function BookingsTable({
   };
 
   const handleCancel = async (e: React.MouseEvent, bookingId: string) => {
-    e.stopPropagation(); // Row click/navigation আটকানোর জন্য
+    e.stopPropagation(); 
 
     if (!confirm("Are you sure you want to cancel this booking?")) return;
 

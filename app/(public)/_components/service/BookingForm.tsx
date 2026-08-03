@@ -75,30 +75,33 @@ export default function BookingForm({ serviceId, technicianId, onSuccess }: Book
     setValue("slotEndTime", slot.endTime, { shouldValidate: true });
   };
 
-  const onSubmit = async (values: BookingFormValues) => {
-    try {
-      // combine date + selected slot start time into one ISO datetime
-      const [hours, minutes] = values.slotStartTime.split(":").map(Number);
-      const scheduledAt = new Date(values.date);
-      scheduledAt.setHours(hours, minutes, 0, 0);
+const onSubmit = async (values: BookingFormValues) => {
+  try {
+    const [hours, minutes] = values.slotStartTime.split(":").map(Number);
 
-      await createBooking({
-        serviceId,
-        scheduledAt: scheduledAt.toISOString(),
-        address: values.address,
-        notes: values.note,
-      });
+    const scheduledAt = new Date(values.date);
+    scheduledAt.setHours(hours, minutes, 0, 0);
 
-      toast.success("Booking request sent successfully!");
+    await createBooking({
+      serviceId,
+      scheduledAt: scheduledAt.toISOString(),
+      address: values.address,
+      notes: values.note,
+    });
+
+    toast.success("Booking request sent successfully!");
+
+    reset();
+    setSlots([]);
+    onSuccess?.();
+
+    setTimeout(() => {
       router.push("/dashboard/customer/my-bookings");
-      // reset();
-      // setSlots([]);
-      // onSuccess?.();
-    } catch (err: any) {
-      toast.error(err?.message || "Failed to create booking. Please try again.");
-    }
-  };
-
+    }, 1000);
+  } catch (err: any) {
+    toast.error(err?.message || "Failed to create booking. Please try again.");
+  }
+};
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       {/* Date */}

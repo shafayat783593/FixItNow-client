@@ -46,7 +46,7 @@ export const createBooking = async (payload: ICreateBookingPayload) => {
   });
 
 
-   return res?.data || res;
+  return res;
 };
 
 export async function getMyBookingsAction(query?: IBookingQuery) {
@@ -59,7 +59,7 @@ export async function getMyBookingsAction(query?: IBookingQuery) {
   const res = await serverFetch(`/api/bookings?${params.toString()}`, {
     next: { tags: ["bookings"] },
   });
-    return res?.data || res;
+  return res;
 }
 
 
@@ -67,14 +67,15 @@ export async function getBookingByIdAction(id: string) {
   const res = await serverFetch(`/api/bookings/${id}`, {
     next: { tags: [`booking-${id}`] },
   });
-  return res?.data || res;
+  return res;
 }
 
 export async function cancelBookingAction(bookingId: string) {
   const res = await serverFetch(`/api/bookings/${bookingId}/cancel`, {
     method: "PATCH",
   });
-  return res?.data || res;}
+  return res;
+}
 
 
 
@@ -87,7 +88,7 @@ export const getAvailableSlots = async (technicianId: string, date: string, serv
 
 
 
-   return res?.data || res;
+  return res.data || [];
 };
 
 
@@ -110,7 +111,7 @@ export const getTechnicianBooking = async (query?: IBookingQuery) => {
 
   const res = await serverFetch(url);
   console.log("Response:", res);
-  return res?.data || res;
+  return res;
 };
 
 
@@ -122,7 +123,7 @@ export const updateBookingStatus = async (bookingId: string, actionStatus: Booki
     headers: { "Content-Type": "application/json" },
     body: { action: actionStatus }
   });
-    return res?.data || res;
+  return res;
 };
 
 
@@ -146,5 +147,5 @@ export async function getCustomerDashboardStatsAction() {
   const res = await serverFetch("/api/bookings/dashboard/stats", {
     next: { tags: ["customer-stats"] },
   });
-  return res?.data || res;
+  return res?.data ?? res;
 }

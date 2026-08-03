@@ -16,10 +16,8 @@ export default function BookingModal({ serviceId, technicianId }: { serviceId: s
     setChecking(true);
     try {
       const res = await getMe();
-      // adjust this to match whatever shape getMe() actually returns
       const currentUser = res.data.profile || res.data || res;
 
-      console.log("usrerwerqwerqwrq", currentUser)
 
       if (!currentUser) {
         toast.error("Please log in to book a service.");
