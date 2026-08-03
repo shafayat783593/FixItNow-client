@@ -54,7 +54,6 @@ export interface ICategory {
 
 export const getAllService = async (query?: IServiceQuery) => {
 
-  console.log(query, "quary sercices..................")
   const params = new URLSearchParams();
 if (query?.searchItem && query.searchItem.trim() !== "") {
     params.set("searchItem", query.searchItem.trim());
@@ -114,7 +113,7 @@ export async function getSingleService(id: string) {
     },
   });
 
-  console.log()
+  
   return res?.data || res || null;
 }
 

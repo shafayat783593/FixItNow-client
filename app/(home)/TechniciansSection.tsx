@@ -7,21 +7,16 @@ import { getAllTechnicians } from '@/lib/api/technician';
 
 
 export default async function TechniciansSection() {
-  // Fetch technicians from your API endpoint
   const res = await getAllTechnicians();
   
     
-  // Handle API response structure (e.g., res?.data or res directly)
   const techniciansList = res?.data || res || [];
-  console.log(techniciansList)
-  // Show top 4 on the section
   const technicians = Array.isArray(techniciansList) 
     ? techniciansList.slice(0, 4) 
     : [];
 
   return (
     <section className="relative overflow-hidden bg-white py-16 sm:py-24">
-      {/* Background Grid Accent */}
       <div
         className="pointer-events-none absolute inset-0 opacity-30"
         style={{

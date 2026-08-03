@@ -10,7 +10,6 @@ interface TechnicianCardProps {
 export function TechnicianCard({ technician }: TechnicianCardProps) {
   const name = technician?.user?.name || 'Technician';
   const avatar = technician?.user?.avatar || technician?.user?.image;
-  console.log("technician card ", technician)
   return (
     <Link
       href={`/technicians/${technician.id}`}

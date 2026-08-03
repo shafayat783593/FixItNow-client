@@ -23,8 +23,7 @@ export default async function ManageServicesPage({
   const services = await getMyServicesAction()
    const categoriesRes = await getAllCategoriesAction()
 
-console.log("catagory ...........................",services)
-console.log("catagory ...........................",categoriesRes)
+
 
   return (
     <main className="min-h-screen bg-background py-10">

@@ -23,7 +23,6 @@ export default function DeleteServiceButton({ serviceId, title }: { serviceId: s
 function handleDelete() {
   startTransition(async () => {
     const res = await deleteServiceAction(serviceId);
-    console.log(res);
     if (res?.success === false) {
       toast.error(res.error ?? "Could not delete service.");
       return;

@@ -22,7 +22,6 @@ async function CategoriesTableSection({ searchParams }: { searchParams: Categori
     limit: 10,
   });
 
-  console.log("category ..................",categories)
   return (
     <>
       {categories.length === 0 ? (

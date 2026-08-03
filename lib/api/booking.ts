@@ -107,10 +107,8 @@ export const getTechnicianBooking = async (query?: IBookingQuery) => {
   const queryString = params.toString();
   const url = `/api/technician/bookings${queryString ? `?${queryString}` : ""}`;
 
-  console.log("Fetching URL:", url);
 
   const res = await serverFetch(url);
-  console.log("Response:", res);
   return res;
 };
 

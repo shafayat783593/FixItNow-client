@@ -25,7 +25,6 @@ export default async function ServiceDetailsPage({ params }: ServiceDetailsPageP
   const { id } = await params;
 
   const service = await getSingleService(id);
-  console.log("service................................",service)
 
   if (!service || !service.id) {
     notFound();

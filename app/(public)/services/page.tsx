@@ -7,15 +7,12 @@ import { Pagination } from "../_components/pagenation";
 import { ServiceGridSkeleton } from "../_components/service/ServiceSkeleton";
 import { ServiceCard } from "../_components/service/serviceCard";
 import { ServiceFilter } from "../_components/service/ServiceFilter";
-import { getAllService } from "@/lib/api/service";
+import {  getAllService } from "@/lib/api/service";
+import { getAllCategoriesAction } from "@/lib/api/admin.api";
 
-export default async function ServicesPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
+export default async function ServicesPage({ searchParams, }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }>; }) {
   const query = await searchParams;
-
+  const {data:categories} = await getAllCategoriesAction()
   const page = query?.page ? Number(query.page) : 1;
   const searchItem = typeof query?.searchItem === "string" ? query.searchItem : undefined;
   const category = typeof query?.category === "string" ? query.category : undefined;
@@ -93,7 +90,7 @@ export default async function ServicesPage({
 
             {/* Filter Component */}
             <div className="flex-1">
-              <ServiceFilter />
+              <ServiceFilter categories={categories} />
             </div>
           </div>
         </div>

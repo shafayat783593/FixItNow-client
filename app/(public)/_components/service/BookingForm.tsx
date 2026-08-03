@@ -55,7 +55,6 @@ export default function BookingForm({ serviceId, technicianId, onSuccess }: Book
       setValue("slotEndTime", "");
       try {
         const result = await getAvailableSlots(technicianId, selectedDate, serviceId);
-        console.log("Available slots for", selectedDate, ":", result);
         setSlots(result|| []);
         if (result.length === 0) {
           setSlotError("No available slots on this date.");
