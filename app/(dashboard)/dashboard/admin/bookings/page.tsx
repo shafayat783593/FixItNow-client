@@ -57,9 +57,7 @@ export default async function AdminBookingsPage({
           <BookingFilter />
         </div>
 
-        <Suspense fallback={<BookingsTableSkeleton />} key={JSON.stringify(resolvedSearchParams)}>
           <BookingsTableSection searchParams={resolvedSearchParams} />
-        </Suspense>
       </div>
     </main>
   );

@@ -21,7 +21,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         <div className="relative z-10 flex items-center justify-between">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-950/80 border border-slate-800 backdrop-blur-md text-xs font-semibold text-orange-400">
             <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
-            <span>DevApp. Home Repairs</span>
+            <span>FixItNow. Home Repairs</span>
           </div>
           <span className="text-xs text-slate-400 font-medium hidden sm:inline-block">
             24/7 Emergency Dispatch
@@ -43,7 +43,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
 
         {/* Bottom Status Tag */}
         <div className="relative z-10 hidden sm:flex items-center justify-between text-xs text-slate-400 border-t border-slate-800/80 pt-4">
-          <span>Fixino Verified Platform</span>
+          <span>Fixitnow Verified Platform</span>
           <span className="text-orange-400 font-semibold">90-Day Guarantee</span>
         </div>
       </div>

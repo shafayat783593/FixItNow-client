@@ -63,7 +63,7 @@ const TECHNICIAN_SIDEBAR_ITEM: ISidebarItem[] = [
 const ADMIN_SIDEBAR_ITEM: ISidebarItem[] = [
   {
     label: "Admin Dashboard",
-    href: "/admin/dashboard",
+    href: "/dashboard/admin",
     icon: LayoutDashboard,
   },
   {

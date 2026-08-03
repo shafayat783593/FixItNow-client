@@ -65,9 +65,9 @@ export default async function AdminCategoriesPage({
           <CategorySortFilter />
         </div>
 
-        <Suspense fallback={<CategoriesTableSkeleton />} key={JSON.stringify(resolvedSearchParams)}>
+        {/* <Suspense fallback={<CategoriesTableSkeleton />} key={JSON.stringify(resolvedSearchParams)}> */}
           <CategoriesTableSection searchParams={resolvedSearchParams} />
-        </Suspense>
+        {/* </Suspense> */}
       </div>
     </main>
   );

@@ -56,9 +56,8 @@ export default async function AdminUsersPage({
           <UserFilter />
         </div>
 
-        <Suspense fallback={<UsersTableSkeleton />} key={JSON.stringify(resolvedSearchParams)}>
           <UsersTableSection searchParams={resolvedSearchParams} />
-        </Suspense>
+      
       </div>
     </main>
   );

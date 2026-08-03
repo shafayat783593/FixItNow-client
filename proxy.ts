@@ -1,10 +1,8 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { jwtUtils } from "./utils/jwt";
-import { cookies } from "next/headers";
 import { JwtPayload } from "jsonwebtoken";
 import { getAccessToken } from "./service/getAccessToken";
-import { getNewAccessToken } from "./service/getNewAccessToken";
 
 const AUTH_ROUTES = ["/login", "/register", "/forgot-password", "/reset-password",];
 const PUBLIC_ROUTES = ["/", "/news", "/login", "/register","/services","/technicians"];
@@ -22,7 +20,7 @@ export const proxy = async (request: NextRequest) => {
         const result = await getAccessToken();
 
         if (result.success && result.data?.accessToken) {
-            const newAccessToken: string = result.data.accessToken; // explicit annotation forces narrowing
+            const newAccessToken: string = result.data.accessToken; 
 
             response.cookies.set("accessToken", newAccessToken, {
                 httpOnly: true,
@@ -71,15 +69,5 @@ export const config = {
         "/((?!api|_next/static|_next/image|.*\\.png$).*)",
     ],
 };
-
-
-
-
-
-
-
-
-
-
 
 
