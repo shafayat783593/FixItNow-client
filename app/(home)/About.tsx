@@ -32,7 +32,7 @@ const miniFeatures = [
 
 export default function About() {
   return (
-    <section className="w-full bg-white py-24">
+    <section className="w-full bg-background py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* lg:items-stretch ব্যবহার করা হয়েছে যেন দুটি Column-এর Height সমান হয় */}
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:items-stretch">
@@ -42,12 +42,12 @@ export default function About() {
               Driven by Reliability
             </span>
 
-            <h2 className="mt-4 text-4xl font-bold leading-tight tracking-tight text-slate-900 sm:text-5xl">
+            <h2 className="mt-4 text-4xl font-bold leading-tight tracking-tight text-foreground sm:text-5xl">
               Your trusted partner for{" "}
               <span className="text-teal-600">efficient home solutions</span>
             </h2>
 
-            <p className="mt-5 max-w-lg text-slate-600">
+            <p className="mt-5 max-w-lg text-muted-foreground">
               We connect homeowners with verified, skilled technicians across every trade —
               plumbing, electrical, cleaning, and more — so you never have to gamble on who
               shows up at your door.
@@ -61,22 +61,22 @@ export default function About() {
                     <f.icon className="h-5 w-5" />
                   </span>
                   <div>
-                    <p className="font-semibold text-slate-900">{f.title}</p>
-                    <p className="mt-0.5 text-sm text-slate-500">{f.description}</p>
+                    <p className="font-semibold text-foreground">{f.title}</p>
+                    <p className="mt-0.5 text-sm text-muted-foreground">{f.description}</p>
                   </div>
                 </div>
               ))}
             </div>
 
             {/* Stat + list row */}
-            <div className="mt-8 flex flex-col gap-6 rounded-2xl border border-slate-100 bg-slate-50 p-6 sm:flex-row sm:items-center">
+            <div className="mt-8 flex flex-col gap-6 rounded-2xl border border-border bg-muted p-6 sm:flex-row sm:items-center">
               <div className="shrink-0">
                 <p className="text-4xl font-bold text-coral-600">98%</p>
-                <p className="mt-1 text-xs font-medium uppercase tracking-wide text-slate-400">
+                <p className="mt-1 text-xs font-medium uppercase tracking-wide text-muted-foreground">
                   Jobs completed on time
                 </p>
               </div>
-              <ul className="space-y-2 text-sm text-slate-600 sm:border-l sm:border-slate-200 sm:pl-6">
+              <ul className="space-y-2 text-sm text-muted-foreground sm:border-l sm:border-border sm:pl-6">
                 <li>• Booking to completion, tracked live in your dashboard</li>
                 <li>• Secure payment, released only after job acceptance</li>
               </ul>
@@ -111,18 +111,18 @@ export default function About() {
                 sizes="(min-width: 1024px) 50vw, 100vw"
               />
             </div>
-            <div className="absolute -bottom-6 -left-6 rounded-2xl border border-slate-100 bg-white p-4 shadow-lg shadow-slate-200/60">
-              <p className="text-3xl font-bold text-slate-900">
-                4.9<span className="text-base font-medium text-slate-400">/5</span>
+            <div className="absolute -bottom-6 -left-6 rounded-2xl border border-border bg-card p-4 shadow-lg shadow-foreground/10">
+              <p className="text-3xl font-bold text-foreground">
+                4.9<span className="text-base font-medium text-muted-foreground">/5</span>
               </p>
-              <p className="mt-1 text-xs text-slate-500">12,000+ completed jobs</p>
+              <p className="mt-1 text-xs text-muted-foreground">12,000+ completed jobs</p>
             </div>
           </motion.div>
         </div>
       </div>
 
       {/* Scrolling tag marquee */}
-      <div className="relative mt-20 overflow-hidden border-y border-slate-100 py-5">
+      <div className="relative mt-20 overflow-hidden border-y border-border py-5">
         <motion.div
           className="flex w-max gap-10 whitespace-nowrap"
           animate={{ x: ["0%", "-50%"] }}
@@ -131,7 +131,7 @@ export default function About() {
           {[...tags, ...tags].map((tag, i) => (
             <span
               key={`${tag}-${i}`}
-              className="font-mono text-sm uppercase tracking-wider text-slate-300"
+              className="font-mono text-sm uppercase tracking-wider text-muted-foreground"
             >
               {tag} <span className="mx-4 text-coral-300">•</span>
             </span>

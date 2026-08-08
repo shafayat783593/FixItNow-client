@@ -123,10 +123,10 @@ export default function TechnicianAvailabilityPage() {
     <div className="max-w-5xl mx-auto p-4 md:p-6 space-y-6">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b pb-4">
         <div>
-          <h1 className="text-2xl font-bold flex items-center gap-2 text-gray-800">
+          <h1 className="flex items-center gap-2 text-2xl font-bold text-foreground">
             <CalendarIcon className="w-6 h-6 text-primary" /> Working Hours & Availability
           </h1>
-          <p className="text-sm text-gray-500 mt-1">
+          <p className="mt-1 text-sm text-muted-foreground">
             Manage your daily working hours and break schedules.
           </p>
         </div>
@@ -134,7 +134,7 @@ export default function TechnicianAvailabilityPage() {
         <button
           onClick={handleSave}
           disabled={saving}
-          className="flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-medium px-5 py-2.5 rounded-lg shadow transition disabled:opacity-50"
+          className="flex items-center justify-center gap-2 rounded-lg bg-primary px-5 py-2.5 font-medium text-primary-foreground shadow transition hover:bg-primary/90 disabled:opacity-50"
         >
           {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
           Save Schedule
@@ -142,7 +142,7 @@ export default function TechnicianAvailabilityPage() {
       </div>
 
  
-      <div className="bg-white rounded-xl shadow-sm border divide-y">
+      <div className="divide-y rounded-xl border bg-card text-card-foreground shadow-sm">
         {DAYS_OF_WEEK.map((day) => {
           const daySlotsWithIndex = slots
             .map((slot, originalIndex) => ({ ...slot, originalIndex }))
@@ -160,7 +160,7 @@ export default function TechnicianAvailabilityPage() {
                   onChange={() => toggleDayAvailability(day.id)}
                   className="w-5 h-5 accent-primary rounded cursor-pointer"
                 />
-                <label htmlFor={`day-${day.id}`} className="font-semibold text-gray-700 cursor-pointer">
+                <label htmlFor={`day-${day.id}`} className="cursor-pointer font-semibold text-foreground">
                   {day.name}
                 </label>
               </div>
@@ -169,26 +169,26 @@ export default function TechnicianAvailabilityPage() {
                 {isDayActive ? (
                   daySlotsWithIndex.map(({ startTime, endTime, originalIndex }) => (
                     <div key={originalIndex} className="flex items-center gap-3 flex-wrap">
-                      <div className="flex items-center gap-2 bg-gray-50 border rounded-lg p-2">
-                        <Clock className="w-4 h-4 text-gray-400" />
+                      <div className="flex items-center gap-2 rounded-lg border bg-muted p-2">
+                        <Clock className="h-4 w-4 text-muted-foreground" />
                         <input
                           type="time"
                           value={startTime}
                           onChange={(e) => updateSlotValue(originalIndex, "startTime", e.target.value)}
-                          className="bg-transparent text-sm focus:outline-none font-medium text-gray-700"
+                          className="bg-transparent text-sm font-medium text-foreground focus:outline-none"
                         />
-                        <span className="text-gray-400 text-sm">-</span>
+                        <span className="text-sm text-muted-foreground">-</span>
                         <input
                           type="time"
                           value={endTime}
                           onChange={(e) => updateSlotValue(originalIndex, "endTime", e.target.value)}
-                          className="bg-transparent text-sm focus:outline-none font-medium text-gray-700"
+                          className="bg-transparent text-sm font-medium text-foreground focus:outline-none"
                         />
                       </div>
 
                       <button
                         onClick={() => removeTimeSlot(originalIndex)}
-                        className="p-2 text-gray-400 hover:text-red-500 rounded-lg hover:bg-red-50 transition"
+                        className="rounded-lg p-2 text-muted-foreground transition hover:bg-destructive/10 hover:text-destructive"
                         title="Remove Slot"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -196,7 +196,7 @@ export default function TechnicianAvailabilityPage() {
                     </div>
                   ))
                 ) : (
-                  <span className="text-sm text-gray-400 italic">Unavailable</span>
+                  <span className="text-sm italic text-muted-foreground">Unavailable</span>
                 )}
               </div>
 

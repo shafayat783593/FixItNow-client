@@ -52,10 +52,10 @@ export default function TechnicianProfilePage() {
     <div className="max-w-4xl mx-auto p-4 md:p-6 space-y-6">
       {/* Header */}
       <div className="border-b pb-4">
-        <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+        <h1 className="flex items-center gap-2 text-2xl font-bold text-foreground">
           <User className="w-6 h-6 text-primary" /> Edit Technician Profile
         </h1>
-        <p className="text-sm text-gray-500 mt-1">
+        <p className="mt-1 text-sm text-muted-foreground">
           Update your experience, skills, and personal information.
         </p>
       </div>

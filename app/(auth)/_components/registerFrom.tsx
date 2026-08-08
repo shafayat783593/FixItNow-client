@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Eye, EyeOff, Lock, Mail, User, ArrowRight, ArrowLeft, CheckCircle2, Wrench, ShoppingBag } from 'lucide-react';
 import { toast } from "sonner";
 import { registerAction, RegisterState } from '../_action/_authAction';
+import GoogleSignInButton from './Googlesigninbutton ';
 
 const initialState: RegisterState = {
   success: false,
@@ -26,11 +27,9 @@ export default function RegisterForm() {
 
   useEffect(() => {
     if (!state) return;
-    if (state.success) {
-      toast.success('Account created successfully! Redirecting...');
-      setTimeout(() => {
-        router.push('/login');
-      }, 1000);
+    if (state.success && state.email) {
+      toast.success('Check your email for a verification code.');
+      router.push(`/verify-otp?email=${encodeURIComponent(state.email)}`);
     } else if (state.error) {
       toast.error(state.error);
     }
@@ -49,7 +48,7 @@ export default function RegisterForm() {
       <div className="mb-4">
         <Link
           href="/"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-slate-900 transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground transition-colors hover:text-foreground"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Back</span>
@@ -57,15 +56,25 @@ export default function RegisterForm() {
       </div>
 
       <div className="text-center mb-6">
-        <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">Register</h1>
-        <p className="text-xs text-slate-500 font-medium mt-1">Enter your details to create an account</p>
+        <h1 className="text-3xl font-extrabold text-foreground tracking-tight">Register</h1>
+        <p className="text-xs text-muted-foreground font-medium mt-1">Enter your details to create an account</p>
+      </div>
+
+      <div className="mb-4">
+        <GoogleSignInButton />
+      </div>
+
+      <div className="flex items-center gap-3 mb-4">
+        <div className="flex-1 h-px bg-border" />
+        <span className="text-[11px] font-bold text-muted-foreground uppercase">or</span>
+        <div className="flex-1 h-px bg-border" />
       </div>
 
       <form action={action} onSubmit={handleSubmit} className="space-y-3 font-sans">
 
         {/* Role Selector */}
         <div>
-          <label className="block text-xs font-bold text-slate-700 mb-1.5">I want to</label>
+          <label className="block text-xs font-bold text-foreground mb-1.5">I want to</label>
           <input type="hidden" name="role" value={role} />
           <div className="grid grid-cols-2 gap-2">
             <button
@@ -73,8 +82,8 @@ export default function RegisterForm() {
               onClick={() => setRole('CUSTOMER')}
               className={`flex items-center justify-center gap-2 rounded-xl border py-2.5 text-sm font-semibold transition-all ${
                 role === 'CUSTOMER'
-                  ? 'border-orange-500 bg-orange-50 text-orange-600'
-                  : 'border-slate-200 bg-slate-50 text-slate-500 hover:border-slate-300'
+                  ? 'border-accent bg-accent/15 text-accent'
+                  : 'border-input bg-background text-muted-foreground hover:border-ring'
               }`}
             >
               <ShoppingBag className="w-4 h-4" /> Book services
@@ -84,8 +93,8 @@ export default function RegisterForm() {
               onClick={() => setRole('TECHNICIAN')}
               className={`flex items-center justify-center gap-2 rounded-xl border py-2.5 text-sm font-semibold transition-all ${
                 role === 'TECHNICIAN'
-                  ? 'border-orange-500 bg-orange-50 text-orange-600'
-                  : 'border-slate-200 bg-slate-50 text-slate-500 hover:border-slate-300'
+                  ? 'border-accent bg-accent/15 text-accent'
+                  : 'border-input bg-background text-muted-foreground hover:border-ring'
               }`}
             >
               <Wrench className="w-4 h-4" /> Offer services
@@ -94,9 +103,9 @@ export default function RegisterForm() {
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-slate-700 mb-1.5">Full Name</label>
+          <label className="block text-xs font-bold text-foreground mb-1.5">Full Name</label>
           <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-muted-foreground">
               <User className="w-4 h-4" />
             </div>
             <input
@@ -104,15 +113,15 @@ export default function RegisterForm() {
               name="fullName"
               required
               placeholder="John Doe"
-              className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-orange-500/30 focus:border-orange-500 transition-all"
+              className="w-full rounded-xl border border-input bg-background py-2.5 pl-10 pr-4 text-sm font-medium text-foreground placeholder:text-muted-foreground transition-all focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/30"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-slate-700 mb-1.5">Email Address</label>
+          <label className="block text-xs font-bold text-foreground mb-1.5">Email Address</label>
           <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-muted-foreground">
               <Mail className="w-4 h-4" />
             </div>
             <input
@@ -120,15 +129,15 @@ export default function RegisterForm() {
               name="email"
               required
               placeholder="name@company.com"
-              className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-orange-500/30 focus:border-orange-500 transition-all"
+              className="w-full rounded-xl border border-input bg-background py-2.5 pl-10 pr-4 text-sm font-medium text-foreground placeholder:text-muted-foreground transition-all focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/30"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-slate-700 mb-1.5">Password</label>
+          <label className="block text-xs font-bold text-foreground mb-1.5">Password</label>
           <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-muted-foreground">
               <Lock className="w-4 h-4" />
             </div>
             <input
@@ -138,12 +147,12 @@ export default function RegisterForm() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
-              className="w-full pl-10 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-orange-500/30 focus:border-orange-500 transition-all"
+              className="w-full rounded-xl border border-input bg-background py-2.5 pl-10 pr-10 text-sm font-medium text-foreground placeholder:text-muted-foreground transition-all focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/30"
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600 transition-colors"
+              className="absolute inset-y-0 right-0 flex items-center pr-3.5 text-muted-foreground transition-colors hover:text-foreground"
             >
               {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
             </button>
@@ -151,7 +160,7 @@ export default function RegisterForm() {
         </div>
 
         {password && (
-          <div className="p-2.5 bg-slate-50 rounded-xl border border-slate-200 space-y-1 text-xs text-slate-500">
+          <div className="space-y-1 rounded-xl border border-border bg-muted p-2.5 text-xs text-muted-foreground">
             <div className={`flex items-center gap-1.5 ${isPasswordLongEnough ? 'text-emerald-600 font-semibold' : ''}`}>
               <CheckCircle2 className="w-3.5 h-3.5" />
               <span>At least 8 characters long</span>
@@ -166,7 +175,7 @@ export default function RegisterForm() {
         <button
           type="submit"
           disabled={isPending}
-          className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-orange-500 hover:bg-orange-600 text-white font-bold text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-all disabled:opacity-50 shadow-lg shadow-orange-500/20 active:scale-[0.99] mt-3"
+          className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-sm font-bold text-primary-foreground shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:opacity-50 active:scale-[0.99] hover:bg-primary/90"
         >
           {isPending ? (
             <div className="flex items-center gap-2">
@@ -182,9 +191,9 @@ export default function RegisterForm() {
         </button>
       </form>
 
-      <p className="mt-5 text-center text-xs text-slate-400 font-medium">
+      <p className="mt-5 text-center text-xs text-muted-foreground font-medium">
         Already have an account?{' '}
-        <Link href="/login" className="font-bold text-orange-500 hover:text-orange-600 transition-colors">
+        <Link href="/login" className="font-bold text-accent hover:opacity-80 transition-colors">
           Sign in
         </Link>
       </p>

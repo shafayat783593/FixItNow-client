@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function PublicLoading() {
   return (
-    <main className="relative min-h-screen bg-slate-50/50 py-10 sm:py-16">
+    <main className="relative min-h-screen bg-muted/50 py-10 sm:py-16">
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header block */}
         <div className="mx-auto max-w-3xl text-center">
@@ -12,10 +12,10 @@ export default function PublicLoading() {
         </div>
 
         {/* Search + filter bar */}
-        <div className="mt-10 rounded-2xl border border-slate-200/90 bg-white p-3 shadow-md shadow-slate-100">
+        <div className="mt-10 rounded-2xl border border-border bg-card p-3 shadow-md shadow-foreground/5">
           <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
             <Skeleton className="h-10 w-full lg:w-1/3" />
-            <div className="hidden h-7 w-[1px] bg-slate-200 lg:block" />
+            <div className="hidden h-7 w-[1px] bg-border lg:block" />
             <Skeleton className="h-10 flex-1" />
           </div>
         </div>
@@ -30,7 +30,7 @@ export default function PublicLoading() {
           {Array.from({ length: 8 }).map((_, i) => (
             <div
               key={i}
-              className="overflow-hidden rounded-2xl border border-slate-200 bg-white p-4 shadow-sm"
+              className="overflow-hidden rounded-2xl border border-border bg-card p-4 shadow-sm"
             >
               <Skeleton className="h-32 w-full rounded-xl" />
               <Skeleton className="mt-4 h-4 w-3/4" />

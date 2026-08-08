@@ -10,7 +10,7 @@ export interface ServiceData {
   title: string;
   description: string;
   price: number;
-  duration: number; 
+  duration: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -28,46 +28,43 @@ export function ServiceCard({ service }: ServiceCardProps) {
   };
 
   return (
-    <div className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-amber-400 hover:shadow-xl">
+    <div className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-xl">
       <div>
         <div className="flex items-center justify-between gap-2">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-200 bg-amber-50 px-3 py-0.5 text-xs font-bold text-amber-800">
-            <Tag size={12} className="text-amber-600" />
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-accent/30 bg-accent/10 px-3 py-0.5 text-xs font-bold text-accent-foreground">
+            <Tag size={12} className="text-accent" />
             Service
           </span>
 
-          <div className="flex items-center gap-1 text-xs font-medium text-slate-500">
-            <Clock size={13} className="text-slate-400" />
+          <div className="flex items-center gap-1 text-xs font-medium text-muted-foreground">
+            <Clock size={13} className="text-muted-foreground" />
             <span>{formatDuration(service.duration)}</span>
           </div>
         </div>
 
-       
-        <h3 className="mt-4 text-xl font-bold text-[#0F1B2B] transition-colors group-hover:text-amber-600">
+        <h3 className="mt-4 text-xl font-bold text-foreground transition-colors group-hover:text-accent">
           {service.title}
         </h3>
 
-    
-        <p className="mt-2.5 line-clamp-2 text-sm leading-relaxed text-slate-600">
+        <p className="mt-2.5 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
           {service.description}
         </p>
       </div>
 
-     
-      <div className="mt-6 border-t border-slate-100 pt-4">
+      <div className="mt-6 border-t border-border pt-4">
         <div className="flex items-center justify-between">
           <div>
-            <span className="block text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+            <span className="block text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
               Estimated Price
             </span>
-            <span className="text-2xl font-black text-[#0F1B2B]">
+            <span className="text-2xl font-black text-foreground">
               ${service.price.toLocaleString()}
             </span>
           </div>
 
           <Link
             href={`/services/${service.id}`}
-            className="inline-flex items-center gap-1.5 rounded-xl bg-[#0F1B2B] px-4 py-2.5 text-xs font-bold text-white transition-all duration-200 hover:bg-amber-400 hover:text-[#0F1B2B]"
+            className="inline-flex items-center gap-1.5 rounded-xl bg-primary px-4 py-2.5 text-xs font-bold text-primary-foreground transition-all duration-200 hover:bg-accent hover:text-accent-foreground"
           >
             <span>View Details</span>
             <ArrowRight size={14} />
@@ -75,14 +72,13 @@ export function ServiceCard({ service }: ServiceCardProps) {
         </div>
 
         {/* Trust Indicator */}
-        <div className="mt-3.5 flex items-center gap-1 text-[11px] font-semibold text-emerald-600">
+        <div className="mt-3.5 flex items-center gap-1 text-[11px] font-semibold text-success">
           <ShieldCheck size={13} />
           <span>FixItNow Verified Standard</span>
         </div>
       </div>
 
-
-      <div className="absolute inset-x-0 top-0 h-1 bg-amber-400 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+      <div className="absolute inset-x-0 top-0 h-1 bg-accent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
     </div>
   );
 }

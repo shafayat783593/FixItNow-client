@@ -16,7 +16,7 @@ export default async function TechniciansSection() {
     : [];
 
   return (
-    <section className="relative overflow-hidden bg-white py-16 sm:py-24">
+    <section className="relative overflow-hidden bg-background py-16 sm:py-24">
       <div
         className="pointer-events-none absolute inset-0 opacity-30"
         style={{
@@ -36,10 +36,10 @@ export default async function TechniciansSection() {
                 Top Rated Experts
               </span>
             </div>
-            <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-[#0F1B2B] sm:text-4xl">
+            <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
               Meet Our Featured Technicians
             </h2>
-            <p className="mt-3 text-base text-slate-600">
+            <p className="mt-3 text-base text-muted-foreground">
               Verified professionals ready to handle your repair and maintenance needs with transparent pricing.
             </p>
           </div>
@@ -47,7 +47,7 @@ export default async function TechniciansSection() {
           {/* Desktop CTA Button */}
           <Link
             href="/technicians"
-            className="hidden items-center gap-2 rounded-xl border-2 border-[#0F1B2B] bg-[#0F1B2B] px-6 py-3 text-sm font-bold text-white transition-all hover:bg-amber-400 hover:text-[#0F1B2B] hover:border-amber-400 md:inline-flex"
+            className="hidden items-center gap-2 rounded-xl border-2 border-primary bg-primary px-6 py-3 text-sm font-bold text-primary-foreground transition-all hover:border-accent hover:bg-accent hover:text-accent-foreground md:inline-flex"
           >
             <span>Show All Technicians</span>
             <ArrowRight size={16} />
@@ -62,8 +62,8 @@ export default async function TechniciansSection() {
             ))}
           </div>
         ) : (
-          <div className="mt-12 rounded-2xl border border-dashed border-slate-300 p-12 text-center">
-            <p className="text-slate-500 font-medium">No technicians found at the moment.</p>
+          <div className="mt-12 rounded-2xl border border-dashed border-border p-12 text-center">
+            <p className="font-medium text-muted-foreground">No technicians found at the moment.</p>
           </div>
         )}
 
@@ -71,7 +71,7 @@ export default async function TechniciansSection() {
         <div className="mt-10 flex justify-center md:hidden">
           <Link
             href="/technicians"
-            className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#0F1B2B] px-6 py-3.5 text-sm font-bold text-white shadow-md transition-all active:scale-95"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-sm font-bold text-primary-foreground shadow-md transition-all active:scale-95"
           >
             <span>Show All Technicians</span>
             <ArrowRight size={16} />

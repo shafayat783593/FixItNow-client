@@ -53,8 +53,17 @@ export default function HowItWorks() {
   const [role, setRole] = useState<"customer" | "technician">("customer");
 
   return (
-    <section className="bg-background py-20 text-foreground">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <section className="relative overflow-hidden bg-background py-20 text-foreground">
+      <div
+        className="pointer-events-none absolute inset-0 opacity-40"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle, #E2E8F0 1px, transparent 1px)",
+          backgroundSize: "28px 28px",
+        }}
+        aria-hidden="true"
+      />
+      <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <span className="font-mono text-xs uppercase tracking-wider text-accent">
             How it works

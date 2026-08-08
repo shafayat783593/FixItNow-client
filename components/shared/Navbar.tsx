@@ -20,6 +20,7 @@ import {
 import { getMe } from '@/hooks/getMe';
 import { logout } from '@/hooks/logout';
 import ProfileDropdown from './ProfileDropdownProps';
+import { ThemeToggleButton } from '../ThemeToggleButton';
 
 interface NavLink {
     label: string;
@@ -54,7 +55,6 @@ export default function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
     const [user, setUser] = useState<UserProfile | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
-    const [activeLink, setActiveLink] = useState<string | null>(null);
     const [hoveredLink, setHoveredLink] = useState<string | null>(null);
 
     const pathname = usePathname();
@@ -64,6 +64,7 @@ export default function Navbar() {
         const fetchUser = async () => {
             try {
                 const res = await getMe();
+console.log("users................",res)
 
                 if (res) {
                     setUser(res.data.profile || res.data || res);
@@ -80,10 +81,6 @@ export default function Navbar() {
         fetchUser();
     }, []);
 
-    useEffect(() => {
-        setActiveLink(pathname);
-    }, [pathname]);
-
     const handleLogout = async () => {
         try {
             await logout();
@@ -95,7 +92,10 @@ export default function Navbar() {
         }
     };
 
-    const isActive = (href: string) => activeLink === href;
+    const isActive = (href: string) => {
+        if (href === '/') return pathname === '/';
+        return pathname === href || pathname.startsWith(`${href}/`);
+    };
 
     const dashboardHref = user ? dashboardPathByRole[user.role] : '/login';
 
@@ -126,7 +126,6 @@ export default function Navbar() {
                                 <Link
                                     key={link.href}
                                     href={link.href}
-                                    onClick={() => setActiveLink(link.href)}
                                     onMouseEnter={() => setHoveredLink(link.href)}
                                     className="relative px-4 py-2 rounded-lg text-sm font-medium"
                                 >
@@ -139,7 +138,7 @@ export default function Navbar() {
                                     )}
                                     <span
                                         className={`relative z-10 inline-flex items-center gap-1.5 transition-colors ${
-                                            active ? 'text-accent-foreground' : 'text-muted-foreground hover:text-accent-foreground'
+                                            active ? 'text-accent' : 'text-muted-foreground hover:text-foreground'
                                         }`}
                                     >
                                         <Icon className="w-4 h-4" />
@@ -152,17 +151,18 @@ export default function Navbar() {
 
                     {/* Profile / Auth Buttons */}
                     <div className="hidden md:flex items-center gap-3">
+                        <ThemeToggleButton />
+
                         {loading ? (
                             <div className="w-9 h-9 rounded-full bg-muted animate-pulse" />
                         ) : user ? (
                             <div className="flex items-center gap-2">
                                 <Link
                                     href={dashboardHref}
-                                    onClick={() => setActiveLink(dashboardHref)}
                                     className={`inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
                                         isActive(dashboardHref)
-                                            ? 'text-accent-foreground bg-accent/10'
-                                            : 'text-muted-foreground hover:text-accent-foreground hover:bg-accent/5'
+                                            ? 'text-accent bg-accent/10'
+                                            : 'text-muted-foreground hover:text-foreground hover:bg-accent/5'
                                     }`}
                                 >
                                     <LayoutDashboard className="w-4 h-4" />
@@ -174,11 +174,10 @@ export default function Navbar() {
                             <>
                                 <Link
                                     href="/login"
-                                    onClick={() => setActiveLink('/login')}
                                     className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
                                         isActive('/login')
-                                            ? 'text-accent-foreground bg-accent/10'
-                                            : 'text-muted-foreground hover:text-accent-foreground'
+                                            ? 'text-accent bg-accent/10'
+                                            : 'text-muted-foreground hover:text-foreground'
                                     }`}
                                 >
                                     Log in
@@ -194,14 +193,17 @@ export default function Navbar() {
                         )}
                     </div>
 
-                    {/* Mobile Menu Button */}
-                    <button
-                        type="button"
-                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                        className="md:hidden p-2 rounded-lg text-muted-foreground hover:text-accent-foreground hover:bg-accent/5 transition-colors"
-                    >
-                        {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-                    </button>
+                    {/* Mobile: theme toggle + menu button */}
+                    <div className="md:hidden flex items-center gap-2">
+                        <ThemeToggleButton />
+                        <button
+                            type="button"
+                            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                            className="p-2 rounded-lg text-muted-foreground hover:bg-accent/5 hover:text-foreground transition-colors"
+                        >
+                            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -225,13 +227,12 @@ export default function Navbar() {
                                             key={link.href}
                                             href={link.href}
                                             onClick={() => {
-                                                setActiveLink(link.href);
                                                 setMobileMenuOpen(false);
                                             }}
                                             className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-base font-medium transition-colors ${
                                                 active
-                                                    ? 'text-accent-foreground bg-accent/10'
-                                                    : 'text-muted-foreground hover:text-accent-foreground hover:bg-accent/5'
+                                                    ? 'text-accent bg-accent/10'
+                                                    : 'text-muted-foreground hover:bg-accent/5 hover:text-foreground'
                                             }`}
                                         >
                                             <Icon className="w-4 h-4" />
@@ -243,13 +244,12 @@ export default function Navbar() {
                                     <Link
                                         href={dashboardHref}
                                         onClick={() => {
-                                            setActiveLink(dashboardHref);
-                                            setMobileMenuOpen(false);
+                                                setMobileMenuOpen(false);
                                         }}
                                         className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-base font-medium transition-colors ${
                                             isActive(dashboardHref)
-                                                ? 'text-accent-foreground bg-accent/10'
-                                                : 'text-muted-foreground hover:text-accent-foreground hover:bg-accent/5'
+                                                ? 'text-accent bg-accent/10'
+                                                : 'text-muted-foreground hover:bg-accent/5 hover:text-foreground'
                                         }`}
                                     >
                                         <LayoutDashboard className="w-4 h-4" />
@@ -292,12 +292,11 @@ export default function Navbar() {
                                         <Link
                                             href="/login"
                                             onClick={() => {
-                                                setActiveLink('/login');
                                                 setMobileMenuOpen(false);
                                             }}
                                             className={`block w-full text-center px-4 py-2.5 text-sm font-medium rounded-xl border transition-colors ${
                                                 isActive('/login')
-                                                    ? 'text-accent-foreground bg-accent/10 border-accent/30'
+                                                    ? 'text-accent bg-accent/10 border-accent/30'
                                                     : 'text-foreground bg-card border-border'
                                             }`}
                                         >

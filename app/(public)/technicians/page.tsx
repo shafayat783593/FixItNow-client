@@ -38,8 +38,8 @@ export default async function TechniciansPage({
       <div
         className="pointer-events-none absolute inset-0 opacity-30"
         style={{
-          backgroundImage: 'radial-gradient(circle, #CBD5E1 1px, transparent 1px)',
-          backgroundSize: '24px 24px',
+          backgroundImage: 'radial-gradient(circle, hsl(var(--border)) 1px, transparent 1px)',
+          backgroundSize: '28px 28px',
         }}
         aria-hidden="true"
       />
@@ -47,9 +47,9 @@ export default async function TechniciansPage({
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div className="max-w-xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-3.5 py-1">
-              <Users size={14} className="text-amber-700" />
-              <span className="text-xs font-bold uppercase tracking-wider text-amber-800">
+            <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3.5 py-1">
+              <Users size={14} className="text-accent" />
+              <span className="text-xs font-bold uppercase tracking-wider text-accent-foreground">
                 Top Rated Experts
               </span>
             </div>
@@ -63,7 +63,7 @@ export default async function TechniciansPage({
         </div>
 
         {/* Search + Filter Row */}
-        <div className="mt-10 rounded-2xl border border-slate-200/90 bg-white p-3 shadow-md shadow-slate-100">
+        <div className="mt-10 rounded-2xl border border-border bg-card p-3 shadow-md shadow-foreground/5">
                 <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
                   {/* Universal Search Bar */}
                   <div className="lg:w-1/3 shrink-0">
@@ -71,7 +71,7 @@ export default async function TechniciansPage({
                   </div>
       
                   {/* Separator for Large Screens */}
-                  <div className="hidden h-7 w-[1px] bg-slate-200 lg:block" />
+                  <div className="hidden h-7 w-[1px] bg-border lg:block" />
       
                   {/* Filter Component */}
                   <div className="flex-1">

@@ -10,12 +10,12 @@ export function CustomInput({ label, error, helperText, className = "", ...props
   return (
     <div className="w-full space-y-1.5">
       {label && (
-        <label className="text-sm font-semibold text-[#0F1B2B]">
+        <label className="text-sm font-semibold text-foreground">
           {label}
         </label>
       )}
       <input
-        className={`flex h-11 w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-sm text-[#0F1B2B] shadow-sm transition-all duration-200 placeholder:text-slate-400 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400/20 disabled:cursor-not-allowed disabled:opacity-50 ${
+        className={`flex h-11 w-full rounded-xl border border-input bg-background px-3.5 py-2 text-sm text-foreground shadow-sm transition-all duration-200 placeholder:text-muted-foreground focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20 disabled:cursor-not-allowed disabled:opacity-50 ${
           error ? "border-red-500 focus:border-red-500 focus:ring-red-500/20" : ""
         } ${className}`}
         {...props}
@@ -23,7 +23,7 @@ export function CustomInput({ label, error, helperText, className = "", ...props
       {error ? (
         <p className="text-xs font-medium text-red-500">{error}</p>
       ) : helperText ? (
-        <p className="text-xs text-slate-500">{helperText}</p>
+        <p className="text-xs text-muted-foreground">{helperText}</p>
       ) : null}
     </div>
   );

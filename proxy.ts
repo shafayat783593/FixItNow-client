@@ -4,8 +4,8 @@ import { jwtUtils } from "./utils/jwt";
 import { JwtPayload } from "jsonwebtoken";
 import { getAccessToken } from "./service/getAccessToken";
 
-const AUTH_ROUTES = ["/login", "/register", "/forgot-password", "/reset-password",];
-const PUBLIC_ROUTES = ["/", "/news", "/login", "/register","/services","/technicians","/how-it-works","/contact","/terms","/privacy","/help"];
+const AUTH_ROUTES = ["/login", "/register", "/forgot-password", "/reset-password","/verify-otp"];
+const PUBLIC_ROUTES = ["/", "/news", "/login", "/register","/services","/technicians","/how-it-works","/contact","/terms","/privacy","/help","/verify-otp"];
 
 export const proxy = async (request: NextRequest) => {
     const pathname = request.nextUrl.pathname;

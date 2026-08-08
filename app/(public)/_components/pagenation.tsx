@@ -28,17 +28,17 @@ export function Pagination({ meta }: PaginationProps) {
   if (totalPages <= 1) return null;
 
   return (
-    <div className="mt-12 flex items-center justify-between border-t border-slate-200 pt-6">
-      <p className="text-sm font-medium text-slate-600">
-        Showing Page <span className="font-bold text-[#0F1B2B]">{page}</span> of{" "}
-        <span className="font-bold text-[#0F1B2B]">{totalPages}</span>
+    <div className="mt-12 flex items-center justify-between border-t border-border pt-6">
+      <p className="text-sm font-medium text-muted-foreground">
+        Showing Page <span className="font-bold text-foreground">{page}</span> of{" "}
+        <span className="font-bold text-foreground">{totalPages}</span>
       </p>
 
       <div className="flex items-center gap-2">
         <button
           onClick={() => handlePageChange(page - 1)}
           disabled={page <= 1}
-          className="inline-flex items-center gap-1 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-[#0F1B2B] shadow-sm transition-all hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex items-center gap-1 rounded-xl border border-border bg-card px-3 py-2 text-sm font-semibold text-foreground shadow-sm transition-all hover:bg-secondary disabled:cursor-not-allowed disabled:opacity-50"
         >
           <ChevronLeft size={16} />
           Previous
@@ -47,7 +47,7 @@ export function Pagination({ meta }: PaginationProps) {
         <button
           onClick={() => handlePageChange(page + 1)}
           disabled={page >= totalPages}
-          className="inline-flex items-center gap-1 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-[#0F1B2B] shadow-sm transition-all hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex items-center gap-1 rounded-xl border border-border bg-card px-3 py-2 text-sm font-semibold text-foreground shadow-sm transition-all hover:bg-secondary disabled:cursor-not-allowed disabled:opacity-50"
         >
           Next
           <ChevronRight size={16} />

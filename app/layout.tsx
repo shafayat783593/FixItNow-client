@@ -5,6 +5,7 @@ import Navbar from "@/components/shared/Navbar";
 import LayoutWrapper from "@/components/LayoutWrapper";
 import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
+import { ThemeProviders } from "@/components/ThemeProvider";
 
 const geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -21,10 +22,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={cn("font-sans", geist.variable)}>
       <body>
+        <ThemeProviders>
         <LayoutWrapper>
           {children}
-        </LayoutWrapper>
-        {/* Sonner Toaster */}
+          </LayoutWrapper>
+          </ThemeProviders>
+       
         <Toaster position="top-right" richColors />
       </body>
     </html>

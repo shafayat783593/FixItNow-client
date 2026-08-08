@@ -55,15 +55,15 @@ export default function TechnicianProfileForm({ initialData }: TechnicianProfile
 
   return (
     <div className="space-y-6">
-      <form onSubmit={handleSubmit(onSubmit)} className="bg-white rounded-xl shadow-sm border p-6 space-y-6">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 rounded-xl border bg-card p-6 text-card-foreground shadow-sm">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Full Name */}
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">
+            <label className="mb-1 block text-sm font-semibold text-foreground">
               Full Name *
             </label>
             <div className="relative">
-              <User className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
+              <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
               <input
                 type="text"
                 {...register("name")}
@@ -76,11 +76,11 @@ export default function TechnicianProfileForm({ initialData }: TechnicianProfile
 
           {/* Phone */}
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">
+            <label className="mb-1 block text-sm font-semibold text-foreground">
               Phone Number
             </label>
             <div className="relative">
-              <Phone className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
+              <Phone className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
               <input
                 type="text"
                 {...register("phone")}
@@ -93,11 +93,11 @@ export default function TechnicianProfileForm({ initialData }: TechnicianProfile
 
           {/* Experience */}
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">
+            <label className="mb-1 block text-sm font-semibold text-foreground">
               Years of Experience
             </label>
             <div className="relative">
-              <Briefcase className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
+              <Briefcase className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
               <input
                 type="number"
                 {...register("experience")}
@@ -110,11 +110,11 @@ export default function TechnicianProfileForm({ initialData }: TechnicianProfile
 
           {/* Location / Address */}
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">
+            <label className="mb-1 block text-sm font-semibold text-foreground">
               Address / Location
             </label>
             <div className="relative">
-              <MapPin className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
+              <MapPin className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
               <input
                 type="text"
                 {...register("location")}
@@ -128,7 +128,7 @@ export default function TechnicianProfileForm({ initialData }: TechnicianProfile
 
         {/* Skills */}
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-1">
+          <label className="mb-1 block text-sm font-semibold text-foreground">
             Skills (comma separated)
           </label>
           <input
@@ -142,11 +142,11 @@ export default function TechnicianProfileForm({ initialData }: TechnicianProfile
 
         {/* Avatar */}
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-1">
+          <label className="mb-1 block text-sm font-semibold text-foreground">
             Avatar URL
           </label>
           <div className="relative">
-            <ImageIcon className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
+            <ImageIcon className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
             <input
               type="text"
               {...register("avatar")}
@@ -159,11 +159,11 @@ export default function TechnicianProfileForm({ initialData }: TechnicianProfile
 
         {/* Bio */}
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-1">
+          <label className="mb-1 block text-sm font-semibold text-foreground">
             Bio / Overview
           </label>
           <div className="relative">
-            <FileText className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
+            <FileText className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
             <textarea
               {...register("bio")}
               rows={4}
@@ -179,7 +179,7 @@ export default function TechnicianProfileForm({ initialData }: TechnicianProfile
           <button
             type="submit"
             disabled={submitting}
-            className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white font-medium px-6 py-2.5 rounded-lg shadow transition disabled:opacity-50 cursor-pointer"
+            className="flex cursor-pointer items-center gap-2 rounded-lg bg-primary px-6 py-2.5 font-medium text-primary-foreground shadow transition hover:bg-primary/90 disabled:opacity-50"
           >
             {submitting ? (
               <>

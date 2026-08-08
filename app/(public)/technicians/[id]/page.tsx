@@ -28,7 +28,7 @@ export default async function TechnicianDetailsPage({
         <div
           className="pointer-events-none absolute inset-0 opacity-10"
           style={{
-            backgroundImage: "radial-gradient(circle, #ffffff 1px, transparent 1px)",
+            backgroundImage: "radial-gradient(circle, hsl(var(--primary-foreground)) 1px, transparent 1px)",
             backgroundSize: "24px 24px",
           }}
         />

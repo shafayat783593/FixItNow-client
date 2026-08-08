@@ -3,7 +3,7 @@ import React from 'react';
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen w-full bg-slate-950 text-slate-900 font-sans selection:bg-orange-500 selection:text-white relative flex flex-col lg:flex-row overflow-x-hidden">
+    <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-background font-sans text-foreground selection:bg-accent selection:text-accent-foreground lg:flex-row">
       
       {/* LEFT / BACKGROUND: Full Width Workshop & Technician Visual */}
       <div className="relative w-full lg:w-[60%] xl:w-[65%] min-h-[300px] lg:min-h-screen bg-slate-900 flex flex-col justify-between p-6 sm:p-10 lg:p-12 overflow-hidden">
@@ -54,8 +54,8 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       </div>
 
       {/* RIGHT SIDE: Overlapping Curved Form Card */}
-      <div className="relative w-full lg:w-[40%] xl:w-[35%] lg:min-h-screen bg-slate-950 flex flex-col justify-center">
-        <div className="w-full h-full bg-white text-slate-900 rounded-t-[36px] lg:rounded-t-none lg:rounded-l-[44px] shadow-2xl p-6 sm:p-10 lg:p-12 flex flex-col justify-center relative z-20 -mt-10 lg:mt-0 transition-all duration-300 overflow-y-auto">
+      <div className="relative flex w-full flex-col justify-center bg-background lg:min-h-screen lg:w-[40%] xl:w-[35%]">
+        <div className="relative z-20 -mt-10 flex h-full w-full flex-col justify-center overflow-y-auto rounded-t-[36px] bg-card p-6 text-card-foreground shadow-2xl transition-all sm:p-10 lg:mt-0 lg:rounded-l-[44px] lg:rounded-t-none lg:p-12">
           {children}
         </div>
       </div>

@@ -38,7 +38,7 @@ export default function ProfileDropdown({ user, onLogout }: ProfileDropdownProps
   onClick={() => setIsOpen(!isOpen)}
   className="flex items-center gap-3 p-1 rounded-xl  transition-colors"
 >
-  <div className="relative w-10 h-10 rounded-full overflow-hidden bg-indigo-100 border border-indigo-200">
+  <div className="relative w-10 h-10 rounded-full overflow-hidden bg-secondary border border-border">
     {user.avatar ? (
       <Image
         src={user.avatar}
@@ -48,7 +48,7 @@ export default function ProfileDropdown({ user, onLogout }: ProfileDropdownProps
         className="object-cover"
       />
     ) : (
-      <div className="flex h-full w-full items-center justify-center text-indigo-500 font-bold">
+      <div className="flex h-full w-full items-center justify-center text-secondary-foreground font-bold">
         {user.name?.charAt(0).toUpperCase() || "U"}
       </div>
     )}
@@ -62,19 +62,19 @@ export default function ProfileDropdown({ user, onLogout }: ProfileDropdownProps
 </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-56 bg-white border border-slate-200 rounded-2xl shadow-xl shadow-slate-900/10 py-2 z-50">
-          <div className="px-4 py-2.5 border-b border-slate-100">
-            <p className="text-sm font-semibold text-slate-900 truncate">{user.name}</p>
-            <p className="text-xs text-slate-500 truncate">{user.email}</p>
+        <div className="absolute right-0 z-50 mt-2 w-56 rounded-2xl border border-border bg-popover py-2 text-popover-foreground shadow-xl shadow-foreground/10">
+          <div className="border-b border-border px-4 py-2.5">
+            <p className="text-sm font-semibold truncate">{user.name}</p>
+            <p className="text-xs text-muted-foreground truncate">{user.email}</p>
           </div>
 
           <div className="py-1">
             <Link
               href="/profile"
               onClick={() => setIsOpen(false)}
-              className="flex items-center gap-2.5 px-4 py-2 text-sm text-slate-600 hover:text-coral-600 hover:bg-coral-500/5 transition-colors"
+              className="flex items-center gap-2.5 px-4 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
             >
-              <User className="w-4 h-4 text-slate-400" />
+              <User className="w-4 h-4" />
               <span>Profile</span>
             </Link>
             {/* <Link
@@ -87,13 +87,13 @@ export default function ProfileDropdown({ user, onLogout }: ProfileDropdownProps
             </Link> */}
           </div>
 
-          <div className="pt-1 border-t border-slate-100">
+          <div className="border-t border-border pt-1">
             <button
               onClick={() => {
                 setIsOpen(false);
                 onLogout();
               }}
-              className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-red-500 hover:text-red-600 hover:bg-red-50 transition-colors text-left"
+              className="flex w-full items-center gap-2.5 px-4 py-2 text-left text-sm text-destructive transition-colors hover:bg-destructive/10"
             >
               <LogOut className="w-4 h-4" />
               <span>Log out</span>

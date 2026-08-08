@@ -31,7 +31,7 @@ const strengths: Strength[] = [
 
 export default function CoreStrengths() {
   return (
-    <section className="relative overflow-hidden bg-white py-10 sm:py-18">
+    <section className="relative overflow-hidden bg-background py-10 sm:py-18">
       {/* Subtle Grid Pattern Overlay */}
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.4]"
@@ -63,13 +63,13 @@ export default function CoreStrengths() {
             </div>
 
             <h2
-              className="mt-6 text-4xl font-extrabold tracking-tight text-[#0F1B2B] sm:text-5xl sm:leading-[1.15]"
+              className="mt-6 text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl sm:leading-[1.15]"
               style={{ fontFamily: "'Space Grotesk', sans-serif" }}
             >
               Our core strengths in repair &amp; maintenance
             </h2>
 
-            <p className="mt-5 max-w-md text-base leading-relaxed text-slate-600">
+            <p className="mt-5 max-w-md text-base leading-relaxed text-muted-foreground">
               Every job on FixItNow runs through the same standard — vetted
               pros, honest pricing, and work that&apos;s tracked start to
               finish.
@@ -98,21 +98,21 @@ export default function CoreStrengths() {
           {strengths.map(({ icon: Icon, title, desc }) => (
             <div
               key={title}
-              className="group relative rounded-2xl border border-slate-200/80 bg-white/80 p-7 shadow-sm backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-amber-400 hover:shadow-md"
+              className="group relative rounded-2xl border border-border bg-card/80 p-7 shadow-sm backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-md"
             >
               {/* Icon Container */}
-              <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 text-[#0F1B2B] shadow-inner transition-colors duration-300 group-hover:border-amber-400 group-hover:bg-amber-400 group-hover:text-black">
+              <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl border border-border bg-muted text-foreground shadow-inner transition-colors duration-300 group-hover:border-accent group-hover:bg-accent group-hover:text-accent-foreground">
                 <Icon size={22} strokeWidth={2} />
               </div>
 
               <h3
-                className="text-lg font-bold text-[#0F1B2B]"
+                className="text-lg font-bold text-foreground"
                 style={{ fontFamily: "'Space Grotesk', sans-serif" }}
               >
                 {title}
               </h3>
 
-              <p className="mt-2.5 text-sm leading-relaxed text-slate-600">
+              <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground">
                 {desc}
               </p>
 
