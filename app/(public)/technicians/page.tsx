@@ -47,12 +47,7 @@ export default async function TechniciansPage({
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div className="max-w-xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3.5 py-1">
-              <Users size={14} className="text-accent" />
-              <span className="text-xs font-bold uppercase tracking-wider text-accent-foreground">
-                Top Rated Experts
-              </span>
-            </div>
+            
             <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
               All Technicians
             </h2>

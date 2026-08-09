@@ -9,6 +9,8 @@ import {
   Users,
   FolderTree,
   Home,
+  BarChart3,
+  Settings,
 } from "lucide-react";
 
 const CUSTOMER_SIDEBAR_ITEM: ISidebarItem[] = [
@@ -80,6 +82,16 @@ const ADMIN_SIDEBAR_ITEM: ISidebarItem[] = [
     label: "Manage Categories",
     href: "/dashboard/admin/categories",
     icon: FolderTree,
+  },
+  {
+    label: "Analytics",
+    href: "/dashboard/admin/analytics",
+    icon: BarChart3,
+  },
+  {
+    label: "Settings",
+    href: "/dashboard/admin/settings",
+    icon: Settings,
   },
   {
     label: "Home",

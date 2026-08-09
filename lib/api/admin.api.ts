@@ -1,5 +1,3 @@
-
-
 export type Role = "CUSTOMER" | "TECHNICIAN" | "ADMIN";
 export type UserStatus = "ACTIVE" | "BANNED";
 
@@ -149,6 +147,31 @@ export interface IDashboardStats {
 export async function getDashboardStatsAction() {
   const res = await serverFetch("/api/admin/stats", {
     next: { tags: ["admin-stats"] },
+  });
+  return res?.data ?? res;
+}
+
+export interface IBookingsByMonth {
+  month: string;
+  count: number;
+}
+export interface IRevenueByCategory {
+  category: string;
+  revenue: number;
+}
+export interface IBookingsByStatus {
+  status: string;
+  count: number;
+}
+export interface IAnalytics {
+  bookingsByMonth: IBookingsByMonth[];
+  revenueByCategory: IRevenueByCategory[];
+  bookingsByStatus: IBookingsByStatus[];
+}
+
+export async function getAnalyticsAction(): Promise<IAnalytics> {
+  const res = await serverFetch("/api/admin/analytics", {
+    next: { tags: ["admin-analytics"] },
   });
   return res?.data ?? res;
 }

@@ -11,8 +11,8 @@ import { getAllService } from "@/lib/api/service";
 import { getAllCategoriesAction } from "@/lib/api/admin.api";
 
 export default async function ServicesPage({ searchParams, }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }>; }) {
-  const query = await searchParams;
-  const { data: categories } = await getAllCategoriesAction()
+ const query = await searchParams;
+  const {data:categories} = await getAllCategoriesAction()
   const page = query?.page ? Number(query.page) : 1;
   const searchItem = typeof query?.searchItem === "string" ? query.searchItem : undefined;
   const category = typeof query?.category === "string" ? query.category : undefined;
@@ -20,6 +20,11 @@ export default async function ServicesPage({ searchParams, }: { searchParams: Pr
   const maxPrice = typeof query?.maxPrice === "string" ? Number(query.maxPrice) : undefined;
   const rating = typeof query?.rating === "string" ? Number(query.rating) : undefined;
   const location = typeof query?.location === "string" ? query.location : undefined;
+  const sortByRaw = typeof query?.sortBy === "string" ? query.sortBy : undefined;
+  const sortBy = (["price", "rating", "createdAt"] as const).includes(sortByRaw as any)
+    ? (sortByRaw as "price" | "rating" | "createdAt")
+    : undefined;
+  const sortOrder = query?.sortOrder === "asc" ? "asc" : query?.sortOrder === "desc" ? "desc" : undefined;
 
   // Fetch Services Data
   const res = await getAllService({
@@ -29,6 +34,8 @@ export default async function ServicesPage({ searchParams, }: { searchParams: Pr
     maxPrice,
     rating,
     location,
+    sortBy,
+    sortOrder,
     page,
     limit: 8,
   });
@@ -56,15 +63,7 @@ export default async function ServicesPage({ searchParams, }: { searchParams: Pr
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header Block */}
         <div className="mx-auto max-w-3xl text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-4 py-1.5 shadow-sm">
-            <Wrench size={15} className="text-accent" />
-            <span
-              className="text-xs font-bold uppercase tracking-wider text-accent-foreground"
-              style={{ fontFamily: "'JetBrains Mono', monospace" }}
-            >
-              Professional Maintenance
-            </span>
-          </div>
+      
 
           <h1
             className="mt-4 text-3xl font-extrabold tracking-tight text-foreground sm:text-5xl"

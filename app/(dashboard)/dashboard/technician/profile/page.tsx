@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { User, Loader2 } from "lucide-react";
+import { User } from "lucide-react";
 import { getMe } from "@/hooks/getMe";
 import TechnicianProfileForm from "../../_components/technician/TechnicianProfileForm";
 import { TableSkeleton } from "../../_components/technician/TableSkeleton";
+import { ChangePasswordForm } from "../../_components/admin/Changepasswordform";
 
 export default function TechnicianProfilePage() {
   const [userData, setUserData] = useState<any>(null);
@@ -49,20 +50,25 @@ export default function TechnicianProfilePage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-4 md:p-6 space-y-6">
-      {/* Header */}
-      <div className="border-b pb-4">
-        <h1 className="flex items-center gap-2 text-2xl font-bold text-foreground">
-          <User className="w-6 h-6 text-primary" /> Edit Technician Profile
+    <main className="min-h-screen bg-background py-10">
+      <div className="mx-auto max-w-7xl px-4 md:px-6">
+      <div className="border-b border-border pb-5">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">Technician</p>
+        <h1 className="mt-2 flex items-center gap-2 text-2xl font-bold text-foreground" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
+          <User className="h-6 w-6 text-primary" /> Edit Technician Profile
         </h1>
         <p className="mt-1 text-sm text-muted-foreground">
           Update your experience, skills, and personal information.
         </p>
       </div>
 
-      {/* Render Separate Form Component */}
-      <TechnicianProfileForm
-        initialData={userData} />
-    </div>
+      <div className="mt-8 grid items-start gap-6 xl:grid-cols-2">
+        <TechnicianProfileForm initialData={userData} />
+        {userData?.authProvider !== "GOOGLE" && (
+          <ChangePasswordForm />
+        )}
+      </div>
+      </div>
+    </main>
   );
 }

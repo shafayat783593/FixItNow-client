@@ -9,36 +9,48 @@ import {
   Star,
   RotateCcw,
   ChevronDown,
+  ArrowUpDown,
 } from "lucide-react";
 
 interface ServiceFilterProps {
   categories?: { id: string; name: string }[];
 }
 
+
+const SORT_OPTIONS = [
+  { value: "createdAt-desc", label: "Newest" },
+  { value: "price-asc", label: "Price: Low to High" },
+  { value: "price-desc", label: "Price: High to Low" },
+  { value: "rating-desc", label: "Top Rated" },
+] as const;
+ 
 export function ServiceFilter({ categories = [] }: ServiceFilterProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-
+ 
   // Current URL Params
   const currentCategory = searchParams.get("category") || "";
   const currentMinPrice = searchParams.get("minPrice") || "";
   const currentMaxPrice = searchParams.get("maxPrice") || "";
   const currentRating = searchParams.get("rating") || "";
   const currentLoc = searchParams.get("location") || "";
-
+  const currentSortBy = searchParams.get("sortBy") || "createdAt";
+  const currentSortOrder = searchParams.get("sortOrder") || "desc";
+  const currentSort = `${currentSortBy}-${currentSortOrder}`;
+ 
   // Local State
   const [locationInput, setLocationInput] = useState(currentLoc);
   const [minPriceInput, setMinPriceInput] = useState(currentMinPrice);
   const [maxPriceInput, setMaxPriceInput] = useState(currentMaxPrice);
-
+ 
   useEffect(() => {
     setLocationInput(currentLoc);
     setMinPriceInput(currentMinPrice);
     setMaxPriceInput(currentMaxPrice);
   }, [currentLoc, currentMinPrice, currentMaxPrice]);
-
+ 
   const updateParam = (key: string, value: string | null) => {
     const params = new URLSearchParams(searchParams.toString());
     if (value && value.trim() !== "") {
@@ -47,17 +59,34 @@ export function ServiceFilter({ categories = [] }: ServiceFilterProps) {
       params.delete(key);
     }
     params.set("page", "1");
-
+ 
     startTransition(() => {
       router.replace(`${pathname}?${params.toString()}`);
     });
   };
-
+ 
+  const handleSortChange = (value: string) => {
+    const [sortBy, sortOrder] = value.split("-");
+    const params = new URLSearchParams(searchParams.toString());
+    if (sortBy === "createdAt") {
+      params.delete("sortBy");
+      params.delete("sortOrder");
+    } else {
+      params.set("sortBy", sortBy);
+      params.set("sortOrder", sortOrder);
+    }
+    params.set("page", "1");
+ 
+    startTransition(() => {
+      router.replace(`${pathname}?${params.toString()}`);
+    });
+  };
+ 
   const handleReset = () => {
     setLocationInput("");
     setMinPriceInput("");
     setMaxPriceInput("");
-
+    
     // Clear filter params while preserving searchItem if needed, or clear all filters
     const params = new URLSearchParams(searchParams.toString());
     params.delete("category");
@@ -65,13 +94,15 @@ export function ServiceFilter({ categories = [] }: ServiceFilterProps) {
     params.delete("minPrice");
     params.delete("maxPrice");
     params.delete("rating");
+    params.delete("sortBy");
+    params.delete("sortOrder");
     params.set("page", "1");
-
+ 
     startTransition(() => {
       router.replace(`${pathname}?${params.toString()}`);
     });
   };
-
+ 
   const activeFilterCount = [
     currentCategory,
     currentLoc,
@@ -79,7 +110,7 @@ export function ServiceFilter({ categories = [] }: ServiceFilterProps) {
     currentMaxPrice,
     currentRating,
   ].filter(Boolean).length;
-
+ 
   return (
     <div className="relative w-full">
       {/* Loading Bar */}
@@ -162,6 +193,21 @@ export function ServiceFilter({ categories = [] }: ServiceFilterProps) {
             <option value="3.5">3.5★ & up</option>
           </select>
           <ChevronDown size={13} className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
+        </div>
+        <div className="relative min-w-[150px] flex-1">
+          <ArrowUpDown size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <select
+            value={currentSort}
+            onChange={(e) => handleSortChange(e.target.value)}
+            className="w-full appearance-none rounded-xl bg-muted py-2.5 pl-7 pr-6 text-xs font-semibold text-foreground transition-all hover:bg-secondary focus:bg-card focus:outline-none focus:ring-2 focus:ring-accent/30"
+          >
+            {SORT_OPTIONS.map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
+          <ChevronDown size={13} className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400" />
         </div>
 
         {/* Reset Filter Action Button */}
