@@ -29,15 +29,6 @@ export default async function Services() {
   if (!services.length) {
     return (
       <section className="relative overflow-hidden py-20">
-        <div
-          className="pointer-events-none absolute inset-0 opacity-40"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle, #E2E8F0 1px, transparent 1px)",
-            backgroundSize: "28px 28px",
-          }}
-          aria-hidden="true"
-        />
         <div className="relative mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
           <p className="text-muted-foreground">No services available right now.</p>
         </div>
@@ -47,15 +38,6 @@ export default async function Services() {
 
   return (
     <section className="relative overflow-hidden py-20">
-      <div
-        className="pointer-events-none absolute inset-0 opacity-40"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle, #E2E8F0 1px, transparent 1px)",
-          backgroundSize: "28px 28px",
-        }}
-        aria-hidden="true"
-      />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-10 flex items-end justify-between">
           <div>

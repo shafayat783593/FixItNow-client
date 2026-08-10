@@ -32,24 +32,13 @@ const strengths: Strength[] = [
 export default function CoreStrengths() {
   return (
     <section className="relative overflow-hidden bg-background py-10 sm:py-18">
-      {/* Subtle Grid Pattern Overlay */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.4]"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle, #E2E8F0 1px, transparent 1px)",
-          backgroundSize: "28px 28px",
-        }}
-        aria-hidden="true"
-      />
-
       {/* Decorative Glow Blob */}
       <div 
         className="pointer-events-none absolute -left-20 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-amber-400/10 blur-3xl" 
         aria-hidden="true" 
       />
 
-      <div className="relative mx-auto grid max-w-6xl grid-cols-1 gap-12 px-6 lg:grid-cols-[0.85fr_1.15fr] lg:gap-12">
+      <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-12 px-4 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8 lg:gap-12">
         {/* Left Column */}
         <div className="flex flex-col justify-between">
           <div>

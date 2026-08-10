@@ -17,15 +17,6 @@ export default async function TechniciansSection() {
 
   return (
     <section className="relative overflow-hidden bg-background py-16 sm:py-24">
-      <div
-        className="pointer-events-none absolute inset-0 opacity-30"
-        style={{
-          backgroundImage: 'radial-gradient(circle, #CBD5E1 1px, transparent 1px)',
-          backgroundSize: '24px 24px',
-        }}
-        aria-hidden="true"
-      />
-
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         {/* Header Block */}
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">

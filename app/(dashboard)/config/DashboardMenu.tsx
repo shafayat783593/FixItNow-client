@@ -89,6 +89,11 @@ const ADMIN_SIDEBAR_ITEM: ISidebarItem[] = [
     icon: BarChart3,
   },
   {
+    label: "Manage Blog",
+    href: "/dashboard/admin/blog",
+    icon: Wrench,
+  },
+  {
     label: "Settings",
     href: "/dashboard/admin/settings",
     icon: Settings,

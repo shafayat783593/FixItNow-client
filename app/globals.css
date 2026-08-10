@@ -33,6 +33,10 @@
     --accent: 38 92% 60%;           /* amber-400/500 */
     --accent-foreground: 213 45% 12%;
 
+    /* stable brand surface, used where the navy identity must remain dark */
+    --brand: 213 45% 12%;
+    --brand-foreground: 0 0% 100%;
+
     /* status */
     --success: 152 60% 42%;
     --success-foreground: 0 0% 100%;
@@ -78,6 +82,9 @@
     --accent: 38 92% 55%;
     --accent-foreground: 220 26% 8%;
 
+    --brand: 213 45% 12%;
+    --brand-foreground: 0 0% 100%;
+
     --success: 152 55% 45%;
     --success-foreground: 0 0% 100%;
     --destructive: 0 70% 55%;
@@ -122,6 +129,8 @@
   --color-secondary-foreground: hsl(var(--secondary-foreground));
   --color-accent: hsl(var(--accent));
   --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-brand: hsl(var(--brand));
+  --color-brand-foreground: hsl(var(--brand-foreground));
   --color-success: hsl(var(--success));
   --color-success-foreground: hsl(var(--success-foreground));
   --color-destructive: hsl(var(--destructive));

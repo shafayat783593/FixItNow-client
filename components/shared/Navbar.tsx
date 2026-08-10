@@ -16,6 +16,7 @@ import {
     Users,
     HelpCircle,
     User as UserIcon,
+    BookOpen,
 } from 'lucide-react';
 import { getMe } from '@/hooks/getMe';
 import { logout } from '@/hooks/logout';
@@ -43,6 +44,7 @@ const navLinks: NavLink[] = [
     { label: 'Services', href: '/services', icon: Sparkles },
     { label: 'Technicians', href: '/technicians', icon: Users },
     { label: 'How it works', href: '/how-it-works', icon: HelpCircle },
+    { label: 'Blog', href: '/blog', icon: BookOpen },
 ];
 
 const dashboardPathByRole: Record<Role, string> = {

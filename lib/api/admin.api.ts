@@ -109,7 +109,7 @@ export async function getAllCategoriesAction(query?: ICategoryQuery) {
 
 
   
-  return res.data
+  return res.data.data
 }
 
 export async function createCategoryAction(payload: CategoryFormValues) {

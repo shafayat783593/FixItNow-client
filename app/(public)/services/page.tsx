@@ -10,7 +10,7 @@ import { ServiceFilter } from "../_components/service/ServiceFilter";
 import { getAllService } from "@/lib/api/service";
 import { getAllCategoriesAction } from "@/lib/api/admin.api";
 
-export default async function ServicesPage({ searchParams, }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }>; }) {
+export default async function ServicesPage({ searchParams, }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
  const query = await searchParams;
   const {data:categories} = await getAllCategoriesAction()
   const page = query?.page ? Number(query.page) : 1;
