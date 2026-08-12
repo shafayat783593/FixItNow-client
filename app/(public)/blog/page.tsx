@@ -26,12 +26,7 @@ export default async function BlogPage({ searchParams,}: {
         <div className="mx-auto max-w-3xl text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-4 py-1.5 shadow-sm">
             <BookOpen size={15} className="text-amber-700" />
-            <span
-              className="text-xs font-bold uppercase tracking-wider text-amber-800"
-              style={{ fontFamily: "'JetBrains Mono', monospace" }}
-            >
-              FixItNow Journal
-            </span>
+            
           </div>
 
           <h1

@@ -56,11 +56,7 @@ export default function HowItWorks() {
     <section className="relative overflow-hidden bg-background py-20 text-foreground">
       <div
         className="pointer-events-none absolute inset-0 opacity-40"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle, #E2E8F0 1px, transparent 1px)",
-          backgroundSize: "28px 28px",
-        }}
+    
         aria-hidden="true"
       />
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
