@@ -339,7 +339,7 @@ export const googleLoginAction = async (idToken: string): Promise<LoginState> =>
   });
 
   const result = await res.json();
-
+console.log("Google login response:", result);
   if (!result.success) {
     return {
       success: false,
