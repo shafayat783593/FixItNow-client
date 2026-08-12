@@ -147,3 +147,23 @@ export async function getCustomerDashboardStatsAction() {
   });
   return res?.data ?? res;
 }
+
+export interface ICustomerSpendingByMonth {
+  month: string;
+  total: number;
+}
+export interface ICustomerBookingsByStatus {
+  status: string;
+  count: number;
+}
+export interface ICustomerAnalytics {
+  spendingByMonth: ICustomerSpendingByMonth[];
+  bookingsByStatus: ICustomerBookingsByStatus[];
+}
+
+export async function getCustomerAnalyticsAction(): Promise<ICustomerAnalytics> {
+  const res = await serverFetch("/api/bookings/dashboard/analytics", {
+    next: { tags: ["customer-analytics"] },
+  });
+  return res?.data ?? { spendingByMonth: [], bookingsByStatus: [] };
+}

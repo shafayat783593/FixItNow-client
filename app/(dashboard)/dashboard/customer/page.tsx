@@ -1,16 +1,21 @@
 import Link from "next/link";
 import { CalendarCheck, Activity, CheckCircle2, Wallet, ArrowUpRight } from "lucide-react";
-import { getCustomerDashboardStatsAction } from "@/lib/api/booking";
 import { StatCard } from "../_components/admin/StatCard";
 import { RecentBookingsList } from "../_components/Booking/RecentBookingsList";
+import { getCustomerAnalyticsAction, getCustomerDashboardStatsAction } from "@/lib/api/booking";
+import { CustomerCharts } from "../_components/Booking/Customercharts";
+
 
 
 export default async function CustomerDashboardPage() {
-  const stats = await getCustomerDashboardStatsAction();
+  const [stats, analytics] = await Promise.all([
+    getCustomerDashboardStatsAction(),
+    getCustomerAnalyticsAction(),
+  ]);
 
   return (
     <main className="min-h-screen bg-background py-10">
-      <div className="mx-auto max-w-5xl px-6">
+      <div className="mx-auto max-full px-6">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">Dashboard</p>
         <h1
           className="mt-1 text-2xl font-bold text-foreground"
@@ -48,6 +53,8 @@ export default async function CustomerDashboardPage() {
             accent="bg-purple-50 text-purple-600"
           />
         </div>
+
+        <CustomerCharts data={analytics} />
 
         <div className="mt-8 flex items-center justify-between">
           <h2 className="text-lg font-bold text-foreground">Recent bookings</h2>

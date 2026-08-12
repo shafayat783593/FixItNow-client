@@ -11,6 +11,8 @@ import {
   Home,
   BarChart3,
   Settings,
+  Wallet,
+  UserCircle,
 } from "lucide-react";
 
 const CUSTOMER_SIDEBAR_ITEM: ISidebarItem[] = [
@@ -23,11 +25,24 @@ const CUSTOMER_SIDEBAR_ITEM: ISidebarItem[] = [
     label: "My Booking",
     href: "/dashboard/customer/my-bookings",
     icon: CalendarCheck,
-  },  {
+  },
+  {
+    label: "Payments",
+    href: "/dashboard/customer/payments",
+    icon: Wallet,
+  },
+
+   {
+    label: "Settings",
+    href: "/dashboard/customer/settings",
+    icon: Settings,
+  },
+  {
     label: "Home",
     href: "/",
     icon:Home,
   },
+  
 ];
 
 const TECHNICIAN_SIDEBAR_ITEM: ISidebarItem[] = [
