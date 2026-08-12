@@ -3,7 +3,6 @@ import { getPublicStats } from "@/lib/api/stats";
 
 export default async function StatsBar() {
   const stats = await getPublicStats();
-console.log("StatsBar stats:", stats);
   if (!stats) return null;
 
   const items = [
@@ -34,7 +33,7 @@ console.log("StatsBar stats:", stats);
       <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-4 sm:grid-cols-4 sm:px-6 lg:px-8">
         {items.map((item) => (
           <div key={item.label} className="flex flex-col items-center text-center">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 text-amber-400">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-foreground/10 text-accent">
               <item.icon size={18} />
             </div>
             <p

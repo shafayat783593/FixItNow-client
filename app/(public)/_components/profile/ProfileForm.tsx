@@ -10,6 +10,7 @@ import { IUser } from "@/lib/type";
 import { profileSchema } from "@/lib/validations/auth";
 import { updateProfileAction } from "@/hooks/getMe";
 import Image from "next/image";
+import { SingleImageUploader } from "@/hooks/Singleimageuploader";
 
 export function ProfileForm({ user }: { user: IUser }) {
   const router = useRouter();
@@ -111,12 +112,13 @@ export function ProfileForm({ user }: { user: IUser }) {
         </div>
         <div>
           <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-            Avatar URL
+            Profile photo
           </label>
-          <Input
+          <SingleImageUploader
             value={values.avatar}
-            onChange={(e) => setField("avatar", e.target.value)}
-            placeholder="https://..."
+            onChange={(url) => setField("avatar", url)}
+            folder="profiles"
+            shape="circle"
           />
           {errors.avatar && <p className="mt-1 text-[12px] text-destructive">{errors.avatar}</p>}
         </div>

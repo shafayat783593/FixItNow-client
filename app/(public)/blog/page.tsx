@@ -8,9 +8,7 @@ import { getAllBlogPosts } from "@/lib/api/blog";
 import { BlogGridSkeleton } from "../_components/blog/Blogskeleton";
 import { BlogCard } from "../_components/blog/Blogcard";
 
-export default async function BlogPage({
-  searchParams,
-}: {
+export default async function BlogPage({ searchParams,}: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const query = await searchParams;

@@ -9,9 +9,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
 import { IBlogPost } from "@/lib/api/blog";
-
 import { createBlogPostAction, updateBlogPostAction } from "@/lib/api/blogAdmin";
 import { blogPostSchema } from "@/lib/validations/block";
+import { SingleImageUploader } from "@/hooks/Singleimageuploader";
 
 interface BlogPostFormProps {
   mode: "create" | "edit";
@@ -82,9 +82,13 @@ export function BlogPostForm({ mode, post }: BlogPostFormProps) {
 
       <div>
         <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-          Cover image URL (optional)
+          Cover image (optional)
         </label>
-        <Input value={coverImage} onChange={(e) => setCoverImage(e.target.value)} placeholder="https://..." />
+        <SingleImageUploader
+          value={coverImage}
+          onChange={(url) => setCoverImage(url)}
+          folder="blog"
+        />
         {errors.coverImage && <p className="mt-1 text-[12px] text-destructive">{errors.coverImage}</p>}
       </div>
 

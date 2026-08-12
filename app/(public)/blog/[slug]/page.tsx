@@ -16,6 +16,7 @@ const readingTime = (content: string) => {
 };
 
 export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
+  console.log
   const { slug } = await params;
 
   const post = await getBlogPostBySlug(slug);

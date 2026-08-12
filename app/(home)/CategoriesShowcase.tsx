@@ -40,20 +40,14 @@ const iconFor = (name: string): LucideIcon => {
 
 export default async function CategoriesShowcase() {
   const categories: ICategory[] = (await getAllCategoriesAction({ limit: 8 })) ?? [];
-console.log("CategoriesShowcase categories:", categories);
   if (!categories.length) return null;
 
   return (
     <section className="relative overflow-hidden bg-background py-10 sm:py-18">
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50/80 px-3 py-1">
-            <span
-              className="text-[11px] font-bold uppercase tracking-[0.18em] text-amber-700"
-              style={{ fontFamily: "'JetBrains Mono', monospace" }}
-            >
-              Browse by category
-            </span>
+          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-muted/70 px-3 py-1">
+           
           </div>
           <h2
             className="mt-6 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl"
@@ -75,7 +69,7 @@ console.log("CategoriesShowcase categories:", categories);
                 href={`/services?category=${encodeURIComponent(cat.name)}`}
                 className="group flex flex-col items-center gap-3 rounded-2xl border border-border bg-card p-6 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-lg"
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-50 text-amber-700 transition-colors group-hover:bg-amber-400 group-hover:text-[#0F1B2B]">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-muted text-foreground transition-colors group-hover:bg-accent group-hover:text-accent-foreground">
                   <Icon size={22} />
                 </div>
                 <span className="text-sm font-bold text-foreground">{cat.name}</span>

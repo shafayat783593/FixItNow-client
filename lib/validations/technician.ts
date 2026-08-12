@@ -23,6 +23,7 @@ export const serviceSchema = z.object({
   categoryId: z.string().min(1, "Please select a category"),
   price: z.coerce.number({ invalid_type_error: "Price must be a number" }).positive("Price must be greater than 0"),
   duration: z.coerce.number({ invalid_type_error: "Duration must be a number" }).int().positive("Duration must be greater than 0"),
+  images: z.array(z.string().url()).max(5, "Maximum 5 images").optional(),
 });
 
 export type ServiceFormValues = z.infer<typeof serviceSchema>;

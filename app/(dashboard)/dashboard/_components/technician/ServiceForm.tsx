@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/select";
 import { ServiceFormValues, serviceSchema } from "@/lib/validations/technician";
 import { createServiceAction, ICategory, IService, updateServiceAction } from "@/lib/api/service";
+import { MultiImageUploader } from "@/hooks/Multiimageuploader";
 
 interface ServiceFormProps {
   categories: ICategory[];
@@ -33,6 +34,7 @@ export default function ServiceForm({ categories, initialData }: ServiceFormProp
     price: initialData?.price?.toString() ?? "",
     duration: initialData?.duration?.toString() ?? "",
   });
+  const [images, setImages] = useState<string[]>(initialData?.images ?? []);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
 
@@ -44,7 +46,7 @@ export default function ServiceForm({ categories, initialData }: ServiceFormProp
     e.preventDefault();
     setErrors({});
 
-    const parsed = serviceSchema.safeParse(values);
+    const parsed = serviceSchema.safeParse({ ...values, images });
     if (!parsed.success) {
       const fieldErrors: Record<string, string> = {};
       for (const issue of parsed.error.issues) {
@@ -59,6 +61,7 @@ export default function ServiceForm({ categories, initialData }: ServiceFormProp
       const payload: ServiceFormValues = {
         ...parsed.data,
         description: parsed.data.description || undefined,
+        images,
       };
 
       const res = isEdit
@@ -151,6 +154,14 @@ export default function ServiceForm({ categories, initialData }: ServiceFormProp
           placeholder="What does this service include?"
         />
         {errors.description && <p className="mt-1 text-[12px] text-destructive">{errors.description}</p>}
+      </div>
+
+      <div>
+        <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+          Service photos
+        </label>
+        <MultiImageUploader value={images} onChange={setImages} folder="services" maxImages={5} />
+        {errors.images && <p className="mt-1 text-[12px] text-destructive">{errors.images}</p>}
       </div>
 
       <Button type="submit" disabled={loading} className="w-full">

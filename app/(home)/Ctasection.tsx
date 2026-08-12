@@ -7,7 +7,7 @@ export default function CTASection() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="relative overflow-hidden rounded-3xl bg-brand px-8 py-12 sm:px-16 sm:py-16">
           <div
-            className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-amber-400/20 blur-3xl"
+            className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-accent/20 blur-3xl"
             aria-hidden="true"
           />
 

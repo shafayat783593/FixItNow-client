@@ -88,7 +88,7 @@ export default function Hero() {
 
   return (
     <section
-      className="relative min-h-[92vh] w-full overflow-hidden bg-slate-900 text-white"
+      className="relative min-h-[92vh] w-full overflow-hidden bg-brand text-brand-foreground"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
@@ -128,30 +128,30 @@ export default function Hero() {
               exit={{ opacity: 0, y: -16 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
             >
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 font-mono text-xs uppercase tracking-wider text-coral-400 backdrop-blur-sm">
+              <span className="inline-flex items-center gap-2 rounded-full border border-brand-foreground/20 bg-brand-foreground/10 px-3 py-1 font-mono text-xs uppercase tracking-wider text-accent backdrop-blur-sm">
                 <active.icon className="h-3.5 w-3.5" />
                 {active.eyebrow}
               </span>
 
-              <h1 className="mt-5 text-4xl font-bold leading-[1.05] tracking-tight text-white [text-shadow:_0_2px_12px_rgb(0_0_0_/_45%)] sm:text-5xl lg:text-6xl">
+              <h1 className="mt-5 text-4xl font-bold leading-[1.05] tracking-tight text-brand-foreground [text-shadow:_0_2px_12px_rgb(0_0_0_/_45%)] sm:text-5xl lg:text-6xl">
                 {active.headline}
               </h1>
 
-              <p className="mt-5 max-w-md text-base leading-relaxed text-slate-100 [text-shadow:_0_1px_8px_rgb(0_0_0_/_40%)]">
+              <p className="mt-5 max-w-md text-base leading-relaxed text-brand-foreground/85 [text-shadow:_0_1px_8px_rgb(0_0_0_/_40%)]">
                 {active.description}
               </p>
 
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <Link
                   href={`/services?category=${encodeURIComponent(active.category)}`}
-                  className="inline-flex items-center gap-2 rounded-xl bg-coral-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-coral-500/20 transition-transform hover:scale-[1.03] hover:bg-coral-400"
+                  className="inline-flex items-center gap-2 rounded-xl bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground shadow-lg shadow-accent/20 transition-transform hover:scale-[1.03] hover:bg-accent/90"
                 >
                   {active.ctaLabel}
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link
                   href="/technicians"
-                  className="inline-flex items-center gap-2 rounded-xl border border-white/25 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-white/10"
+                  className="inline-flex items-center gap-2 rounded-xl border border-brand-foreground/25 px-6 py-3 text-sm font-medium text-brand-foreground transition-colors hover:bg-brand-foreground/10"
                 >
                   Browse technicians
                 </Link>
@@ -172,19 +172,19 @@ export default function Hero() {
                 onClick={() => goTo(index)}
                 className={`group relative flex flex-1 items-center gap-3 overflow-hidden rounded-xl border px-4 py-3 text-left backdrop-blur-sm transition-colors ${
                   isActive
-                    ? "border-coral-400/60 bg-white/15"
-                    : "border-white/15 bg-white/[0.06] hover:bg-white/[0.1]"
+                    ? "border-accent/60 bg-brand-foreground/15"
+                    : "border-brand-foreground/15 bg-brand-foreground/[0.06] hover:bg-brand-foreground/[0.1]"
                 }`}
               >
                 <span
                   className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${
-                    isActive ? "bg-coral-500 text-white" : "bg-white/15 text-white"
+                    isActive ? "bg-accent text-accent-foreground" : "bg-brand-foreground/15 text-brand-foreground"
                   }`}
                 >
                   <Icon className="h-4 w-4" />
                 </span>
                 <div className="min-w-0">
-                  <p className="font-mono text-[10px] uppercase tracking-wider text-slate-300">
+                  <p className="font-mono text-[10px] uppercase tracking-wider text-brand-foreground/70">
                     0{index + 1}
                   </p>
                   <p className="truncate text-sm font-medium text-white">{slide.category}</p>
@@ -194,7 +194,7 @@ export default function Hero() {
                 {isActive && !isPaused && (
                   <motion.span
                     key={`${active.id}-progress`}
-                    className="absolute inset-x-0 bottom-0 h-[2px] origin-left bg-coral-500"
+                    className="absolute inset-x-0 bottom-0 h-[2px] origin-left bg-accent"
                     initial={{ scaleX: 0 }}
                     animate={{ scaleX: 1 }}
                     transition={{ duration: SLIDE_DURATION / 1000, ease: "linear" }}

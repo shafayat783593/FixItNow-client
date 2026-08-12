@@ -7,6 +7,7 @@ import { User, Briefcase, MapPin, Phone, Image as ImageIcon, FileText, Loader2, 
 import { toast } from "sonner";
 import { updateTechnicianProfile } from "@/lib/api/technician";
 import { ITechnicianProfileInput, technicianProfileSchema } from "@/lib/validations/technician";
+import { SingleImageUploader } from "@/hooks/Singleimageuploader";
 
 interface TechnicianProfileFormProps {
   initialData: any; // User object returning from getCurrentLoginUser
@@ -20,6 +21,8 @@ export default function TechnicianProfileForm({ initialData }: TechnicianProfile
   const {
     register,
     handleSubmit,
+    setValue,
+    watch,
     formState: { errors },
   } = useForm<ITechnicianProfileInput>({
     resolver: zodResolver(technicianProfileSchema),
@@ -55,15 +58,15 @@ export default function TechnicianProfileForm({ initialData }: TechnicianProfile
 
   return (
     <div className="space-y-6">
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 rounded-xl border bg-card p-6 text-card-foreground shadow-sm">
+      <form onSubmit={handleSubmit(onSubmit)} className="bg-white rounded-xl shadow-sm border p-6 space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Full Name */}
           <div>
-            <label className="mb-1 block text-sm font-semibold text-foreground">
+            <label className="block text-sm font-semibold text-gray-700 mb-1">
               Full Name *
             </label>
             <div className="relative">
-              <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+              <User className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
               <input
                 type="text"
                 {...register("name")}
@@ -76,11 +79,11 @@ export default function TechnicianProfileForm({ initialData }: TechnicianProfile
 
           {/* Phone */}
           <div>
-            <label className="mb-1 block text-sm font-semibold text-foreground">
+            <label className="block text-sm font-semibold text-gray-700 mb-1">
               Phone Number
             </label>
             <div className="relative">
-              <Phone className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+              <Phone className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
               <input
                 type="text"
                 {...register("phone")}
@@ -93,11 +96,11 @@ export default function TechnicianProfileForm({ initialData }: TechnicianProfile
 
           {/* Experience */}
           <div>
-            <label className="mb-1 block text-sm font-semibold text-foreground">
+            <label className="block text-sm font-semibold text-gray-700 mb-1">
               Years of Experience
             </label>
             <div className="relative">
-              <Briefcase className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+              <Briefcase className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
               <input
                 type="number"
                 {...register("experience")}
@@ -110,11 +113,11 @@ export default function TechnicianProfileForm({ initialData }: TechnicianProfile
 
           {/* Location / Address */}
           <div>
-            <label className="mb-1 block text-sm font-semibold text-foreground">
+            <label className="block text-sm font-semibold text-gray-700 mb-1">
               Address / Location
             </label>
             <div className="relative">
-              <MapPin className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+              <MapPin className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
               <input
                 type="text"
                 {...register("location")}
@@ -128,7 +131,7 @@ export default function TechnicianProfileForm({ initialData }: TechnicianProfile
 
         {/* Skills */}
         <div>
-          <label className="mb-1 block text-sm font-semibold text-foreground">
+          <label className="block text-sm font-semibold text-gray-700 mb-1">
             Skills (comma separated)
           </label>
           <input
@@ -142,28 +145,25 @@ export default function TechnicianProfileForm({ initialData }: TechnicianProfile
 
         {/* Avatar */}
         <div>
-          <label className="mb-1 block text-sm font-semibold text-foreground">
-            Avatar URL
+          <label className="block text-sm font-semibold text-gray-700 mb-1">
+            Profile photo
           </label>
-          <div className="relative">
-            <ImageIcon className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-            <input
-              type="text"
-              {...register("avatar")}
-              className="w-full pl-9 pr-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
-              placeholder="https://example.com/avatar.jpg"
-            />
-          </div>
+          <SingleImageUploader
+            value={watch("avatar") ?? ""}
+            onChange={(url) => setValue("avatar", url, { shouldValidate: true })}
+            folder="profiles"
+            shape="circle"
+          />
           {errors.avatar && <p className="text-xs text-red-500 mt-1">{errors.avatar.message}</p>}
         </div>
 
         {/* Bio */}
         <div>
-          <label className="mb-1 block text-sm font-semibold text-foreground">
+          <label className="block text-sm font-semibold text-gray-700 mb-1">
             Bio / Overview
           </label>
           <div className="relative">
-            <FileText className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+            <FileText className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
             <textarea
               {...register("bio")}
               rows={4}
@@ -179,7 +179,7 @@ export default function TechnicianProfileForm({ initialData }: TechnicianProfile
           <button
             type="submit"
             disabled={submitting}
-            className="flex cursor-pointer items-center gap-2 rounded-lg bg-primary px-6 py-2.5 font-medium text-primary-foreground shadow transition hover:bg-primary/90 disabled:opacity-50"
+            className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white font-medium px-6 py-2.5 rounded-lg shadow transition disabled:opacity-50 cursor-pointer"
           >
             {submitting ? (
               <>

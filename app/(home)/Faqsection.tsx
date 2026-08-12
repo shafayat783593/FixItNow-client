@@ -33,13 +33,8 @@ export default function FAQSection() {
     <section className="relative bg-background py-10 sm:py-18">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50/80 px-3 py-1">
-            <span
-              className="text-[11px] font-bold uppercase tracking-[0.18em] text-amber-700"
-              style={{ fontFamily: "'JetBrains Mono', monospace" }}
-            >
-              FAQ
-            </span>
+          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-muted/70 px-3 py-1">
+            
           </div>
           <h2
             className="mt-6 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl"

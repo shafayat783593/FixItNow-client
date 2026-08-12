@@ -53,10 +53,7 @@ export default async function ServicesPage({ searchParams, }: { searchParams: Pr
       {/* Background Decor */}
       <div
         className="pointer-events-none absolute inset-0 opacity-40"
-        style={{
-          backgroundImage: "radial-gradient(circle, #E2E8F0 1px, transparent 1px)",
-          backgroundSize: "28px 28px",
-        }}
+       
         aria-hidden="true"
       />
 

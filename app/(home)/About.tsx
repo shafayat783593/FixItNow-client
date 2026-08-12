@@ -38,13 +38,11 @@ export default function About() {
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:items-stretch">
           {/* Text side */}
           <div className="flex flex-col justify-center">
-            <span className="font-mono text-xs font-medium uppercase tracking-wider text-teal-600">
-              Driven by Reliability
-            </span>
+           
 
             <h2 className="mt-4 text-4xl font-bold leading-tight tracking-tight text-foreground sm:text-5xl">
               Your trusted partner for{" "}
-              <span className="text-teal-600">efficient home solutions</span>
+              <span className="text-accent">efficient home solutions</span>
             </h2>
 
             <p className="mt-5 max-w-lg text-muted-foreground">
@@ -57,7 +55,7 @@ export default function About() {
             <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2">
               {miniFeatures.map((f) => (
                 <div key={f.title} className="flex items-start gap-3">
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-teal-50 text-teal-600">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent">
                     <f.icon className="h-5 w-5" />
                   </span>
                   <div>
@@ -71,7 +69,7 @@ export default function About() {
             {/* Stat + list row */}
             <div className="mt-8 flex flex-col gap-6 rounded-2xl border border-border bg-muted p-6 sm:flex-row sm:items-center">
               <div className="shrink-0">
-                <p className="text-4xl font-bold text-coral-600">98%</p>
+                <p className="text-4xl font-bold text-accent">98%</p>
                 <p className="mt-1 text-xs font-medium uppercase tracking-wide text-muted-foreground">
                   Jobs completed on time
                 </p>
@@ -85,7 +83,7 @@ export default function About() {
             <div>
               <Link
                 href="/services"
-                className="mt-8 inline-flex items-center gap-2 rounded-xl bg-coral-600 px-6 py-3 text-sm font-semibold text-white transition-transform hover:scale-[1.03] hover:bg-coral-700"
+                className="mt-8 inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-transform hover:scale-[1.03] hover:bg-primary/90"
               >
                 Discover services
                 <ArrowRight className="h-4 w-4" />
@@ -133,7 +131,7 @@ export default function About() {
               key={`${tag}-${i}`}
               className="font-mono text-sm uppercase tracking-wider text-muted-foreground"
             >
-              {tag} <span className="mx-4 text-coral-300">•</span>
+              {tag} <span className="mx-4 text-accent">•</span>
             </span>
           ))}
         </motion.div>

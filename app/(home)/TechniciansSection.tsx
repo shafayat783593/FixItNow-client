@@ -21,11 +21,9 @@ export default async function TechniciansSection() {
         {/* Header Block */}
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-3.5 py-1">
-              <Users size={14} className="text-amber-700" />
-              <span className="text-xs font-bold uppercase tracking-wider text-amber-800">
-                Top Rated Experts
-              </span>
+            <div className="inline-flex items-center gap-2 rounded-full border border-border bg-muted px-3.5 py-1">
+              <Users size={14} className="text-accent" />
+            
             </div>
             <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
               Meet Our Featured Technicians

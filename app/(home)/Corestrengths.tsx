@@ -34,7 +34,7 @@ export default function CoreStrengths() {
     <section className="relative overflow-hidden bg-background py-10 sm:py-18">
       {/* Decorative Glow Blob */}
       <div 
-        className="pointer-events-none absolute -left-20 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-amber-400/10 blur-3xl" 
+        className="pointer-events-none absolute -left-20 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-accent/10 blur-3xl" 
         aria-hidden="true" 
       />
 
@@ -42,13 +42,8 @@ export default function CoreStrengths() {
         {/* Left Column */}
         <div className="flex flex-col justify-between">
           <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50/80 px-3 py-1 backdrop-blur-sm">
-              <span
-                className="text-[11px] font-bold uppercase tracking-[0.18em] text-amber-700"
-                style={{ fontFamily: "'JetBrains Mono', monospace" }}
-              >
-                What makes us different
-              </span>
+            <div className="inline-flex items-center gap-2 rounded-full border border-border bg-muted/70 px-3 py-1 backdrop-blur-sm">
+             
             </div>
 
             <h2
@@ -68,10 +63,10 @@ export default function CoreStrengths() {
           {/* Signature Stamp Element */}
           <div className="mt-10">
             <div
-              className="inline-flex h-24 w-24 rotate-[-8deg] select-none items-center justify-center rounded-full border-2 border-dashed border-amber-500 bg-amber-50/50 text-center shadow-sm transition-transform duration-300 hover:rotate-0"
+              className="inline-flex h-24 w-24 rotate-[-8deg] select-none items-center justify-center rounded-full border-2 border-dashed border-accent bg-accent/10 text-center shadow-sm transition-transform duration-300 hover:rotate-0"
             >
               <span
-                className="px-2 text-[10px] font-bold uppercase leading-tight tracking-wider text-amber-800"
+                className="px-2 text-[10px] font-bold uppercase leading-tight tracking-wider text-foreground"
                 style={{ fontFamily: "'JetBrains Mono', monospace" }}
               >
                 Service
@@ -106,7 +101,7 @@ export default function CoreStrengths() {
               </p>
 
               {/* Top Accent Line on Hover */}
-              <div className="absolute inset-x-0 top-0 h-1 rounded-t-2xl bg-amber-400 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              <div className="absolute inset-x-0 top-0 h-1 rounded-t-2xl bg-accent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
             </div>
           ))}
         </div>

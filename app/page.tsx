@@ -9,11 +9,12 @@ import StatsBar from './(home)/Statsbar'
 import TestimonialsSection from './(home)/Testimonialssection'
 import FAQSection from './(home)/Faqsection'
 import CTASection from './(home)/Ctasection'
+import BlogHighlights from './(home)/Bloghighlights'
 
 function page() {
   return (
     <>
-   <Hero/>
+      <Hero/>
       <About/>
       <CoreStrengths />
       <CategoriesShowcase />
@@ -21,6 +22,7 @@ function page() {
       <TechniciansSection />
       <StatsBar />
       <TestimonialsSection />
+      <BlogHighlights />
       <FAQSection />
       <CTASection />
       <Footer/>
