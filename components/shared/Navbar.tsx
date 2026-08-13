@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
@@ -55,6 +55,30 @@ const dashboardPathByRole: Record<Role, string> = {
 
 export default function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
+    const mobileDrawerRef = useRef<HTMLDivElement>(null);
+    const mobileToggleRef = useRef<HTMLButtonElement>(null);
+
+    useEffect(() => {
+        if (!mobileMenuOpen) return;
+
+        function handleClickOutside(e: MouseEvent | TouchEvent) {
+            const target = e.target as Node;
+            if (
+                mobileDrawerRef.current && !mobileDrawerRef.current.contains(target) &&
+                mobileToggleRef.current && !mobileToggleRef.current.contains(target)
+            ) {
+                setMobileMenuOpen(false);
+            }
+        }
+
+        document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener('touchstart', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('touchstart', handleClickOutside);
+        };
+    }, [mobileMenuOpen]);
     const [user, setUser] = useState<UserProfile | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [hoveredLink, setHoveredLink] = useState<string | null>(null);
@@ -199,6 +223,7 @@ console.log("users................",res)
                     <div className="md:hidden flex items-center gap-2">
                         <ThemeToggleButton />
                         <button
+                            ref={mobileToggleRef}
                             type="button"
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                             className="p-2 rounded-lg text-muted-foreground hover:bg-accent/5 hover:text-foreground transition-colors"
@@ -209,16 +234,26 @@ console.log("users................",res)
                 </div>
             </div>
 
-            {/* Mobile Menu */}
+            {/* Mobile Menu - left-side drawer */}
             <AnimatePresence>
                 {mobileMenuOpen && (
-                    <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.25, ease: 'easeInOut' }}
-                        className="md:hidden overflow-hidden border-t border-border/70 bg-background/95 backdrop-blur-md"
-                    >
+                    <>
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="md:hidden fixed inset-0 bg-black/40 backdrop-blur-sm z-40"
+                        />
+                        <motion.div
+                            ref={mobileDrawerRef}
+                            initial={{ x: '-100%' }}
+                            animate={{ x: 0 }}
+                            exit={{ x: '-100%' }}
+                            transition={{ duration: 0.28, ease: 'easeInOut' }}
+                            className="md:hidden fixed top-0 left-0 z-50 h-screen w-[82%] max-w-xs overflow-y-auto border-r border-border/70 bg-background shadow-2xl"
+                        >
                         <div className="px-4 pt-3 pb-6 space-y-3">
                             <div className="space-y-1">
                                 {navLinks.map((link) => {
@@ -316,7 +351,8 @@ console.log("users................",res)
                                 )}
                             </div>
                         </div>
-                    </motion.div>
+                        </motion.div>
+                    </>
                 )}
             </AnimatePresence>
         </header>

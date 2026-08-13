@@ -88,7 +88,7 @@ export default function Hero() {
 
   return (
     <section
-      className="relative min-h-[92vh] w-full overflow-hidden bg-brand text-brand-foreground"
+      className="relative min-h-[100svh] sm:min-h-[92vh] w-full overflow-hidden bg-brand text-brand-foreground"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
@@ -117,9 +117,9 @@ export default function Hero() {
         </motion.div>
       </AnimatePresence>
 
-      <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col justify-between px-4 pb-10 pt-28 sm:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col justify-between px-4 pb-8 pt-24 sm:px-6 sm:pb-10 sm:pt-28 lg:px-8">
         {/* Text block */}
-        <div className="flex min-h-[360px] max-w-xl flex-col justify-center">
+        <div className="flex min-h-[300px] max-w-xl flex-col justify-center sm:min-h-[330px] lg:min-h-[360px]">
           <AnimatePresence mode="wait">
             <motion.div
               key={active.id}
@@ -128,30 +128,30 @@ export default function Hero() {
               exit={{ opacity: 0, y: -16 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
             >
-              <span className="inline-flex items-center gap-2 rounded-full border border-brand-foreground/20 bg-brand-foreground/10 px-3 py-1 font-mono text-xs uppercase tracking-wider text-accent backdrop-blur-sm">
+              <span className="inline-flex items-center gap-2 rounded-full border border-brand-foreground/20 bg-brand-foreground/10 px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-accent backdrop-blur-sm sm:text-xs">
                 <active.icon className="h-3.5 w-3.5" />
                 {active.eyebrow}
               </span>
 
-              <h1 className="mt-5 text-4xl font-bold leading-[1.05] tracking-tight text-brand-foreground [text-shadow:_0_2px_12px_rgb(0_0_0_/_45%)] sm:text-5xl lg:text-6xl">
+              <h1 className="mt-4 text-3xl font-bold leading-[1.08] tracking-tight text-brand-foreground [text-shadow:_0_2px_12px_rgb(0_0_0_/_45%)] sm:mt-5 sm:text-4xl sm:leading-[1.05] md:text-5xl lg:text-6xl">
                 {active.headline}
               </h1>
 
-              <p className="mt-5 max-w-md text-base leading-relaxed text-brand-foreground/85 [text-shadow:_0_1px_8px_rgb(0_0_0_/_40%)]">
+              <p className="mt-4 max-w-md text-sm leading-relaxed text-brand-foreground/85 [text-shadow:_0_1px_8px_rgb(0_0_0_/_40%)] sm:mt-5 sm:text-base">
                 {active.description}
               </p>
 
-              <div className="mt-8 flex flex-wrap items-center gap-4">
+              <div className="mt-6 flex flex-wrap items-center gap-3 sm:mt-8 sm:gap-4">
                 <Link
                   href={`/services?category=${encodeURIComponent(active.category)}`}
-                  className="inline-flex items-center gap-2 rounded-xl bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground shadow-lg shadow-accent/20 transition-transform hover:scale-[1.03] hover:bg-accent/90"
+                  className="inline-flex items-center gap-2 rounded-xl bg-accent px-5 py-2.5 text-sm font-semibold text-accent-foreground shadow-lg shadow-accent/20 transition-transform hover:scale-[1.03] hover:bg-accent/90 sm:px-6 sm:py-3"
                 >
                   {active.ctaLabel}
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link
                   href="/technicians"
-                  className="inline-flex items-center gap-2 rounded-xl border border-brand-foreground/25 px-6 py-3 text-sm font-medium text-brand-foreground transition-colors hover:bg-brand-foreground/10"
+                  className="inline-flex items-center gap-2 rounded-xl border border-brand-foreground/25 px-5 py-2.5 text-sm font-medium text-brand-foreground transition-colors hover:bg-brand-foreground/10 sm:px-6 sm:py-3"
                 >
                   Browse technicians
                 </Link>
@@ -162,7 +162,7 @@ export default function Hero() {
 
         {/* Category tabs / indicator */}
 
-        <div className="grid grid-cols-2 gap-3 sm:flex sm:gap-2">
+        <div className="grid grid-cols-2 gap-2 sm:flex sm:gap-2 lg:gap-3">
           {slides.map((slide, index) => {
             const isActive = index === activeIndex;
             const Icon = slide.icon;
@@ -170,24 +170,24 @@ export default function Hero() {
               <button
                 key={slide.id}
                 onClick={() => goTo(index)}
-                className={`group relative flex flex-1 items-center gap-3 overflow-hidden rounded-xl border px-4 py-3 text-left backdrop-blur-sm transition-colors ${
+                className={`group relative flex flex-1 items-center gap-2.5 overflow-hidden rounded-xl border px-3 py-2.5 text-left backdrop-blur-sm transition-colors sm:gap-3 sm:px-4 sm:py-3 ${
                   isActive
                     ? "border-accent/60 bg-brand-foreground/15"
                     : "border-brand-foreground/15 bg-brand-foreground/[0.06] hover:bg-brand-foreground/[0.1]"
                 }`}
               >
                 <span
-                  className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${
+                  className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg sm:h-8 sm:w-8 ${
                     isActive ? "bg-accent text-accent-foreground" : "bg-brand-foreground/15 text-brand-foreground"
                   }`}
                 >
-                  <Icon className="h-4 w-4" />
+                  <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                 </span>
                 <div className="min-w-0">
-                  <p className="font-mono text-[10px] uppercase tracking-wider text-brand-foreground/70">
+                  <p className="font-mono text-[9px] uppercase tracking-wider text-brand-foreground/70 sm:text-[10px]">
                     0{index + 1}
                   </p>
-                  <p className="truncate text-sm font-medium text-white">{slide.category}</p>
+                  <p className="truncate text-[13px] font-medium text-white sm:text-sm">{slide.category}</p>
                 </div>
 
                 {/* progress bar for active tab */}

@@ -318,7 +318,7 @@ export const loginAction = async (
   });
 
   const result = await res.json();
-
+console.log("succeest login response ...............",result)
   if (!result.success) {
     return {
       success: false,
@@ -343,7 +343,7 @@ console.log("Google login response:", result);
   if (!result.success) {
     return {
       success: false,
-      message: result.message || "Google sign-in failed",
+      message: result.error || "Google sign-in failed",
     };
   }
 
