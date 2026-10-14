@@ -23,7 +23,7 @@ export function CategoriesTable({ categories }: { categories: ICategory[] }) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {categories.map((c) => (
+          {categories?.map((c) => (
             <TableRow key={c.id}>
               <TableCell className="font-medium text-foreground">{c.name}</TableCell>
               <TableCell className="hidden text-muted-foreground sm:table-cell">

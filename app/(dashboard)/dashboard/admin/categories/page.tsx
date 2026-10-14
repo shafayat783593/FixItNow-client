@@ -6,7 +6,6 @@ import { CategoriesTable } from "../../_components/admin/CategoriesTable";
 import { Pagination } from "@/app/(public)/_components/pagenation";
 import { CategoryFormModal } from "../../_components/admin/CategoryFormModal";
 import { CategorySortFilter } from "../../_components/admin/CategorySortFilter";
-import { CategoriesTableSkeleton } from "../../_components/admin/CategoriesTableSkeleton";
 
 
 interface CategoriesPageSearchParams {
@@ -24,7 +23,7 @@ async function CategoriesTableSection({ searchParams }: { searchParams: Categori
 
   return (
     <>
-      {categories.length === 0 ? (
+      {categories?.length === 0 ? (
         <div className="mt-8 rounded-2xl border border-dashed border-border bg-card py-16 text-center">
           <LayoutGrid className="mx-auto h-8 w-8 text-muted-foreground/40" />
           <p className="mt-3 text-sm text-muted-foreground">No categories match your search.</p>

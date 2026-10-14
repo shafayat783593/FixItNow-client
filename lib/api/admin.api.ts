@@ -107,9 +107,13 @@ export async function getAllCategoriesAction(query?: ICategoryQuery) {
     next: { tags: ["admin-categories"] },
   });
 
-
-  
-  return res.data.data
+  // return { data, meta }, with a safe fallback if the request failed
+  return (
+    res?.data ?? {
+      data: [],
+      meta: { page: 1, limit: query?.limit ?? 10, total: 0, totalPages: 0 },
+    }
+  );
 }
 
 export async function createCategoryAction(payload: CategoryFormValues) {
