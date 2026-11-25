@@ -1,6 +1,7 @@
 // components/ServiceCard.tsx
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Clock, Tag, ArrowRight, ShieldCheck } from "lucide-react";
 
 export interface ServiceData {
@@ -11,6 +12,7 @@ export interface ServiceData {
   description: string;
   price: number;
   duration: number;
+  images?: string[];
   createdAt: string;
   updatedAt: string;
 }
@@ -29,6 +31,22 @@ export function ServiceCard({ service }: ServiceCardProps) {
 
   return (
     <div className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-xl">
+      {service.images?.[0] ? (
+        <div className="relative mb-3 h-40 overflow-hidden rounded-xl">
+          <Image
+            src={service.images[0]}
+            alt={service.title}
+            fill
+            className="object-cover"
+            sizes="100vw"
+          />
+        </div>
+      ) : (
+        <div className="relative mb-3 h-40 overflow-hidden rounded-xl" aria-hidden="true">
+          <Image src="/images/fixeit.gif" alt="FixItNow" fill className="object-cover opacity-30" />
+        </div>
+      )}
+
       <div>
         <div className="flex items-center justify-between gap-2">
           <span className="inline-flex items-center gap-1.5 rounded-full border border-accent/30 bg-accent/10 px-3 py-0.5 text-xs font-bold text-accent-foreground">

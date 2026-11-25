@@ -7,7 +7,6 @@ import {
   Tag,
   Star,
   ShieldCheck,
-  MapPin,
   Briefcase,
   Calendar,
   CheckCircle2,
@@ -86,6 +85,18 @@ export default async function ServiceDetailsPage({ params }: ServiceDetailsPageP
                 </p>
               </div>
 
+              {service.images?.[0] ? (
+                <div className="relative mt-6 h-48 w-full overflow-hidden rounded-2xl sm:h-56">
+                  <Image
+                    src={service.images[0]}
+                    alt={service.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 66vw"
+                  />
+                </div>
+              ) : null}
+
               <div className="mt-8 rounded-2xl border border-border bg-muted/50 p-5">
                 <h4 className="text-sm font-bold text-foreground">Service Guarantees:</h4>
                 <ul className="mt-3 grid grid-cols-1 gap-3 text-xs font-medium text-foreground/80 sm:grid-cols-2">
@@ -134,17 +145,11 @@ export default async function ServiceDetailsPage({ params }: ServiceDetailsPageP
                     </div>
 
                     <div>
-                   <div className="flex items-center gap-2">
-  <h4 className="text-xl font-bold text-foreground">
-    {user?.name || "Professional Technician"}
-  </h4>
-
-  <div className="flex items-center gap-1 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700">
-    <ShieldCheck size={14} />
-    <span>Verified</span>
-  </div>
-</div>
-
+                      <div className="flex items-center gap-2">
+                        <h4 className="text-xl font-bold text-foreground">
+                          {user?.name || "Professional Technician"}
+                        </h4>
+                      </div>
                       <div className="mt-1 flex items-center gap-3 text-xs font-medium text-muted-foreground">
                         <span className="flex items-center gap-1 font-bold text-accent">
                           <Star size={14} className="fill-accent text-accent" />
@@ -198,8 +203,8 @@ export default async function ServiceDetailsPage({ params }: ServiceDetailsPageP
           </div>
 
           {/* Right Column - Sticky Booking Sidebar */}
-          <div className="lg:col-span-1">
-            <div className="sticky top-8 rounded-3xl border border-border bg-card p-6 shadow-md sm:p-8">
+          <div className="lg:col-span-1 lg:sticky lg:top-20 lg:self-start">
+            <div className="rounded-3xl border border-border bg-card p-6 shadow-md sm:p-8">
               <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
                 Fixed Pricing
               </span>
@@ -244,7 +249,7 @@ export default async function ServiceDetailsPage({ params }: ServiceDetailsPageP
               </div>
 
               <div className="mt-8 space-y-3">
-                <BookingModal serviceId={service.id} technicianId={ service.technicianId} />
+                <BookingModal serviceId={service.id} technicianId={service.technicianId} />
 
                 <p className="text-center text-[11px] font-medium text-muted-foreground">
                   No hidden charges. Pay after service completion.

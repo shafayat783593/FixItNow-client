@@ -47,7 +47,7 @@ export default async function ServicesPage({ searchParams, }: { searchParams: Pr
     total: services.length,
     totalPages: Math.ceil((services.length || 1) / 8),
   };
-
+console.log(services)
   return (
     <main className="relative min-h-screen bg-background py-10 sm:py-16">
       {/* Background Decor */}
